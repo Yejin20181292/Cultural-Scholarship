@@ -51,9 +51,15 @@
                 <span class="sig-name title-serif">함 예 진</span>
               </div>
             </div>
-            <div class="greetings-photo-wrapper">
-              <img src="../assets/history_founder.jpg" alt="제1기 신라문화장학재단 장학증서 수여식" class="founder-photo" />
-              <div class="photo-caption">제1기 신라문화장학재단 장학증서 수여식 (1979.3.17)</div>
+            <div class="greetings-image-placeholder">
+              <div class="office-illustration">
+                <div class="window-view"></div>
+                <div class="desk">
+                  <div class="laptop"></div>
+                  <div class="desk-lamp"></div>
+                </div>
+              </div>
+              <div class="photo-caption">신라문화장학재단 집무실</div>
             </div>
           </div>
         </div>
@@ -237,10 +243,35 @@ const historyItems = [
 
 /* Banner */
 .sub-banner {
-  background: radial-gradient(circle at 50% 0%, #e2eaf4 0%, var(--bg-color) 70%);
-  padding: 80px 0 60px;
+  position: relative;
+  background-image: url('../assets/history_founder.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  padding: 100px 0 80px;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.sub-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.94) 0%,
+    rgba(248, 250, 252, 0.88) 60%,
+    var(--bg-color) 100%
+  );
+  z-index: 1;
+}
+
+.banner-container {
+  position: relative;
+  z-index: 2;
 }
 
 .banner-subtitle {
@@ -376,29 +407,66 @@ const historyItems = [
   letter-spacing: 0.2em;
 }
 
-.greetings-photo-wrapper {
-  background: var(--white);
+.greetings-image-placeholder {
+  background: rgba(6, 91, 137, 0.03);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 10px 30px rgba(6, 91, 137, 0.04);
+  height: 380px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
+  position: relative;
+  overflow: hidden;
 }
 
-.founder-photo {
+/* Beautiful Office Illustration inside placeholder */
+.office-illustration {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  transition: transform var(--transition-normal);
+  height: 80%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-.founder-photo:hover {
-  transform: scale(1.02);
+.window-view {
+  position: absolute;
+  top: 20px;
+  width: 60%;
+  height: 40%;
+  background: linear-gradient(to bottom, #dbeafe, #eff6ff);
+  border: 4px solid var(--border-color-hover);
+  border-radius: 4px;
+}
+
+.desk {
+  width: 70%;
+  height: 15px;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.laptop {
+  width: 30px;
+  height: 20px;
+  background-color: var(--text-muted);
+  position: absolute;
+  top: -20px;
+  left: 30%;
+  border-radius: 2px 2px 0 0;
+}
+
+.desk-lamp {
+  width: 10px;
+  height: 25px;
+  background-color: var(--accent-color);
+  position: absolute;
+  top: -25px;
+  right: 25%;
+  border-radius: 2px;
 }
 
 .photo-caption {
