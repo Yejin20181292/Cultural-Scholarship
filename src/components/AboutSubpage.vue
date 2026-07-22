@@ -272,8 +272,8 @@ const historyItems = [
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(248, 250, 252, 0.94) 0%,
-    rgba(248, 250, 252, 0.88) 60%,
+    rgba(248, 250, 252, 0.65) 0%,
+    rgba(248, 250, 252, 0.55) 60%,
     var(--bg-color) 100%
   );
   z-index: 1;
