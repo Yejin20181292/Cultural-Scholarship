@@ -135,7 +135,7 @@
                 <span class="detail-icon">📍</span>
                 <div class="detail-text">
                   <h5>주소</h5>
-                  <p>서울특별시 서초구 서초대로 314, 신라빌딩 7층</p>
+                  <p>(우)05685 서울특별시 송파구 백제고분로 362, 8층 (석촌동, 신라빌딩)</p>
                 </div>
               </div>
               <div class="contact-detail-item">
