@@ -58,6 +58,9 @@
           <p class="summary-text">
             신라문화장학재단은 설립 이래 1,200여 명의 누적 장학생을 배출하며, 순수 미술, 음악, 전통 공예, 공연 예술 등 다방면에서 활약하는 창작자들을 지속해서 든든히 지탱해왔습니다. 우리는 단순한 재정적 원조를 넘어 창작 생태계의 활력을 불어넣는 지속 가능한 동반자가 되겠습니다.
           </p>
+          <div class="summary-actions">
+            <button class="btn btn-outline" @click="$emit('read-more')">재단 소개 자세히 보기 <span class="arrow">→</span></button>
+          </div>
         </div>
       </div>
     </div>
@@ -66,6 +69,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+
+defineEmits(['read-more']);
 
 const headerRef = ref<HTMLElement | null>(null);
 const card1Ref = ref<HTMLElement | null>(null);
@@ -176,6 +181,26 @@ onMounted(() => {
   line-height: 1.8;
   word-break: keep-all;
   font-weight: 300;
+}
+
+.summary-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.summary-actions .btn {
+  font-size: 0.9rem;
+  padding: 10px 24px;
+}
+
+.summary-actions .btn .arrow {
+  margin-left: 6px;
+  transition: transform var(--transition-fast);
+  display: inline-block;
+}
+
+.summary-actions .btn:hover .arrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {

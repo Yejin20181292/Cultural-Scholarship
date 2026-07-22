@@ -1,21 +1,21 @@
 <template>
   <header class="header" :class="{ 'scrolled': isScrolled }">
     <div class="container header-container">
-      <a href="#" class="logo">
+      <a href="#" class="logo" @click.prevent="handleNavClick('home')">
         <img src="../assets/logo.png" alt="재단법인 신라문화장학재단" class="logo-img" />
       </a>
 
       <!-- Desktop Navigation -->
       <nav class="nav-desktop">
         <ul class="nav-links">
-          <li><a href="#about" :class="{ 'active': activeSection === 'about' }">재단 소개</a></li>
-          <li><a href="#programs" :class="{ 'active': activeSection === 'programs' }">장학 사업</a></li>
-          <li><a href="#notices" :class="{ 'active': activeSection === 'notices' }">재단 소식</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
-        <a href="#programs" class="btn btn-outline apply-btn">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
         
         <!-- Mobile menu toggle -->
         <button class="mobile-toggle" @click="toggleMobileMenu" aria-label="메뉴 열기">
@@ -28,11 +28,11 @@
     <div class="mobile-menu" :class="{ 'open': isMobileMenuOpen }">
       <nav class="mobile-nav">
         <ul>
-          <li><a href="#about" @click="closeMobileMenu">재단 소개</a></li>
-          <li><a href="#programs" @click="closeMobileMenu">장학 사업</a></li>
-          <li><a href="#notices" @click="closeMobileMenu">재단 소식</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
           <li>
-            <a href="#programs" class="btn btn-primary" @click="closeMobileMenu" style="margin-top: 20px; color: var(--bg-color);">장학금 신청</a>
+            <a href="#" class="btn btn-primary" @click.prevent="handleNavClick('home', 'programs')" style="margin-top: 20px; color: var(--bg-color);">장학금 신청</a>
           </li>
         </ul>
       </nav>
@@ -42,6 +42,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+
+const props = defineProps<{
+  currentView: 'home' | 'about-sub';
+}>();
+
+const emit = defineEmits<{
+  (e: 'navigate', view: 'home' | 'about-sub'): void;
+}>();
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -55,8 +63,27 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false;
 };
 
+const handleNavClick = (view: 'home' | 'about-sub', anchor?: string) => {
+  closeMobileMenu();
+  emit('navigate', view);
+  
+  if (view === 'home' && anchor) {
+    setTimeout(() => {
+      const el = document.getElementById(anchor);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+};
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50;
+  
+  if (props.currentView !== 'home') {
+    activeSection.value = '';
+    return;
+  }
   
   // Highlight active menu item based on scroll position
   const sections = ['about', 'programs', 'notices'];

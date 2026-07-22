@@ -3,7 +3,7 @@
     <div class="container footer-container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="#" class="logo">
+          <a href="#" class="logo" @click.prevent="handleNavClick('home')">
             <img src="../assets/logo.png" alt="재단법인 신라문화장학재단" class="logo-img" />
           </a>
           <p class="brand-credo">
@@ -16,17 +16,17 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">SITEMAP</h4>
             <ul>
-              <li><a href="#about">재단 소개</a></li>
-              <li><a href="#programs">장학 사업</a></li>
-              <li><a href="#notices">재단 소식</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
             </ul>
           </div>
           
           <div class="footer-links-col">
             <h4 class="col-title title-serif">SUPPORT</h4>
             <ul>
-              <li><a href="#programs">지원자격 진단</a></li>
-              <li><a href="#programs">온라인 장학 신청</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">지원자격 진단</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">온라인 장학 신청</a></li>
               <li><a href="#">FAQ / 문의</a></li>
             </ul>
           </div>
@@ -37,8 +37,8 @@
 
       <div class="footer-bottom">
         <div class="footer-info">
-          <p>재단법인 신라문화장학재단 | 이사장 : 홍길동 | 사업자등록번호 : 123-45-67890</p>
-          <p>주소 : 서울특별시 종로구 대학로 123 예술인회관 5층 | 대표전화 : 02-123-4567 | 이메일 : contact@culturalfoundation.or.kr</p>
+          <p>재단법인 신라문화장학재단 | 이사장 : 함예진 | 사업자등록번호 : 123-45-67890</p>
+          <p>주소 : 서울특별시 서초구 서초대로 314, 신라빌딩 7층 | 대표전화 : 02-123-4567 | 이메일 : info@silla-scholarship.or.kr</p>
           <p class="copyright">© 2026 Silla Cultural Scholarship Foundation. All Rights Reserved.</p>
         </div>
 
@@ -69,7 +69,22 @@
 </template>
 
 <script setup lang="ts">
-// Static footer component
+const emit = defineEmits<{
+  (e: 'navigate', view: 'home' | 'about-sub'): void;
+}>();
+
+const handleNavClick = (view: 'home' | 'about-sub', anchor?: string) => {
+  emit('navigate', view);
+  
+  if (view === 'home' && anchor) {
+    setTimeout(() => {
+      const el = document.getElementById(anchor);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+};
 </script>
 
 <style scoped>
