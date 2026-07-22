@@ -2,16 +2,16 @@
 
 :root {
   /* Color Palette */
-  --bg-color: #0b0c10;
-  --bg-card: rgba(26, 27, 35, 0.65);
-  --bg-card-hover: rgba(38, 40, 52, 0.85);
-  --border-color: rgba(197, 168, 128, 0.15);
-  --border-color-hover: rgba(197, 168, 128, 0.4);
+  --bg-color: #050b14;
+  --bg-card: rgba(13, 23, 38, 0.65);
+  --bg-card-hover: rgba(20, 35, 58, 0.85);
+  --border-color: rgba(6, 91, 137, 0.15);
+  --border-color-hover: rgba(6, 91, 137, 0.4);
   
-  --primary-color: #c5a880; /* Elegant Soft Gold */
-  --primary-glow: rgba(197, 168, 128, 0.25);
-  --secondary-color: #e5c49f; /* Bright Gold */
-  --accent-color: #8c6d4f; /* Warm Bronze */
+  --primary-color: #065B89; /* Silla Corporate Blue */
+  --primary-glow: rgba(6, 91, 137, 0.25);
+  --secondary-color: #1a82b8; /* Hover Blue */
+  --accent-color: #043f60; /* Dark Accent Blue */
   
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
@@ -51,7 +51,7 @@ html {
 
 body {
   overflow-x: hidden;
-  background: radial-gradient(circle at 50% 0%, #151821 0%, #0b0c10 70%);
+  background: radial-gradient(circle at 50% 0%, #0a1b2d 0%, #050b14 70%);
   min-height: 100vh;
 }
 
@@ -178,7 +178,7 @@ section {
 }
 
 .btn-outline:hover {
-  background-color: rgba(197, 168, 128, 0.08);
+  background-color: rgba(6, 91, 137, 0.08);
   color: var(--secondary-color);
   border-color: var(--secondary-color);
   transform: translateY(-2px);
@@ -198,7 +198,7 @@ section {
 .glass-card:hover {
   border-color: var(--border-color-hover);
   background: var(--bg-card-hover);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(197, 168, 128, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(6, 91, 137, 0.05);
   transform: translateY(-5px);
 }
 
