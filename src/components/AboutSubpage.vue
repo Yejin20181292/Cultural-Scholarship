@@ -257,7 +257,7 @@ const historyItems = [
   background-image: url('../assets/history_founder.png');
   background-size: cover;
   background-position: center 30%;
-  padding: 100px 0 80px;
+  padding: 140px 0 120px;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
   overflow: hidden;
@@ -272,8 +272,8 @@ const historyItems = [
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(248, 250, 252, 0.65) 0%,
-    rgba(248, 250, 252, 0.55) 60%,
+    rgba(248, 250, 252, 0.52) 0%,
+    rgba(248, 250, 252, 0.42) 60%,
     var(--bg-color) 100%
   );
   z-index: 1;
