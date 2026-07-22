@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Navbar from './components/Navbar.vue';
 import HeroSection from './components/HeroSection.vue';
 import AboutSection from './components/AboutSection.vue';
@@ -10,10 +10,33 @@ import Footer from './components/Footer.vue';
 
 const currentView = ref<'home' | 'about-sub'>('home');
 
+const updateViewFromHash = () => {
+  const hash = window.location.hash;
+  if (hash === '#about-sub') {
+    currentView.value = 'about-sub';
+  } else {
+    currentView.value = 'home';
+  }
+};
+
 const navigateTo = (view: 'home' | 'about-sub') => {
   currentView.value = view;
+  if (view === 'about-sub') {
+    window.location.hash = 'about-sub';
+  } else {
+    window.history.pushState("", document.title, window.location.pathname + window.location.search);
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
+
+onMounted(() => {
+  updateViewFromHash();
+  window.addEventListener('hashchange', updateViewFromHash);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', updateViewFromHash);
+});
 </script>
 
 <template>
