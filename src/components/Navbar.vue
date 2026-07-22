@@ -1,7 +1,7 @@
 <template>
   <header class="header" :class="{ 'scrolled': isScrolled }">
     <div class="container header-container">
-      <a href="#" class="logo-wrapper">
+      <a href="#" class="logo">
         <img src="../assets/logo.png" alt="재단법인 신라문화장학재단" class="logo-img" />
       </a>
 
@@ -114,22 +114,18 @@ onUnmounted(() => {
   justify-content: space-between;
 }
 
-.logo-wrapper {
-  background: #ffffff;
-  padding: 6px 14px;
-  border-radius: 4px;
+.logo {
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform var(--transition-fast);
 }
 
-.logo-wrapper:hover {
+.logo:hover {
   transform: scale(1.02);
 }
 
 .logo-img {
-  height: 30px;
+  height: 40px;
   width: auto;
   display: block;
 }
