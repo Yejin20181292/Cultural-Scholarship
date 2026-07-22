@@ -74,8 +74,8 @@
 
 <style scoped>
 .footer {
-  background-color: #08090c;
-  color: var(--text-secondary);
+  background-color: #0c1524;
+  color: rgba(255, 255, 255, 0.6);
   padding: 80px 0 50px;
   border-top: 1px solid var(--border-color);
   font-size: 0.9rem;
@@ -117,7 +117,7 @@
 
 .brand-credo {
   line-height: 1.7;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 300;
   word-break: keep-all;
 }
@@ -143,7 +143,7 @@
 }
 
 .footer-links-col a {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.75);
   transition: color var(--transition-fast);
   font-weight: 300;
 }
@@ -155,7 +155,7 @@
 .footer-divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(197, 168, 128, 0.08);
+  background-color: rgba(255, 255, 255, 0.08);
   margin-bottom: 40px;
 }
 
@@ -175,7 +175,7 @@
 }
 
 .footer-info p {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.45);
   line-height: 1.5;
   font-weight: 300;
   word-break: keep-all;
@@ -201,12 +201,12 @@
 }
 
 .footer-privacy a {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.45);
   transition: color var(--transition-fast);
 }
 
 .footer-privacy a:hover {
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .bold-gold {

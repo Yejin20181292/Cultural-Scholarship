@@ -225,7 +225,7 @@ onMounted(() => {
 }
 
 .notice-item:hover {
-  background-color: rgba(197, 168, 128, 0.03);
+  background-color: rgba(6, 91, 137, 0.03);
 }
 
 .item-tag {
@@ -245,7 +245,7 @@ onMounted(() => {
 }
 
 .item-tag.normal {
-  background-color: rgba(197, 168, 128, 0.15);
+  background-color: rgba(6, 91, 137, 0.15);
   color: var(--primary-color);
   border: 1px solid var(--border-color);
 }

@@ -76,9 +76,9 @@
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(11, 12, 16, 0.4) 0%,
-    rgba(11, 12, 16, 0.8) 70%,
-    #0b0c10 100%
+    rgba(248, 250, 252, 0.15) 0%,
+    rgba(248, 250, 252, 0.75) 60%,
+    var(--bg-color) 100%
   );
 }
 

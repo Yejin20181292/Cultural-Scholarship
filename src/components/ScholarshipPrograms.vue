@@ -275,7 +275,7 @@ onMounted(() => {
   max-width: 900px;
   margin: 0 auto;
   border: 1px solid var(--border-color-hover);
-  background: linear-gradient(135deg, rgba(20, 21, 28, 0.9) 0%, rgba(13, 15, 20, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%);
   text-align: center;
 }
 
@@ -313,7 +313,7 @@ onMounted(() => {
 }
 
 .form-group select {
-  background-color: rgba(11, 12, 16, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 12px;
@@ -326,7 +326,7 @@ onMounted(() => {
 
 .form-group select:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(197, 168, 128, 0.15);
+  box-shadow: 0 0 8px var(--primary-glow);
 }
 
 .calc-result {
@@ -335,8 +335,8 @@ onMounted(() => {
 }
 
 .result-box {
-  background: rgba(197, 168, 128, 0.05);
-  border: 1px solid rgba(197, 168, 128, 0.2);
+  background: rgba(6, 91, 137, 0.03);
+  border: 1px solid rgba(6, 91, 137, 0.15);
   border-radius: 6px;
   padding: 30px;
   text-align: center;

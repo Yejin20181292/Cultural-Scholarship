@@ -2,20 +2,20 @@
 
 :root {
   /* Color Palette */
-  --bg-color: #050b14;
-  --bg-card: rgba(13, 23, 38, 0.65);
-  --bg-card-hover: rgba(20, 35, 58, 0.85);
-  --border-color: rgba(6, 91, 137, 0.15);
-  --border-color-hover: rgba(6, 91, 137, 0.4);
+  --bg-color: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(6, 91, 137, 0.08);
+  --border-color-hover: rgba(6, 91, 137, 0.25);
   
   --primary-color: #065B89; /* Silla Corporate Blue */
-  --primary-glow: rgba(6, 91, 137, 0.25);
+  --primary-glow: rgba(6, 91, 137, 0.15);
   --secondary-color: #1a82b8; /* Hover Blue */
-  --accent-color: #043f60; /* Dark Accent Blue */
+  --accent-color: #0d2b45; /* Deep Navy Accent */
   
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
   --white: #ffffff;
   
   /* Fonts */
@@ -31,7 +31,7 @@
   --transition-normal: 0.3s ease;
   --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* Base Styles */
@@ -51,7 +51,7 @@ html {
 
 body {
   overflow-x: hidden;
-  background: radial-gradient(circle at 50% 0%, #0a1b2d 0%, #050b14 70%);
+  background: radial-gradient(circle at 50% 0%, #e2eaf4 0%, #f8fafc 70%);
   min-height: 100vh;
 }
 
