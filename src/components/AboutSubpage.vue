@@ -58,12 +58,12 @@
               </p>
               <div class="signature">
                 <span class="sig-label">재단법인 신라문화장학재단 이사장</span>
-                <span class="sig-name title-serif">함 예 진</span>
+                <span class="sig-name title-serif">홍 길 동</span>
               </div>
             </div>
             <div class="greetings-portrait-wrapper">
               <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 설립자" class="founder-portrait-img" />
-              <div class="portrait-caption">재단 설립자 및 이사장</div>
+              <div class="portrait-caption">재단 설립자</div>
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@
 
       <div class="footer-bottom">
         <div class="footer-info">
-          <p>재단법인 신라문화장학재단 | 이사장 : 함예진 | 사업자등록번호 : 123-45-67890</p>
+          <p>재단법인 신라문화장학재단 | 이사장 : 홍길동 | 사업자등록번호 : 123-45-67890</p>
           <p>주소 : 서울특별시 서초구 서초대로 314, 신라빌딩 7층 | 대표전화 : 02-123-4567 | 이메일 : info@silla-scholarship.or.kr</p>
           <p class="copyright">© 2026 Silla Cultural Scholarship Foundation. All Rights Reserved.</p>
         </div>
