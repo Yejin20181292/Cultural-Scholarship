@@ -51,15 +51,9 @@
                 <span class="sig-name title-serif">함 예 진</span>
               </div>
             </div>
-            <div class="greetings-image-placeholder">
-              <div class="office-illustration">
-                <div class="window-view"></div>
-                <div class="desk">
-                  <div class="laptop"></div>
-                  <div class="desk-lamp"></div>
-                </div>
-              </div>
-              <div class="photo-caption">신라문화장학재단 집무실</div>
+            <div class="greetings-photo-wrapper">
+              <img src="../assets/history_founder.jpg" alt="제1기 신라문화장학재단 장학증서 수여식" class="founder-photo" />
+              <div class="photo-caption">제1기 신라문화장학재단 장학증서 수여식 (1979.3.17)</div>
             </div>
           </div>
         </div>
@@ -382,73 +376,36 @@ const historyItems = [
   letter-spacing: 0.2em;
 }
 
-.greetings-image-placeholder {
-  background: rgba(6, 91, 137, 0.03);
+.greetings-photo-wrapper {
+  background: var(--white);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  height: 380px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(6, 91, 137, 0.04);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  overflow: hidden;
+  gap: 12px;
 }
 
-/* Beautiful Office Illustration inside placeholder */
-.office-illustration {
+.founder-photo {
   width: 100%;
-  height: 80%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.window-view {
-  position: absolute;
-  top: 20px;
-  width: 60%;
-  height: 40%;
-  background: linear-gradient(to bottom, #dbeafe, #eff6ff);
-  border: 4px solid var(--border-color-hover);
+  height: 300px;
+  object-fit: cover;
   border-radius: 4px;
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-normal);
 }
 
-.desk {
-  width: 70%;
-  height: 15px;
-  background-color: var(--primary-color);
-  border-radius: 4px;
-  position: relative;
-  margin-bottom: 40px;
-}
-
-.laptop {
-  width: 30px;
-  height: 20px;
-  background-color: var(--text-muted);
-  position: absolute;
-  top: -20px;
-  left: 30%;
-  border-radius: 2px 2px 0 0;
-}
-
-.desk-lamp {
-  width: 10px;
-  height: 25px;
-  background-color: var(--accent-color);
-  position: absolute;
-  top: -25px;
-  right: 25%;
-  border-radius: 2px;
+.founder-photo:hover {
+  transform: scale(1.02);
 }
 
 .photo-caption {
   font-size: 0.85rem;
   color: var(--text-muted);
-  position: absolute;
-  bottom: 20px;
+  font-weight: 400;
+  text-align: center;
 }
 
 /* 2. Mission & Vision */
