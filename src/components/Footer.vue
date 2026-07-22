@@ -3,10 +3,8 @@
     <div class="container footer-container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="#" class="logo">
-            <span class="logo-en title-serif">CSF</span>
-            <span class="logo-divider"></span>
-            <span class="logo-ko">문화장학재단</span>
+          <a href="#" class="logo-wrapper">
+            <img src="../assets/logo.png" alt="재단법인 신라문화장학재단" class="logo-img" />
           </a>
           <p class="brand-credo">
             문화와 예술의 미래를 이끌어갈 창의적인 인재를 발굴하고 육성하여 
@@ -39,9 +37,9 @@
 
       <div class="footer-bottom">
         <div class="footer-info">
-          <p>재단법인 문화장학재단 | 이사장 : 홍길동 | 사업자등록번호 : 123-45-67890</p>
+          <p>재단법인 신라문화장학재단 | 이사장 : 홍길동 | 사업자등록번호 : 123-45-67890</p>
           <p>주소 : 서울특별시 종로구 대학로 123 예술인회관 5층 | 대표전화 : 02-123-4567 | 이메일 : contact@culturalfoundation.or.kr</p>
-          <p class="copyright">© 2026 Cultural Scholarship Foundation. All Rights Reserved.</p>
+          <p class="copyright">© 2026 Silla Cultural Scholarship Foundation. All Rights Reserved.</p>
         </div>
 
         <div class="footer-socials-privacy">
@@ -99,33 +97,26 @@
   max-width: 450px;
 }
 
-.logo {
+.logo-wrapper {
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-fast);
   margin-bottom: 20px;
+  max-width: fit-content;
 }
 
-.logo-en {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.logo-wrapper:hover {
+  transform: scale(1.02);
 }
 
-.logo-divider {
-  width: 1px;
-  height: 18px;
-  background-color: var(--border-color-hover);
-}
-
-.logo-ko {
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
+.logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
 }
 
 .brand-credo {

@@ -1,10 +1,8 @@
 <template>
   <header class="header" :class="{ 'scrolled': isScrolled }">
     <div class="container header-container">
-      <a href="#" class="logo">
-        <span class="logo-en title-serif">CSF</span>
-        <span class="logo-divider"></span>
-        <span class="logo-ko">문화장학재단</span>
+      <a href="#" class="logo-wrapper">
+        <img src="../assets/logo.png" alt="재단법인 신라문화장학재단" class="logo-img" />
       </a>
 
       <!-- Desktop Navigation -->
@@ -116,32 +114,24 @@ onUnmounted(() => {
   justify-content: space-between;
 }
 
-.logo {
+.logo-wrapper {
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-fast);
 }
 
-.logo-en {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.logo-wrapper:hover {
+  transform: scale(1.02);
 }
 
-.logo-divider {
-  width: 1px;
-  height: 18px;
-  background-color: var(--border-color-hover);
-}
-
-.logo-ko {
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
+.logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
 }
 
 .nav-desktop {
