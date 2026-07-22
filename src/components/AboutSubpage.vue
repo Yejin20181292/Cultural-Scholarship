@@ -31,7 +31,7 @@
         <div v-if="activeTab === 'greetings'" class="tab-pane reveal active">
           <div class="greetings-layout glass-card">
             <div class="greetings-text">
-              <span class="greet-badge">CHAIRPERSON MESSAGE</span>
+              <span class="greet-badge">OUR MISSION & MESSAGE</span>
               <h2 class="greet-title title-serif">“꿈을 꾸는 학생들의 모든 순간에 함께하겠습니다”</h2>
               <p class="greet-paragraph">
                 인간은 누구나 평등하고 주어진 여건 하에서 자유를 만끽할 수 있도록 세상에 태어났다.
