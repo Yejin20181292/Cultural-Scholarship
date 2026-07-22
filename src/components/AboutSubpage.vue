@@ -61,45 +61,13 @@
                 <span class="sig-name title-serif">함 예 진</span>
               </div>
             </div>
-            <div class="greetings-image-placeholder">
-              <div class="office-illustration">
-                <div class="window-view"></div>
-                <div class="desk">
-                  <div class="laptop"></div>
-                  <div class="desk-lamp"></div>
-                </div>
-              </div>
-              <div class="photo-caption">신라문화장학재단 집무실</div>
+            <div class="greetings-portrait-wrapper">
+              <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 설립자" class="founder-portrait-img" />
+              <div class="portrait-caption">재단 설립자 및 이사장</div>
             </div>
           </div>
         </div>
 
-        <!-- 2. 설립취지 & 미션 -->
-        <div v-if="activeTab === 'mission'" class="tab-pane reveal active">
-          <div class="mission-grid">
-            <div class="glass-card mission-card">
-              <div class="card-icon">🎯</div>
-              <h3 class="card-title title-serif">설립 취지</h3>
-              <p class="card-desc">
-                잠재력이 높고 학업에 대한 뜻이 깊으나, 경제적 여건으로 학업 수행에 어려움을 겪는 우수 학생들을 발굴하여 육성함으로써, 미래 국가 발전의 초석이 될 창의적이고 유능한 인적 자원을 양성하는 것을 목적으로 합니다.
-              </p>
-            </div>
-            <div class="glass-card mission-card">
-              <div class="card-icon">🚀</div>
-              <h3 class="card-title title-serif">핵심 미션</h3>
-              <p class="card-desc">
-                단순히 장학금을 전달하는 일차원적 원조를 넘어, 수혜 학생들의 학업 성취 모니터링, 네트워킹 포럼 운영 및 진로 탐색 기회를 유기적으로 제공하여 전인적 리더십을 갖춘 완성형 인재로 기릅니다.
-              </p>
-            </div>
-            <div class="glass-card mission-card">
-              <div class="card-icon">💎</div>
-              <h3 class="card-title title-serif">재단 비전</h3>
-              <p class="card-desc">
-                대한민국 인재 발굴의 대표 요람으로서, 장학생 네트워크 활성화와 자립적 장학 생태계를 지향합니다. 기수별 상호 작용 및 멘토링 프로그램을 확대하여 지속 가능한 사회 환원의 선순환 구조를 확립합니다.
-              </p>
-            </div>
-          </div>
-        </div>
 
         <!-- 3. 연혁 -->
         <div v-if="activeTab === 'history'" class="tab-pane reveal active">
@@ -229,8 +197,7 @@ defineEmits(['back']);
 const activeTab = ref('greetings');
 
 const tabs = [
-  { id: 'greetings', name: '이사장 인사말' },
-  { id: 'mission', name: '설립취지 & 미션' },
+  { id: 'greetings', name: '설립취지 & 인사말' },
   { id: 'history', name: '재단 연혁' },
   { id: 'organization', name: '조직도' },
   { id: 'contact', name: '찾아오시는 길' }
@@ -417,72 +384,38 @@ const historyItems = [
   letter-spacing: 0.2em;
 }
 
-.greetings-image-placeholder {
-  background: rgba(6, 91, 137, 0.03);
+.greetings-portrait-wrapper {
+  background: var(--white);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  height: 380px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(6, 91, 137, 0.04);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  overflow: hidden;
+  gap: 16px;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
-/* Beautiful Office Illustration inside placeholder */
-.office-illustration {
+.founder-portrait-img {
   width: 100%;
-  height: 80%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-.window-view {
-  position: absolute;
-  top: 20px;
-  width: 60%;
-  height: 40%;
-  background: linear-gradient(to bottom, #dbeafe, #eff6ff);
-  border: 4px solid var(--border-color-hover);
-  border-radius: 4px;
+.founder-portrait-img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--primary-glow);
 }
 
-.desk {
-  width: 70%;
-  height: 15px;
-  background-color: var(--primary-color);
-  border-radius: 4px;
-  position: relative;
-  margin-bottom: 40px;
-}
-
-.laptop {
-  width: 30px;
-  height: 20px;
-  background-color: var(--text-muted);
-  position: absolute;
-  top: -20px;
-  left: 30%;
-  border-radius: 2px 2px 0 0;
-}
-
-.desk-lamp {
-  width: 10px;
-  height: 25px;
-  background-color: var(--accent-color);
-  position: absolute;
-  top: -25px;
-  right: 25%;
-  border-radius: 2px;
-}
-
-.photo-caption {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-weight: 400;
+.portrait-caption {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
   text-align: center;
 }
 
