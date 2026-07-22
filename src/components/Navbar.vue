@@ -180,19 +180,6 @@ onUnmounted(() => {
   padding: 10px 20px;
   font-size: 0.85rem;
   border-radius: 4px;
-  background-color: #ffffff;
-  color: var(--primary-color) !important;
-  border: 1px solid var(--primary-color) !important;
-  box-shadow: 0 2px 8px rgba(6, 91, 137, 0.06);
-  font-weight: 600;
-  transition: all var(--transition-normal);
-}
-
-.apply-btn:hover {
-  background-color: var(--primary-color) !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(6, 91, 137, 0.15);
-  transform: translateY(-1px);
 }
 
 /* Mobile Toggle Hamburger */

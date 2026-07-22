@@ -186,6 +186,14 @@ onMounted(() => {
   border-bottom: 1px solid var(--border-color);
 }
 
+.section-title {
+  color: #ffffff;
+}
+
+.section-description {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .programs-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
