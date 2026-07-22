@@ -254,7 +254,7 @@ const historyItems = [
 /* Banner */
 .sub-banner {
   position: relative;
-  background-image: url('../assets/history_founder.jpg');
+  background-image: url('../assets/history_founder.png');
   background-size: cover;
   background-position: center 30%;
   padding: 100px 0 80px;
