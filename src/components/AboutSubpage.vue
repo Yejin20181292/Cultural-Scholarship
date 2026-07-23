@@ -151,8 +151,10 @@
                 <span class="detail-icon">🚇</span>
                 <div class="detail-text">
                   <h5>대중교통 안내</h5>
-                  <p>지하철 2호선 서초역 2번 출구에서 도보 150m</p>
-                  <p>지하철 2/3호선 교대역 9번 출구에서 도보 300m</p>
+                  <p>
+                    <span class="subway-badge line-8">8</span><span class="subway-badge line-9">9</span>
+                    <span class="subway-text">석촌역 6번 출구에서 55m</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -656,6 +658,36 @@ const historyItems = [
   font-size: 0.95rem;
   line-height: 1.6;
   font-weight: 300;
+}
+
+.subway-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 4px;
+  vertical-align: middle;
+  line-height: 1;
+  font-family: sans-serif;
+}
+
+.subway-badge.line-8 {
+  background-color: #e6186c;
+}
+
+.subway-badge.line-9 {
+  background-color: #bda03f;
+}
+
+.subway-text {
+  vertical-align: middle;
+  font-weight: 300;
+  margin-left: 2px;
 }
 
 .map-card {
