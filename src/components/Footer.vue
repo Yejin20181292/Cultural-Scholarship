@@ -38,7 +38,7 @@
       <div class="footer-bottom">
         <div class="footer-info">
           <p>재단법인 신라문화장학재단 | 이사장 : 홍길동 | 사업자등록번호 : 123-45-67890</p>
-          <p>주소 : (우)05685 서울특별시 송파구 백제고분로 362, 8층 (석촌동, 신라빌딩) | 대표전화 : 02-123-4567 | 이메일 : info@silla-scholarship.or.kr</p>
+          <p>주소 : (우)05685 서울특별시 송파구 백제고분로 362, 8층 (석촌동, 신라빌딩) | 대표전화 : 02-413-0795 | 이메일 : info@silla-scholarship.or.kr</p>
           <p class="copyright">© 2026 Silla Cultural Scholarship Foundation. All Rights Reserved.</p>
         </div>
 

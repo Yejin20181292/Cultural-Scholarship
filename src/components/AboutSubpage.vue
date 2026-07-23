@@ -13,13 +13,8 @@
     <div class="container sub-content">
       <div class="sub-tabs-wrapper">
         <div class="sub-tabs">
-          <button 
-            v-for="tab in tabs" 
-            :key="tab.id"
-            class="tab-btn" 
-            :class="{ active: activeTab === tab.id }"
-            @click="activeTab = tab.id"
-          >
+          <button v-for="tab in tabs" :key="tab.id" class="tab-btn" :class="{ active: activeTab === tab.id }"
+            @click="activeTab = tab.id">
             {{ tab.name }}
           </button>
         </div>
@@ -91,16 +86,16 @@
               <div class="node-title">이사회</div>
               <div class="node-desc">최고 의결 기구 및 정책 결정</div>
             </div>
-            
+
             <div class="chart-branch-line"></div>
-            
+
             <div class="chart-row audit-row">
               <div class="chart-node special-node">
                 <div class="node-title">감사</div>
                 <div class="node-desc">재정 및 업무 감사</div>
               </div>
             </div>
-            
+
             <div class="chart-branch-line"></div>
 
             <div class="chart-node sub-root-node">
@@ -142,7 +137,7 @@
                 <span class="detail-icon">📞</span>
                 <div class="detail-text">
                   <h5>대표 전화</h5>
-                  <p>02-123-4567</p>
+                  <p>02-413-0795</p>
                 </div>
               </div>
               <div class="contact-detail-item">
@@ -178,7 +173,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Back Action -->
       <div class="back-action-row">
         <button class="btn btn-outline back-btn" @click="$emit('back')">
@@ -237,12 +232,10 @@ const historyItems = [
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(248, 250, 252, 0.52) 0%,
-    rgba(248, 250, 252, 0.42) 60%,
-    var(--bg-color) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(248, 250, 252, 0.52) 0%,
+      rgba(248, 250, 252, 0.42) 60%,
+      var(--bg-color) 100%);
   z-index: 1;
 }
 
@@ -653,8 +646,8 @@ const historyItems = [
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at 40% 60%, transparent 10%, #e2e8f0 10%),
-              radial-gradient(circle at 80% 20%, transparent 15%, #cbd5e1 15%),
-              linear-gradient(45deg, #e2e8f0 25%, #f1f5f9 25%, #f1f5f9 50%, #e2e8f0 50%, #e2e8f0 75%, #f1f5f9 75%);
+    radial-gradient(circle at 80% 20%, transparent 15%, #cbd5e1 15%),
+    linear-gradient(45deg, #e2e8f0 25%, #f1f5f9 25%, #f1f5f9 50%, #e2e8f0 50%, #e2e8f0 75%, #f1f5f9 75%);
   background-size: 40px 40px, 60px 60px, 10px 10px;
   position: relative;
   display: flex;
@@ -676,7 +669,7 @@ const historyItems = [
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .map-actions {
@@ -692,8 +685,13 @@ const historyItems = [
 
 /* Animations */
 @keyframes bounce {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-10px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Back Button Row */
@@ -721,10 +719,12 @@ const historyItems = [
 
 /* Responsive */
 @media (max-width: 992px) {
-  .greetings-layout, .contact-grid {
+
+  .greetings-layout,
+  .contact-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .greetings-image-placeholder {
     height: 300px;
   }
@@ -734,51 +734,52 @@ const historyItems = [
   .banner-title {
     font-size: 2.2rem;
   }
-  
+
   .sub-tabs {
     flex-wrap: wrap;
     justify-content: center;
     border-radius: 12px;
   }
-  
+
   .tab-btn {
     padding: 8px 16px;
     font-size: 0.85rem;
   }
-  
-  .mission-grid, .chart-leaves {
+
+  .mission-grid,
+  .chart-leaves {
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .timeline::before {
     left: 20px;
   }
-  
+
   .timeline-item {
     flex-direction: column;
   }
-  
+
   .timeline-year {
     width: auto;
     padding-left: 40px;
     margin-bottom: 10px;
   }
-  
+
   .timeline-year::after {
     left: 15px;
     right: auto;
   }
-  
+
   .timeline-content {
     padding-left: 40px;
   }
-  
+
   .timeline-wrapper {
     padding: 30px;
   }
-  
+
   .org-chart-wrapper {
     padding: 20px;
   }
