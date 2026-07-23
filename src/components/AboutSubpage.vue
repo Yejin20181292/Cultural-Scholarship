@@ -161,10 +161,10 @@
 
             <!-- Placeholder Map -->
             <div class="glass-card map-card">
-              <div class="map-placeholder">
-                <div class="map-inner">
+              <div class="map-placeholder" id="naver-map">
+                <div class="map-inner" v-if="!isMapLoaded">
                   <div class="map-marker">📍</div>
-                  <div class="map-tooltip">신라문화장학재단</div>
+                  <div class="map-tooltip">지도를 불러오는 중...</div>
                 </div>
               </div>
               <div class="map-actions">
@@ -187,7 +187,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 
 defineEmits(['back']);
 
@@ -226,10 +226,98 @@ const setActiveTab = (tabId: string) => {
 onMounted(() => {
   updateTabFromHash();
   window.addEventListener('hashchange', updateTabFromHash);
+  if (activeTab.value === 'contact') {
+    initNaverMap();
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', updateTabFromHash);
+});
+
+const isMapLoaded = ref(false);
+let map: any = null;
+
+const initNaverMap = () => {
+  if ((window as any).naver && (window as any).naver.maps) {
+    createMap();
+  } else {
+    loadMapScript();
+  }
+};
+
+const loadMapScript = () => {
+  const clientId = import.meta.env.VITE_NAVER_CLIENT_ID || 'YOUR_NAVER_CLIENT_ID';
+  
+  const existingScript = document.getElementById('naver-map-script');
+  if (existingScript) {
+    existingScript.onload = () => createMap();
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.id = 'naver-map-script';
+  script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
+  script.async = true;
+  script.defer = true;
+  script.onload = () => {
+    createMap();
+  };
+  script.onerror = () => {
+    console.error('네이버 지도 API 스크립트 로드 실패. Client ID를 확인해주세요.');
+  };
+  document.head.appendChild(script);
+};
+
+const createMap = () => {
+  nextTick(() => {
+    const mapEl = document.getElementById('naver-map');
+    if (!mapEl) return;
+
+    if (!(window as any).naver || !(window as any).naver.maps) {
+      return;
+    }
+
+    const lat = 37.5057173; 
+    const lng = 127.1065163; 
+    const location = new (window as any).naver.maps.LatLng(lat, lng);
+
+    map = new (window as any).naver.maps.Map(mapEl, {
+      center: location,
+      zoom: 16,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: (window as any).naver.maps.Position.TOP_RIGHT
+      }
+    });
+
+    const marker = new (window as any).naver.maps.Marker({
+      position: location,
+      map: map,
+      title: '신라문화장학재단'
+    });
+
+    const infoWindow = new (window as any).naver.maps.InfoWindow({
+      content: `
+        <div style="padding: 10px; min-width: 180px; line-height: 140%; border-radius: 4px; font-family: sans-serif;">
+          <h4 style="margin: 0 0 5px 0; color: #111; font-weight: bold; font-size: 13px;">신라문화장학재단</h4>
+          <p style="margin: 0; font-size: 11px; color: #666;">서울특별시 송파구 백제고분로 362, 8층</p>
+        </div>
+      `,
+      borderWidth: 1,
+      borderColor: '#e2e8f0',
+      disableAnchor: false
+    });
+
+    infoWindow.open(map, marker);
+    isMapLoaded.value = true;
+  });
+};
+
+watch(activeTab, (newTab) => {
+  if (newTab === 'contact') {
+    initNaverMap();
+  }
 });
 
 const historyItems = [
