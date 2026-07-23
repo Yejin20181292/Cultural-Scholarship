@@ -239,34 +239,10 @@ onUnmounted(() => {
 const isMapLoaded = ref(false);
 
 const initKakaoMap = () => {
-  if ((window as any).daum && (window as any).daum.roughmap) {
-    renderKakaoMap();
-  } else {
-    loadKakaoScript();
-  }
+  renderKakaoMap();
 };
 
-const loadKakaoScript = () => {
-  const existingScript = document.getElementById('kakao-roughmap-script');
-  if (existingScript) {
-    existingScript.onload = () => renderKakaoMap();
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.id = 'kakao-roughmap-script';
-  script.charset = 'UTF-8';
-  script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
-  script.onload = () => {
-    renderKakaoMap();
-  };
-  script.onerror = () => {
-    console.error('카카오 지도 약도 스크립트 로드 실패');
-  };
-  document.head.appendChild(script);
-};
-
-const renderKakaoMap = () => {
+const renderKakaoMap = (retryCount = 0) => {
   nextTick(() => {
     const container = document.getElementById('daumRoughmapContainer1784779755354');
     if (!container) return;
@@ -277,6 +253,11 @@ const renderKakaoMap = () => {
     }
 
     if (!(window as any).daum || !(window as any).daum.roughmap || !(window as any).daum.roughmap.Lander) {
+      if (retryCount < 20) {
+        setTimeout(() => renderKakaoMap(retryCount + 1), 100);
+      } else {
+        console.error('카카오 지도 객체(daum.roughmap.Lander)를 찾을 수 없습니다.');
+      }
       return;
     }
 
