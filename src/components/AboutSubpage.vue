@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="subpage-wrapper">
     <!-- Hero Banner -->
     <div class="sub-banner">
@@ -144,7 +144,7 @@
                 <span class="detail-icon">✉️</span>
                 <div class="detail-text">
                   <h5>이메일</h5>
-                  <p>info@silla-scholarship.or.kr</p>
+                  <p>silla_yujin@naver.com</p>
                 </div>
               </div>
               <div class="contact-detail-item">
