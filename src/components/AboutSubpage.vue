@@ -161,8 +161,9 @@
 
             <!-- Placeholder Map -->
             <div class="glass-card map-card">
-              <div class="map-placeholder" id="naver-map">
-                <div class="map-inner" v-if="!isMapLoaded">
+              <div class="map-placeholder" style="position: relative;">
+                <div id="daumRoughmapContainer1784779755354" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%; height: 100%;"></div>
+                <div class="map-inner" v-if="!isMapLoaded" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
                   <div class="map-marker">📍</div>
                   <div class="map-tooltip">지도를 불러오는 중...</div>
                 </div>
@@ -227,7 +228,7 @@ onMounted(() => {
   updateTabFromHash();
   window.addEventListener('hashchange', updateTabFromHash);
   if (activeTab.value === 'contact') {
-    initNaverMap();
+    initKakaoMap();
   }
 });
 
@@ -236,87 +237,63 @@ onUnmounted(() => {
 });
 
 const isMapLoaded = ref(false);
-let map: any = null;
 
-const initNaverMap = () => {
-  if ((window as any).naver && (window as any).naver.maps) {
-    createMap();
+const initKakaoMap = () => {
+  if ((window as any).daum && (window as any).daum.roughmap) {
+    renderKakaoMap();
   } else {
-    loadMapScript();
+    loadKakaoScript();
   }
 };
 
-const loadMapScript = () => {
-  const clientId = import.meta.env.VITE_NAVER_CLIENT_ID || 'YOUR_NAVER_CLIENT_ID';
-  
-  const existingScript = document.getElementById('naver-map-script');
+const loadKakaoScript = () => {
+  const existingScript = document.getElementById('kakao-roughmap-script');
   if (existingScript) {
-    existingScript.onload = () => createMap();
+    existingScript.onload = () => renderKakaoMap();
     return;
   }
 
   const script = document.createElement('script');
-  script.id = 'naver-map-script';
-  script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
-  script.async = true;
-  script.defer = true;
+  script.id = 'kakao-roughmap-script';
+  script.charset = 'UTF-8';
+  script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
   script.onload = () => {
-    createMap();
+    renderKakaoMap();
   };
   script.onerror = () => {
-    console.error('네이버 지도 API 스크립트 로드 실패. Client ID를 확인해주세요.');
+    console.error('카카오 지도 약도 스크립트 로드 실패');
   };
   document.head.appendChild(script);
 };
 
-const createMap = () => {
+const renderKakaoMap = () => {
   nextTick(() => {
-    const mapEl = document.getElementById('naver-map');
-    if (!mapEl) return;
+    const container = document.getElementById('daumRoughmapContainer1784779755354');
+    if (!container) return;
 
-    if (!(window as any).naver || !(window as any).naver.maps) {
+    if (container.children.length > 0) {
+      isMapLoaded.value = true;
       return;
     }
 
-    const lat = 37.5057173; 
-    const lng = 127.1065163; 
-    const location = new (window as any).naver.maps.LatLng(lat, lng);
+    if (!(window as any).daum || !(window as any).daum.roughmap || !(window as any).daum.roughmap.Lander) {
+      return;
+    }
 
-    map = new (window as any).naver.maps.Map(mapEl, {
-      center: location,
-      zoom: 16,
-      zoomControl: true,
-      zoomControlOptions: {
-        position: (window as any).naver.maps.Position.TOP_RIGHT
-      }
-    });
+    new (window as any).daum.roughmap.Lander({
+      "timestamp": "1784779755354",
+      "key": "rbrm7buwqr9",
+      "mapWidth": "100%",
+      "mapHeight": "280"
+    }).render();
 
-    const marker = new (window as any).naver.maps.Marker({
-      position: location,
-      map: map,
-      title: '신라문화장학재단'
-    });
-
-    const infoWindow = new (window as any).naver.maps.InfoWindow({
-      content: `
-        <div style="padding: 10px; min-width: 180px; line-height: 140%; border-radius: 4px; font-family: sans-serif;">
-          <h4 style="margin: 0 0 5px 0; color: #111; font-weight: bold; font-size: 13px;">신라문화장학재단</h4>
-          <p style="margin: 0; font-size: 11px; color: #666;">서울특별시 송파구 백제고분로 362, 8층</p>
-        </div>
-      `,
-      borderWidth: 1,
-      borderColor: '#e2e8f0',
-      disableAnchor: false
-    });
-
-    infoWindow.open(map, marker);
     isMapLoaded.value = true;
   });
 };
 
 watch(activeTab, (newTab) => {
   if (newTab === 'contact') {
-    initNaverMap();
+    initKakaoMap();
   }
 });
 
