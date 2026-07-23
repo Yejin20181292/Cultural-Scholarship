@@ -8,21 +8,26 @@ import ScholarshipPrograms from './components/ScholarshipPrograms.vue';
 import NoticeSection from './components/NoticeSection.vue';
 import Footer from './components/Footer.vue';
 
-const currentView = ref<'home' | 'about-sub'>('home');
+const getViewFromHash = (): 'home' | 'about-sub' => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#about-sub')) {
+    return 'about-sub';
+  }
+  return 'home';
+};
+
+const currentView = ref<'home' | 'about-sub'>(getViewFromHash());
 
 const updateViewFromHash = () => {
-  const hash = window.location.hash;
-  if (hash === '#about-sub') {
-    currentView.value = 'about-sub';
-  } else {
-    currentView.value = 'home';
-  }
+  currentView.value = getViewFromHash();
 };
 
 const navigateTo = (view: 'home' | 'about-sub') => {
   currentView.value = view;
   if (view === 'about-sub') {
-    window.location.hash = 'about-sub';
+    if (!window.location.hash.startsWith('#about-sub')) {
+      window.location.hash = 'about-sub';
+    }
   } else {
     window.history.pushState("", document.title, window.location.pathname + window.location.search);
   }

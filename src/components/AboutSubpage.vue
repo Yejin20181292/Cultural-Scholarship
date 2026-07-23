@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="subpage-wrapper">
     <!-- Hero Banner -->
     <div class="sub-banner">
@@ -14,7 +14,7 @@
       <div class="sub-tabs-wrapper">
         <div class="sub-tabs">
           <button v-for="tab in tabs" :key="tab.id" class="tab-btn" :class="{ active: activeTab === tab.id }"
-            @click="activeTab = tab.id">
+            @click="setActiveTab(tab.id)">
             {{ tab.name }}
           </button>
         </div>
@@ -185,11 +185,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 defineEmits(['back']);
-
-const activeTab = ref('greetings');
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
@@ -197,6 +195,40 @@ const tabs = [
   { id: 'organization', name: '조직도' },
   { id: 'contact', name: '찾아오시는 길' }
 ];
+
+const getTabFromHash = (): string => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#about-sub')) {
+    const parts = hash.split('/');
+    if (parts.length > 1) {
+      const tabId = parts[1];
+      if (tabs.some(t => t.id === tabId)) {
+        return tabId;
+      }
+    }
+  }
+  return 'greetings';
+};
+
+const activeTab = ref(getTabFromHash());
+
+const updateTabFromHash = () => {
+  activeTab.value = getTabFromHash();
+};
+
+const setActiveTab = (tabId: string) => {
+  activeTab.value = tabId;
+  window.location.hash = `#about-sub/${tabId}`;
+};
+
+onMounted(() => {
+  updateTabFromHash();
+  window.addEventListener('hashchange', updateTabFromHash);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', updateTabFromHash);
+});
 
 const historyItems = [
   { year: '2026', title: '누적 장학생 1,200명 돌파 및 화이트 테마 웹 개편', desc: '장학 수혜 범위와 사회 기여 멘토링 프로그램 확장 시행' },
