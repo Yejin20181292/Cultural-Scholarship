@@ -72,7 +72,16 @@
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-menu" :class="{ 'open': isMobileMenuOpen }">
       <nav class="mobile-nav">
-        <!-- Mobile User State -->
+        <ul>
+          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
+          <li>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
+          </li>
+        </ul>
+
+        <!-- Mobile User State (Below menu items) -->
         <div class="mobile-user-box" v-if="user">
           <div class="mobile-user-info">
             <div class="user-avatar-mobile">{{ user.name.charAt(0) }}</div>
@@ -87,19 +96,15 @@
           </div>
         </div>
         <div class="mobile-user-box" v-else>
-          <button class="btn btn-primary w-full" @click="openAuthModalMobile('login')">
-            로그인 / 회원가입
+          <button class="btn btn-primary w-full mobile-auth-btn" @click="openAuthModalMobile('login')">
+            <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span>로그인 / 회원가입</span>
           </button>
         </div>
-
-        <ul>
-          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
-          <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
-          </li>
-        </ul>
       </nav>
     </div>
   </header>
@@ -550,7 +555,19 @@ onUnmounted(() => {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 24px;
+  margin-top: 28px;
+}
+
+.mobile-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(6, 91, 137, 0.18);
 }
 
 .mobile-user-info {
@@ -590,12 +607,12 @@ onUnmounted(() => {
 
 .mobile-action-btn {
   flex: 1;
-  padding: 6px;
-  font-size: 0.78rem;
+  padding: 8px;
+  font-size: 0.82rem;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .mobile-action-btn.danger {
@@ -644,13 +661,9 @@ onUnmounted(() => {
     display: none;
   }
 
-  .auth-btn {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-  }
-
-  .auth-btn span {
-    display: inline;
+  .auth-btn,
+  .user-profile-dropdown {
+    display: none;
   }
 }
 </style>
