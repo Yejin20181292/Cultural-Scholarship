@@ -228,7 +228,7 @@
               <!-- Terms Agreement -->
               <div class="terms-group">
                 <label class="checkbox-label all-agree">
-                  <input type="checkbox" v-model="allAgreed" @change="toggleAllAgreements" />
+                  <input type="checkbox" v-model="allAgreed" />
                   <span><strong>전체 동의하기</strong></span>
                 </label>
                 <div class="sub-agreements">
@@ -303,13 +303,6 @@ const allAgreed = computed({
     agreeMarketing.value = val;
   }
 });
-
-const toggleAllAgreements = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  agreeTerms.value = target.checked;
-  agreePrivacy.value = target.checked;
-  agreeMarketing.value = target.checked;
-};
 
 const switchMode = (mode: 'login' | 'signup') => {
   authModalMode.value = mode;
