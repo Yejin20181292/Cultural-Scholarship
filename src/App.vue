@@ -7,6 +7,8 @@ import AboutSubpage from './components/AboutSubpage.vue';
 import ScholarshipPrograms from './components/ScholarshipPrograms.vue';
 import NoticeSection from './components/NoticeSection.vue';
 import Footer from './components/Footer.vue';
+import AuthModal from './components/AuthModal.vue';
+import MyPageModal from './components/MyPageModal.vue';
 
 const getViewFromHash = (): 'home' | 'about-sub' => {
   const hash = window.location.hash;
@@ -59,11 +61,14 @@ onUnmounted(() => {
       </template>
     </main>
     <Footer @navigate="navigateTo" />
+
+    <!-- Auth & MyPage Modals -->
+    <AuthModal />
+    <MyPageModal />
   </div>
 </template>
 
 <style>
-/* Layout tweaks if needed for global App container */
 .app-wrapper {
   display: flex;
   flex-direction: column;
