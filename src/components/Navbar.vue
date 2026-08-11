@@ -9,7 +9,7 @@
       <nav class="nav-desktop">
         <ul class="nav-links">
           <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
           <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
         </ul>
       </nav>
@@ -94,7 +94,7 @@
 
         <ul>
           <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
           <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
           <li>
             <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>

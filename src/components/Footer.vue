@@ -17,7 +17,7 @@
             <h4 class="col-title title-serif">SITEMAP</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">장학 사업</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
               <li><a href="#" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
             </ul>
           </div>
