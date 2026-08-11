@@ -266,7 +266,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { useAuth, User } from '../composables/useAuth';
+import { useAuth, type User } from '../composables/useAuth';
 
 const { isAuthModalOpen, authModalMode, closeAuthModal, login, signup } = useAuth();
 
