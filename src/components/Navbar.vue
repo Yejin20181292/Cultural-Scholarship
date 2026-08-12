@@ -235,20 +235,15 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   transition: all var(--transition-normal);
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  border-bottom: 1px solid transparent;
 }
 
 .header.scrolled {
-  background: rgba(248, 250, 252, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   height: 70px;
   border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
 }
 
 .header-container {

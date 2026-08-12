@@ -66,7 +66,7 @@ defineEmits(['navigate']);
   object-fit: cover;
   object-position: center 30%;
   transform: scale(1.05);
-  filter: brightness(0.9) contrast(1.05) saturate(1.08);
+  filter: brightness(0.95) contrast(1.02);
   animation: slow-zoom 25s ease-out infinite alternate;
 }
 
@@ -77,10 +77,9 @@ defineEmits(['navigate']);
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    180deg,
-    rgba(15, 23, 42, 0.3) 0%,
-    rgba(248, 250, 252, 0.2) 40%,
-    rgba(248, 250, 252, 0.85) 85%,
+    to bottom,
+    rgba(248, 250, 252, 0.25) 0%,
+    rgba(248, 250, 252, 0.75) 65%,
     var(--bg-color) 100%
   );
   pointer-events: none;
@@ -93,17 +92,7 @@ defineEmits(['navigate']);
 }
 
 .hero-content {
-  max-width: 760px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 48px 52px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 
-    0 20px 50px rgba(6, 91, 137, 0.08),
-    0 4px 20px rgba(0, 0, 0, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  max-width: 750px;
   opacity: 0;
   transform: translateY(30px);
   animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -225,13 +214,8 @@ defineEmits(['navigate']);
 }
 
 @media (max-width: 768px) {
-  .hero-content {
-    padding: 32px 24px;
-    border-radius: 18px;
-  }
-
   .hero-title {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
   }
   
   .hero-description {
