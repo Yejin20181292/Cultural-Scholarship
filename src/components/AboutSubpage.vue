@@ -66,105 +66,39 @@
 
         <!-- 2. 사업실적 -->
         <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
-          <div class="performance-container">
-            <!-- Top Summary Stats -->
-            <div class="perf-stats-grid">
-              <div class="glass-card perf-stat-card">
-                <div class="stat-icon-box">🎓</div>
-                <div class="stat-number title-serif">1,280<span class="stat-unit">명</span></div>
-                <div class="stat-label">누적 수혜 장학생</div>
-                <div class="stat-subtext">전국 초·중·고 및 대학(원)생</div>
-              </div>
-              <div class="glass-card perf-stat-card">
-                <div class="stat-icon-box">💰</div>
-                <div class="stat-number title-serif">48.5<span class="stat-unit">억 원</span></div>
-                <div class="stat-label">누적 장학금 지급액</div>
-                <div class="stat-subtext">학업 및 창작 후원금 총액</div>
-              </div>
-              <div class="glass-card perf-stat-card">
-                <div class="stat-icon-box">🏫</div>
-                <div class="stat-number title-serif">135<span class="stat-unit">개교</span></div>
-                <div class="stat-label">지원 연계 학술 기관</div>
-                <div class="stat-subtext">국내외 주요 대학 및 예고</div>
-              </div>
-              <div class="glass-card perf-stat-card">
-                <div class="stat-icon-box">🤝</div>
-                <div class="stat-number title-serif">96<span class="stat-unit">%</span></div>
-                <div class="stat-label">멘토십 프로그램 수혜율</div>
-                <div class="stat-subtext">전문가 및 선배 1:1 매칭</div>
-              </div>
-            </div>
-
-            <!-- Yearly Performance Table / List -->
-            <div class="glass-card perf-table-card">
-              <div class="card-header-row">
-                <h3 class="perf-section-title title-serif">연도별 장학 사업 집행 실적</h3>
-                <span class="perf-badge">최근 5개년 현황</span>
-              </div>
+          <div class="performance-simple-wrapper">
+            <div class="glass-card perf-summary-card">
+              <h2 class="perf-summary-title title-serif">
+                <u>사업 실적</u><span class="year-range">(1979년 ~ 2025년)</span>
+              </h2>
               
-              <div class="perf-table-wrapper">
-                <table class="perf-table">
+              <div class="perf-simple-table-wrapper">
+                <table class="perf-simple-table">
                   <thead>
                     <tr>
-                      <th>연도</th>
-                      <th>지원 대상 및 프로그램</th>
-                      <th>수혜 인원</th>
-                      <th>지원 금액</th>
-                      <th>주요 성과</th>
+                      <th class="col-type">사업의 종류</th>
+                      <th class="col-amount">금 &nbsp; 액</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="item in performanceItems" :key="item.year">
-                      <td class="year-cell title-serif">{{ item.year }}년</td>
-                      <td class="program-cell">{{ item.program }}</td>
-                      <td class="count-cell">{{ item.count }}명</td>
-                      <td class="amount-cell">{{ item.amount }}</td>
-                      <td class="highlight-cell">{{ item.highlight }}</td>
+                    <tr>
+                      <td class="cell-type">장 &nbsp; 학 &nbsp; 금</td>
+                      <td class="cell-amount">39,046,757,858</td>
+                    </tr>
+                    <tr>
+                      <td class="cell-type">연 &nbsp; 구 &nbsp; 비</td>
+                      <td class="cell-amount">234,400,000</td>
+                    </tr>
+                    <tr>
+                      <td class="cell-type">행 &nbsp; 사 &nbsp; 경 &nbsp; 비</td>
+                      <td class="cell-amount">1,160,483,461</td>
+                    </tr>
+                    <tr class="row-total">
+                      <td class="cell-type">합 &nbsp; &nbsp; 계</td>
+                      <td class="cell-amount total-val">₩40,441,641,319</td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
-            </div>
-
-            <!-- Category Impact Cards -->
-            <div class="perf-category-section">
-              <h3 class="perf-section-title title-serif text-center">분야별 주요 사업 성과</h3>
-              <div class="category-grid">
-                <div class="glass-card category-card">
-                  <div class="cat-badge">순수예술 분야</div>
-                  <h4 class="cat-title">문화예술 꿈나무 육성</h4>
-                  <p class="cat-desc">
-                    미술, 음악, 무용 등 순수예술 분야의 미래 아티스트를 발굴하여 지속적인 창작 지원금과 1:1 명사 멘토링을 제공합니다.
-                  </p>
-                  <ul class="cat-metrics">
-                    <li><span>누적 지원 인원</span> <strong>620명</strong></li>
-                    <li><span>국내외 콩쿠르 입상</span> <strong>45건</strong></li>
-                  </ul>
-                </div>
-
-                <div class="glass-card category-card">
-                  <div class="cat-badge gold">전통문화 분야</div>
-                  <h4 class="cat-title">전통문화 계승 및 보존</h4>
-                  <p class="cat-desc">
-                    국악, 전통공예, 무형문화재 전수자들이 경제적 걱정 없이 전통 예술의 맥을 이어나갈 수 있도록 전폭적인 지원을 시행합니다.
-                  </p>
-                  <ul class="cat-metrics">
-                    <li><span>누적 지원 인원</span> <strong>410명</strong></li>
-                    <li><span>무형문화재 전수 완료</span> <strong>28명</strong></li>
-                  </ul>
-                </div>
-
-                <div class="glass-card category-card">
-                  <div class="cat-badge blue">글로벌 분야</div>
-                  <h4 class="cat-title">글로벌 아티스트 해외 진출</h4>
-                  <p class="cat-desc">
-                    세계 무대에 도전하는 유망 아티스트들의 해외 예술대학 체재비, 국제 비엔날레 참가비, 해외 쇼케이스를 지원합니다.
-                  </p>
-                  <ul class="cat-metrics">
-                    <li><span>누적 지원 인원</span> <strong>250명</strong></li>
-                    <li><span>글로벌 전시/공연 지원</span> <strong>64회</strong></li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -571,273 +505,109 @@ const performanceItems = [
   font-weight: 300;
 }
 
-/* 2. Performance (사업실적) */
-.performance-container {
+/* 2. Performance (사업실적) - Simple Table Style */
+.performance-simple-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 40px;
+}
+
+.perf-summary-card {
+  width: 100%;
+  max-width: 660px;
+  padding: 45px 50px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-}
-
-.perf-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.perf-stat-card {
-  padding: 24px 20px;
+  align-items: center;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-.perf-stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--primary-glow);
-}
-
-.stat-icon-box {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-}
-
-.stat-number {
-  font-size: 2.2rem;
+.perf-summary-title {
+  font-size: 1.75rem;
   font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 4px;
-}
-
-.stat-unit {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-left: 4px;
-}
-
-.stat-label {
-  font-size: 0.95rem;
-  font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.stat-subtext {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 300;
-}
-
-/* Performance Table */
-.perf-table-card {
-  padding: 36px 40px;
-}
-
-.card-header-row {
+  margin-bottom: 35px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.perf-section-title {
-  font-size: 1.4rem;
-  font-weight: 600;
+.perf-summary-title u {
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+.perf-summary-title .year-range {
+  font-size: 1.55rem;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
-.perf-badge {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  background: rgba(6, 91, 137, 0.08);
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-
-.perf-table-wrapper {
+.perf-simple-table-wrapper {
+  width: 100%;
   overflow-x: auto;
 }
 
-.perf-table {
+.perf-simple-table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
 }
 
-.perf-table th {
-  padding: 14px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  background: rgba(6, 91, 137, 0.03);
-  border-bottom: 1px solid var(--border-color-hover);
-  white-space: nowrap;
+.perf-simple-table th,
+.perf-simple-table td {
+  border: 1px solid #d1d5db;
+  padding: 16px 24px;
 }
 
-.perf-table td {
-  padding: 16px;
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.year-cell {
-  font-weight: 700;
+.perf-simple-table th {
   font-size: 1.1rem;
-  color: var(--primary-color);
-  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--primary-color, #065b89);
 }
 
-.program-cell {
+.col-type {
+  width: 42%;
+  text-align: center;
+}
+
+.col-amount {
+  width: 58%;
+  text-align: center;
+}
+
+.cell-type {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.cell-amount {
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--text-primary);
+  text-align: right;
+  padding-right: 36px;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-.count-cell {
-  font-weight: 600;
+.row-total .cell-type {
+  font-weight: 700;
+}
+
+.row-total .cell-amount {
+  font-weight: 700;
   color: var(--text-primary);
-  white-space: nowrap;
 }
 
-.amount-cell {
-  font-weight: 700;
-  color: var(--secondary-color);
-  white-space: nowrap;
-}
-
-.highlight-cell {
-  font-weight: 300;
-  font-size: 0.88rem;
-}
-
-/* Category Section */
-.perf-category-section {
-  margin-top: 10px;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 24px;
-}
-
-.category-card {
-  padding: 30px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.cat-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #0369a1;
-  background: #e0f2fe;
-  padding: 4px 10px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-}
-
-.cat-badge.gold {
-  color: #b45309;
-  background: #fef3c7;
-}
-
-.cat-badge.blue {
-  color: #4338ca;
-  background: #e0e7ff;
-}
-
-.cat-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.cat-desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-weight: 300;
-  margin-bottom: 20px;
-  flex: 1;
-}
-
-.cat-metrics {
-  width: 100%;
-  list-style: none;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cat-metrics li {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.cat-metrics strong {
-  color: var(--primary-color);
-  font-weight: 700;
-}
-
-.node-title {
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--primary-color);
-  margin-bottom: 4px;
-}
-
-.node-desc {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: 300;
-}
-
-.root-node {
-  background-color: rgba(6, 91, 137, 0.03);
-}
-
-.sub-root-node {
-  background-color: rgba(6, 91, 137, 0.05);
-  border-color: var(--primary-color);
-}
-
-.chart-branch-line {
-  width: 1px;
-  height: 35px;
-  background-color: var(--border-color-hover);
-}
-
-.audit-row {
-  margin: 0;
-  position: relative;
-}
-
-.special-node {
-  border-style: dashed;
-}
-
-.chart-leaves {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  margin-top: 0;
-}
-
-/* 5. Contact / Location */
+/* 3. Contact / Location */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
