@@ -77,16 +77,16 @@
                   <thead>
                     <tr>
                       <th class="col-type">사업의 종류</th>
-                      <th class="col-amount">금 &nbsp; 액</th>
+                      <th class="col-amount">금 &nbsp; &nbsp; &nbsp; 액</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="cell-type">장 &nbsp; 학 &nbsp; 금</td>
+                      <td class="cell-type">장 &nbsp; &nbsp; 학 &nbsp; &nbsp; 금</td>
                       <td class="cell-amount">39,046,757,858</td>
                     </tr>
                     <tr>
-                      <td class="cell-type">연 &nbsp; 구 &nbsp; 비</td>
+                      <td class="cell-type">연 &nbsp; &nbsp; 구 &nbsp; &nbsp; 비</td>
                       <td class="cell-amount">234,400,000</td>
                     </tr>
                     <tr>
@@ -94,7 +94,7 @@
                       <td class="cell-amount">1,160,483,461</td>
                     </tr>
                     <tr class="row-total">
-                      <td class="cell-type">합 &nbsp; &nbsp; 계</td>
+                      <td class="cell-type">합 &nbsp; &nbsp; &nbsp; &nbsp; 계</td>
                       <td class="cell-amount total-val">₩40,441,641,319</td>
                     </tr>
                   </tbody>
