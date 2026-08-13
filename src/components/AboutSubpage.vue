@@ -71,7 +71,7 @@
               <!-- Top Banner Quote Text -->
               <div class="perf-intro-banner">
                 <p class="perf-intro-text">
-                  “(재)신라문화장학재단은 지난 47년간 약 5,390명에 달하는 학생들의 소중한 꿈을 지원하였습니다.”
+                  “(재)신라문화장학재단은<br />지난 47년간 약 5,390명에 달하는 학생들의 소중한 꿈을 지원하였습니다.”
                 </p>
               </div>
 
