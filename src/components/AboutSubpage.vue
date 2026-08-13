@@ -64,65 +64,113 @@
         </div>
 
 
-        <!-- 3. 연혁 -->
-        <div v-if="activeTab === 'history'" class="tab-pane reveal active">
-          <div class="timeline-wrapper glass-card">
-            <div class="timeline">
-              <div v-for="item in historyItems" :key="item.year" class="timeline-item">
-                <div class="timeline-year title-serif">{{ item.year }}</div>
-                <div class="timeline-content">
-                  <h4 class="timeline-title">{{ item.title }}</h4>
-                  <p class="timeline-desc">{{ item.desc }}</p>
+        <!-- 2. 사업실적 -->
+        <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
+          <div class="performance-container">
+            <!-- Top Summary Stats -->
+            <div class="perf-stats-grid">
+              <div class="glass-card perf-stat-card">
+                <div class="stat-icon-box">🎓</div>
+                <div class="stat-number title-serif">1,280<span class="stat-unit">명</span></div>
+                <div class="stat-label">누적 수혜 장학생</div>
+                <div class="stat-subtext">전국 초·중·고 및 대학(원)생</div>
+              </div>
+              <div class="glass-card perf-stat-card">
+                <div class="stat-icon-box">💰</div>
+                <div class="stat-number title-serif">48.5<span class="stat-unit">억 원</span></div>
+                <div class="stat-label">누적 장학금 지급액</div>
+                <div class="stat-subtext">학업 및 창작 후원금 총액</div>
+              </div>
+              <div class="glass-card perf-stat-card">
+                <div class="stat-icon-box">🏫</div>
+                <div class="stat-number title-serif">135<span class="stat-unit">개교</span></div>
+                <div class="stat-label">지원 연계 학술 기관</div>
+                <div class="stat-subtext">국내외 주요 대학 및 예고</div>
+              </div>
+              <div class="glass-card perf-stat-card">
+                <div class="stat-icon-box">🤝</div>
+                <div class="stat-number title-serif">96<span class="stat-unit">%</span></div>
+                <div class="stat-label">멘토십 프로그램 수혜율</div>
+                <div class="stat-subtext">전문가 및 선배 1:1 매칭</div>
+              </div>
+            </div>
+
+            <!-- Yearly Performance Table / List -->
+            <div class="glass-card perf-table-card">
+              <div class="card-header-row">
+                <h3 class="perf-section-title title-serif">연도별 장학 사업 집행 실적</h3>
+                <span class="perf-badge">최근 5개년 현황</span>
+              </div>
+              
+              <div class="perf-table-wrapper">
+                <table class="perf-table">
+                  <thead>
+                    <tr>
+                      <th>연도</th>
+                      <th>지원 대상 및 프로그램</th>
+                      <th>수혜 인원</th>
+                      <th>지원 금액</th>
+                      <th>주요 성과</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in performanceItems" :key="item.year">
+                      <td class="year-cell title-serif">{{ item.year }}년</td>
+                      <td class="program-cell">{{ item.program }}</td>
+                      <td class="count-cell">{{ item.count }}명</td>
+                      <td class="amount-cell">{{ item.amount }}</td>
+                      <td class="highlight-cell">{{ item.highlight }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Category Impact Cards -->
+            <div class="perf-category-section">
+              <h3 class="perf-section-title title-serif text-center">분야별 주요 사업 성과</h3>
+              <div class="category-grid">
+                <div class="glass-card category-card">
+                  <div class="cat-badge">순수예술 분야</div>
+                  <h4 class="cat-title">문화예술 꿈나무 육성</h4>
+                  <p class="cat-desc">
+                    미술, 음악, 무용 등 순수예술 분야의 미래 아티스트를 발굴하여 지속적인 창작 지원금과 1:1 명사 멘토링을 제공합니다.
+                  </p>
+                  <ul class="cat-metrics">
+                    <li><span>누적 지원 인원</span> <strong>620명</strong></li>
+                    <li><span>국내외 콩쿠르 입상</span> <strong>45건</strong></li>
+                  </ul>
+                </div>
+
+                <div class="glass-card category-card">
+                  <div class="cat-badge gold">전통문화 분야</div>
+                  <h4 class="cat-title">전통문화 계승 및 보존</h4>
+                  <p class="cat-desc">
+                    국악, 전통공예, 무형문화재 전수자들이 경제적 걱정 없이 전통 예술의 맥을 이어나갈 수 있도록 전폭적인 지원을 시행합니다.
+                  </p>
+                  <ul class="cat-metrics">
+                    <li><span>누적 지원 인원</span> <strong>410명</strong></li>
+                    <li><span>무형문화재 전수 완료</span> <strong>28명</strong></li>
+                  </ul>
+                </div>
+
+                <div class="glass-card category-card">
+                  <div class="cat-badge blue">글로벌 분야</div>
+                  <h4 class="cat-title">글로벌 아티스트 해외 진출</h4>
+                  <p class="cat-desc">
+                    세계 무대에 도전하는 유망 아티스트들의 해외 예술대학 체재비, 국제 비엔날레 참가비, 해외 쇼케이스를 지원합니다.
+                  </p>
+                  <ul class="cat-metrics">
+                    <li><span>누적 지원 인원</span> <strong>250명</strong></li>
+                    <li><span>글로벌 전시/공연 지원</span> <strong>64회</strong></li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 4. 조직도 -->
-        <div v-if="activeTab === 'organization'" class="tab-pane reveal active">
-          <div class="org-chart-wrapper glass-card">
-            <div class="chart-node root-node">
-              <div class="node-title">이사회</div>
-              <div class="node-desc">최고 의결 기구 및 정책 결정</div>
-            </div>
-
-            <div class="chart-branch-line"></div>
-
-            <div class="chart-row audit-row">
-              <div class="chart-node special-node">
-                <div class="node-title">감사</div>
-                <div class="node-desc">재정 및 업무 감사</div>
-              </div>
-            </div>
-
-            <div class="chart-branch-line"></div>
-
-            <div class="chart-node sub-root-node">
-              <div class="node-title">이사장</div>
-              <div class="node-desc">재단 총괄 대표</div>
-            </div>
-
-            <div class="chart-branch-line"></div>
-
-            <div class="chart-leaves">
-              <div class="chart-node leaf-node">
-                <div class="node-title">장학심의위원회</div>
-                <div class="node-desc">장학생 선발 기준 및 심사</div>
-              </div>
-              <div class="chart-node leaf-node">
-                <div class="node-title">사무국 (운영총괄)</div>
-                <div class="node-desc">장학 사업 집행 및 행정 지원</div>
-              </div>
-              <div class="chart-node leaf-node">
-                <div class="node-title">대외협력팀</div>
-                <div class="node-desc">홍보, 멘토링, 대외 교류</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. 찾아오시는 길 -->
+        <!-- 3. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -194,8 +242,7 @@ defineEmits(['back']);
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
-  { id: 'history', name: '재단 연혁' },
-  { id: 'organization', name: '조직도' },
+  { id: 'performance', name: '사업실적' },
   { id: 'contact', name: '찾아오시는 길' }
 ];
 
@@ -278,13 +325,12 @@ watch(activeTab, (newTab) => {
   }
 });
 
-const historyItems = [
-  { year: '2026', title: '누적 장학생 1,200명 돌파 및 화이트 테마 웹 개편', desc: '장학 수혜 범위와 사회 기여 멘토링 프로그램 확장 시행' },
-  { year: '2020', title: '학술 장학 연구 지원 분야 창설', desc: '전통 문화 및 기초 학문 보존을 위한 특별 학술 기금 확대 편성' },
-  { year: '2015', title: '사회 환원 장학생 봉사단 창단', desc: '장학생 선배들이 지역 사회 아동들을 밀착 케어하는 멘토링 프로그램 출범' },
-  { year: '2008', title: '신라문화장학재단 기금 300억 확충', desc: '대규모 재정 기반 확보로 연간 수혜 인원을 기존의 2배 규모로 확대' },
-  { year: '2000', title: '밀레니엄 우수 인적 자원 특별 선발제 도입', desc: '지방 인재 및 기초생활수급자 등 사회적 소외 계층 특별 전형 추가' },
-  { year: '1988', title: '재단법인 신라문화장학재단 공식 설립 인가', desc: '초대 이사장 취임 및 제1기 대학 장학생 30명 선발 수여식 개최' }
+const performanceItems = [
+  { year: '2025', program: '문화예술 꿈나무 및 전통문화 계승 장학', count: '145', amount: '6억 2,000만 원', highlight: '글로벌 아티스트 해외 전시 12회 지원 및 성과발표회 개최' },
+  { year: '2024', program: '전통예술 전수자 및 대학생 창작 지원금', count: '130', amount: '5억 8,000만 원', highlight: '국악·전통공예 이수자 지원 확대 (30명 신규 선발)' },
+  { year: '2023', program: '문화예술 꿈나무 멘토링 및 학업 장학', count: '125', amount: '5억 3,000만 원', highlight: '장학생 멘토링 봉사단 2기 출범 및 아동 멘토링 진행' },
+  { year: '2022', program: '신진 아티스트 및 학술 연구 지원', count: '115', amount: '4억 9,000만 원', highlight: '학술 연구 지원 펀드 1억 원 확충 및 공모전 개최' },
+  { year: '2021', program: '코로나19 긴급 창작 지원 장학금', count: '110', amount: '4억 5,000만 원', highlight: '예술계 격려 특별 지원금 및 온라인 전시회 지원' }
 ];
 </script>
 
@@ -525,103 +571,226 @@ const historyItems = [
   font-weight: 300;
 }
 
-/* 3. History Timeline */
-.timeline-wrapper {
-  padding: 50px 80px;
-}
-
-.timeline {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 120px;
-  top: 0;
-  height: 100%;
-  width: 1px;
-  background-color: var(--border-color-hover);
-}
-
-.timeline-item {
+/* 2. Performance (사업실적) */
+.performance-container {
   display: flex;
-  margin-bottom: 45px;
-  position: relative;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.timeline-item:last-child {
-  margin-bottom: 0;
+.perf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.timeline-year {
-  width: 120px;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  text-align: left;
-  padding-right: 30px;
-  position: relative;
-}
-
-.timeline-year::after {
-  content: '';
-  position: absolute;
-  right: -5px;
-  top: 10px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  box-shadow: 0 0 0 4px var(--primary-glow);
-  z-index: 2;
-}
-
-.timeline-content {
-  flex: 1;
-  padding-left: 30px;
-  text-align: left;
-}
-
-.timeline-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.timeline-desc {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  font-weight: 300;
-}
-
-/* 4. Organization Chart */
-.org-chart-wrapper {
-  padding: 60px;
+.perf-stat-card {
+  padding: 24px 20px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-.chart-node {
-  border: 1px solid var(--border-color-hover);
-  background: var(--white);
-  padding: 16px 28px;
-  border-radius: 8px;
-  width: 250px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(6, 91, 137, 0.04);
-  transition: all var(--transition-normal);
+.perf-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--primary-glow);
 }
 
-.chart-node:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--primary-glow);
+.stat-icon-box {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.stat-unit {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-subtext {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* Performance Table */
+.perf-table-card {
+  padding: 36px 40px;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.perf-section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.perf-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: rgba(6, 91, 137, 0.08);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.perf-table-wrapper {
+  overflow-x: auto;
+}
+
+.perf-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.perf-table th {
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: rgba(6, 91, 137, 0.03);
+  border-bottom: 1px solid var(--border-color-hover);
+  white-space: nowrap;
+}
+
+.perf-table td {
+  padding: 16px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.year-cell {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  white-space: nowrap;
+}
+
+.program-cell {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.count-cell {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.amount-cell {
+  font-weight: 700;
+  color: var(--secondary-color);
+  white-space: nowrap;
+}
+
+.highlight-cell {
+  font-weight: 300;
+  font-size: 0.88rem;
+}
+
+/* Category Section */
+.perf-category-section {
+  margin-top: 10px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.category-card {
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.cat-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.cat-badge.gold {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.cat-badge.blue {
+  color: #4338ca;
+  background: #e0e7ff;
+}
+
+.cat-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.cat-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.cat-metrics {
+  width: 100%;
+  list-style: none;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cat-metrics li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.cat-metrics strong {
+  color: var(--primary-color);
+  font-weight: 700;
 }
 
 .node-title {
@@ -835,6 +1004,14 @@ const historyItems = [
     grid-template-columns: 1fr;
   }
 
+  .perf-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
   .greetings-image-placeholder {
     height: 300px;
   }
@@ -856,42 +1033,18 @@ const historyItems = [
     font-size: 0.85rem;
   }
 
-  .mission-grid,
-  .chart-leaves {
+  .perf-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .perf-table-card {
+    padding: 20px 16px;
+  }
+
+  .mission-grid {
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: center;
-  }
-
-  .timeline::before {
-    left: 20px;
-  }
-
-  .timeline-item {
-    flex-direction: column;
-  }
-
-  .timeline-year {
-    width: auto;
-    padding-left: 40px;
-    margin-bottom: 10px;
-  }
-
-  .timeline-year::after {
-    left: 15px;
-    right: auto;
-  }
-
-  .timeline-content {
-    padding-left: 40px;
-  }
-
-  .timeline-wrapper {
-    padding: 30px;
-  }
-
-  .org-chart-wrapper {
-    padding: 20px;
   }
 }
 </style>
