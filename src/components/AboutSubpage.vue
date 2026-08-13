@@ -77,16 +77,24 @@
 
               <!-- Historical Photos Grid -->
               <div class="perf-photos-grid">
-                <div class="perf-photo-card">
+                <div class="perf-photo-card" @click="openImageModal(historyPhoto1, '제28기 장학증서 수여식')">
                   <div class="photo-img-wrapper">
-                    <img src="../assets/history_photo1.jpg" alt="제28기 장학증서 수여식" class="perf-photo-img" />
+                    <img :src="historyPhoto1" alt="제28기 장학증서 수여식" class="perf-photo-img" />
+                    <div class="photo-zoom-badge">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                      <span>확대보기</span>
+                    </div>
                   </div>
                   <div class="photo-caption">제28기 장학증서 수여식</div>
                 </div>
 
-                <div class="perf-photo-card">
+                <div class="perf-photo-card" @click="openImageModal(historyPhoto2, '제1기 장학증서 수여식 (1979.3.17)')">
                   <div class="photo-img-wrapper">
-                    <img src="../assets/history_photo2.jpg" alt="제1기 장학증서 수여식 (1979.3.17)" class="perf-photo-img" />
+                    <img :src="historyPhoto2" alt="제1기 장학증서 수여식 (1979.3.17)" class="perf-photo-img" />
+                    <div class="photo-zoom-badge">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                      <span>확대보기</span>
+                    </div>
                   </div>
                   <div class="photo-caption">제1기 장학증서 수여식 (1979.3.17)</div>
                 </div>
@@ -193,13 +201,52 @@
         </button>
       </div>
     </div>
+
+    <!-- Image Modal / Lightbox -->
+    <Teleport to="body">
+      <Transition name="modal-fade">
+        <div v-if="previewImage" class="image-modal-overlay" @click.self="closeImageModal">
+          <div class="image-modal-content">
+            <button class="image-modal-close" @click="closeImageModal" aria-label="닫기">
+              &times;
+            </button>
+            <div class="image-modal-body">
+              <img :src="previewImage.src" :alt="previewImage.title" class="enlarged-image" />
+            </div>
+            <div class="image-modal-caption">
+              {{ previewImage.title }}
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import historyPhoto1 from '../assets/history_photo1.jpg';
+import historyPhoto2 from '../assets/history_photo2.jpg';
 
 defineEmits(['back']);
+
+const previewImage = ref<{ src: string; title: string } | null>(null);
+
+const openImageModal = (src: string, title: string) => {
+  previewImage.value = { src, title };
+  document.body.style.overflow = 'hidden';
+};
+
+const closeImageModal = () => {
+  previewImage.value = null;
+  document.body.style.overflow = '';
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && previewImage.value) {
+    closeImageModal();
+  }
+};
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
@@ -235,6 +282,7 @@ const setActiveTab = (tabId: string) => {
 onMounted(() => {
   updateTabFromHash();
   window.addEventListener('hashchange', updateTabFromHash);
+  window.addEventListener('keydown', handleKeyDown);
   if (activeTab.value === 'contact') {
     initKakaoMap();
   }
@@ -242,6 +290,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', updateTabFromHash);
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
 });
 
 const isMapLoaded = ref(false);
@@ -866,8 +916,133 @@ const performanceItems = [
   display: inline-block;
 }
 
-.back-btn:hover .back-arrow {
-  transform: translateX(-4px);
+.perf-photo-card {
+  cursor: pointer;
+}
+
+.photo-img-wrapper {
+  position: relative;
+}
+
+.photo-zoom-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(12, 21, 36, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.perf-photo-card:hover .photo-zoom-badge {
+  opacity: 1;
+}
+
+/* Image Modal / Lightbox */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(12, 21, 36, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.image-modal-close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+  z-index: 2010;
+}
+
+.image-modal-close:hover {
+  transform: scale(1.1);
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.image-modal-body {
+  max-width: 100%;
+  max-height: calc(85vh - 60px);
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enlarged-image {
+  max-width: 100%;
+  max-height: calc(85vh - 60px);
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.image-modal-caption {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Modal Fade Animation */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.96);
 }
 
 /* Responsive */
