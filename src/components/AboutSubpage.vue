@@ -67,7 +67,34 @@
         <!-- 2. 사업실적 -->
         <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
           <div class="performance-simple-wrapper">
-            <div class="glass-card perf-summary-card">
+            <div class="glass-card perf-main-card">
+              <!-- Top Banner Quote Text -->
+              <div class="perf-intro-banner">
+                <p class="perf-intro-text">
+                  “(재)신라문화장학재단은 지난 47년간 약 5,390명에 달하는 학생들의 소중한 꿈을 지원하였습니다.”
+                </p>
+              </div>
+
+              <!-- Historical Photos Grid -->
+              <div class="perf-photos-grid">
+                <div class="perf-photo-card">
+                  <div class="photo-img-wrapper">
+                    <img src="../assets/history_photo1.jpg" alt="제28기 장학증서 수여식" class="perf-photo-img" />
+                  </div>
+                  <div class="photo-caption">제28기 장학증서 수여식</div>
+                </div>
+
+                <div class="perf-photo-card">
+                  <div class="photo-img-wrapper">
+                    <img src="../assets/history_photo2.jpg" alt="제1기 장학증서 수여식 (1979.3.17)" class="perf-photo-img" />
+                  </div>
+                  <div class="photo-caption">제1기 장학증서 수여식 (1979.3.17)</div>
+                </div>
+              </div>
+
+              <div class="perf-section-divider"></div>
+
+              <!-- Table Section -->
               <h2 class="perf-summary-title title-serif">
                 <u>사업 실적</u><span class="year-range">(1979년 ~ 2025년)</span>
               </h2>
@@ -505,21 +532,98 @@ const performanceItems = [
   font-weight: 300;
 }
 
-/* 2. Performance (사업실적) - Simple Table Style */
+/* 2. Performance (사업실적) */
 .performance-simple-wrapper {
   display: flex;
   justify-content: center;
   margin: 10px 0 40px;
 }
 
-.perf-summary-card {
+.perf-main-card {
   width: 100%;
-  max-width: 660px;
+  max-width: 800px;
   padding: 45px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+/* Intro Banner */
+.perf-intro-banner {
+  background: rgba(6, 91, 137, 0.04);
+  border: 1px solid rgba(6, 91, 137, 0.15);
+  border-radius: 12px;
+  padding: 22px 30px;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.perf-intro-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color, #065b89);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/* Photos Grid */
+.perf-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.perf-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.perf-photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(6, 91, 137, 0.12);
+}
+
+.photo-img-wrapper {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f1f5f9;
+}
+
+.perf-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.perf-photo-card:hover .perf-photo-img {
+  transform: scale(1.03);
+}
+
+.photo-caption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary, #475569);
+}
+
+.perf-section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color, #e2e8f0);
+  margin-bottom: 35px;
 }
 
 .perf-summary-title {
@@ -803,12 +907,25 @@ const performanceItems = [
     font-size: 0.85rem;
   }
 
-  .perf-stats-grid {
-    grid-template-columns: 1fr;
+  .perf-main-card {
+    padding: 28px 18px;
   }
 
-  .perf-table-card {
-    padding: 20px 16px;
+  .perf-intro-banner {
+    padding: 16px 20px;
+  }
+
+  .perf-intro-text {
+    font-size: 1.05rem;
+  }
+
+  .perf-photos-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .photo-img-wrapper {
+    height: 200px;
   }
 
   .mission-grid {
