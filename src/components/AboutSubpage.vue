@@ -187,7 +187,6 @@
               </div>
               <div class="map-actions">
                 <a href="https://map.kakao.com" target="_blank" class="btn btn-outline map-btn">카카오맵 바로가기</a>
-                <a href="https://map.naver.com" target="_blank" class="btn btn-outline map-btn">네이버지도 바로가기</a>
               </div>
             </div>
           </div>
