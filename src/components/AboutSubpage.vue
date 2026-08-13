@@ -176,18 +176,14 @@
               </div>
             </div>
 
-            <!-- Map Card -->
+            <!-- Kakao Map Card -->
             <div class="glass-card map-card">
-              <div class="map-placeholder">
-                <iframe
-                  title="신라문화장학재단 위치 지도"
-                  width="100%"
-                  height="100%"
-                  style="border:0; border-radius: 6px;"
-                  loading="lazy"
-                  allowfullscreen
-                  src="https://maps.google.com/maps?q=서울특별시%20송파구%20백제고분로%20362&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                ></iframe>
+              <div class="map-placeholder" style="position: relative; height: 280px;">
+                <div id="daumRoughmapContainer1784779755354" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%; height: 100%;"></div>
+                <div class="map-inner" v-if="!isMapLoaded" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
+                  <div class="map-marker">📍</div>
+                  <div class="map-tooltip">지도를 불러오는 중...</div>
+                </div>
               </div>
               <div class="map-actions">
                 <a
