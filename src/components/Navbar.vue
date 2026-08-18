@@ -495,7 +495,7 @@ onUnmounted(() => {
   color: var(--text-secondary);
 }
 
-.nav-item-dropdown:hover .nav-chevron-icon {
+.nav-links:hover .nav-chevron-icon {
   transform: rotate(180deg);
   color: var(--primary-color);
 }
@@ -528,7 +528,7 @@ onUnmounted(() => {
   height: 12px;
 }
 
-.nav-item-dropdown:hover .nav-sub-menu {
+.nav-links:hover .nav-sub-menu {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
