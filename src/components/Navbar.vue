@@ -9,96 +9,43 @@
       <nav class="nav-desktop">
         <ul class="nav-links">
           <!-- 1. 재단소개 -->
-          <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="nav-link-dropdown">
+          <li>
+            <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="nav-main-link">
               <span>재단소개</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <ul class="nav-sub-menu">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
-                  설립취지 & 인사말
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
-                  사업실적
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
-                  찾아오시는 길
-                </a>
-              </li>
-            </ul>
           </li>
 
           <!-- 2. 커뮤니티 -->
-          <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-link-dropdown">
+          <li>
+            <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-main-link">
               <span>커뮤니티</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <ul class="nav-sub-menu">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('community-sub', 'board')">
-                  게시판
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
-                  동문찾기
-                </a>
-              </li>
-            </ul>
           </li>
 
           <!-- 3. 자료실 -->
-          <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="nav-link-dropdown">
+          <li>
+            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="nav-main-link">
               <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <ul class="nav-sub-menu">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
-                  신청방법
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
-                  소식
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
-                  결산자료
-                </a>
-              </li>
-            </ul>
           </li>
 
           <!-- 4. 공지사항 -->
-          <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="nav-link-dropdown">
+          <li>
+            <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="nav-main-link">
               <span>공지사항</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <ul class="nav-sub-menu">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
-                  공지사항
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
       </nav>
@@ -155,6 +102,84 @@
         <button class="mobile-toggle" @click="toggleMobileMenu" aria-label="메뉴 열기">
           <span class="hamburger-bar" :class="{ 'open': isMobileMenuOpen }"></span>
         </button>
+      </div>
+    </div>
+
+    <!-- Desktop Full-Width Mega Menu Dropdown Panel -->
+    <div class="mega-menu-panel">
+      <div class="container mega-menu-container">
+        <!-- Col 1: 재단소개 -->
+        <div class="mega-menu-col">
+          <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
+          <ul class="mega-sub-list">
+            <li>
+              <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
+                설립취지 & 인사말
+              </a>
+            </li>
+            <li>
+              <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
+                사업실적
+              </a>
+            </li>
+            <li>
+              <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
+                찾아오시는 길
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 2: 커뮤니티 -->
+        <div class="mega-menu-col">
+          <h4 class="mega-col-title" @click="handleNavClick('community-sub', 'board')">커뮤니티</h4>
+          <ul class="mega-sub-list">
+            <li>
+              <a href="#" @click.prevent="handleNavClick('community-sub', 'board')">
+                게시판
+              </a>
+            </li>
+            <li>
+              <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
+                동문찾기
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 3: 자료실 -->
+        <div class="mega-menu-col">
+          <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'apply')">자료실</h4>
+          <ul class="mega-sub-list">
+            <li>
+              <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
+                신청방법
+              </a>
+            </li>
+            <li>
+              <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
+                소식
+              </a>
+            </li>
+            <li>
+              <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
+                결산자료
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: 공지사항 -->
+        <div class="mega-menu-col">
+          <h4 class="mega-col-title" @click="handleNavClick('notice-sub', 'notice')">공지사항</h4>
+          <ul class="mega-sub-list">
+            <li>
+              <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
+                공지사항
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -484,7 +509,8 @@ onUnmounted(() => {
   position: relative;
 }
 
-.nav-link-dropdown {
+/* Nav Chevron Icon */
+.nav-main-link {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -495,73 +521,110 @@ onUnmounted(() => {
   color: var(--text-secondary);
 }
 
-.nav-links:hover .nav-chevron-icon {
+/* Full-Width Mega Menu Dropdown Panel */
+.mega-menu-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid rgba(6, 91, 137, 0.1);
+  border-bottom: 1px solid rgba(6, 91, 137, 0.15);
+  box-shadow: 0 20px 40px -10px rgba(6, 91, 137, 0.14), 0 6px 16px -4px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 1010;
+  overflow: hidden;
+}
+
+/* Hover bridge for seamless mouse transition */
+.mega-menu-panel::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
+/* Trigger Mega Menu when hovering nav-desktop or mega-menu-panel */
+.nav-desktop:hover ~ .mega-menu-panel,
+.mega-menu-panel:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-desktop:hover .nav-chevron-icon,
+.mega-menu-panel:hover ~ .header-container .nav-chevron-icon {
   transform: rotate(180deg);
   color: var(--primary-color);
 }
 
-.nav-sub-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  min-width: 175px;
-  background: #ffffff;
-  border: 1px solid rgba(6, 91, 137, 0.12);
-  border-radius: 12px;
-  padding: 8px 0;
-  list-style: none;
-  box-shadow: 0 12px 28px -4px rgba(6, 91, 137, 0.14), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
-  z-index: 1020;
+/* Mega Menu Container & 4 Columns with Equal Height */
+.mega-menu-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 32px 20px 36px;
+  gap: 0;
+  align-items: stretch;
 }
 
-/* Invisible hover bridge to keep dropdown open during cursor travel */
-.nav-sub-menu::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: 0;
-  width: 100%;
-  height: 12px;
-}
-
-.nav-links:hover .nav-sub-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.nav-sub-menu li {
-  width: 100%;
-}
-
-.nav-sub-menu a {
+.mega-menu-col {
   display: flex;
-  align-items: center;
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 500;
+  flex-direction: column;
+  padding: 0 32px;
+  border-right: 1px solid rgba(6, 91, 137, 0.1);
+}
+
+.mega-menu-col:first-child {
+  padding-left: 10px;
+}
+
+.mega-menu-col:last-child {
+  border-right: none;
+  padding-right: 10px;
+}
+
+.mega-col-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(6, 91, 137, 0.2);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  align-self: flex-start;
+}
+
+.mega-col-title:hover {
+  color: var(--secondary-color);
+}
+
+.mega-sub-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.mega-sub-list a {
+  font-size: 0.92rem;
+  font-weight: 400;
   color: var(--text-secondary);
-  white-space: nowrap;
   transition: all var(--transition-fast);
-  border-radius: 0;
-  width: 100%;
-  box-sizing: border-box;
+  display: inline-block;
+  padding: 2px 0;
 }
 
-.nav-sub-menu a::after {
-  display: none !important;
-}
-
-.nav-sub-menu a:hover,
-.nav-sub-menu a.sub-active {
-  background-color: rgba(6, 91, 137, 0.06);
+.mega-sub-list a:hover {
   color: var(--primary-color);
   font-weight: 600;
-  padding-left: 22px;
+  transform: translateX(4px);
 }
 
 /* Mobile Sub-menu Styling */
