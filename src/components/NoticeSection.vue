@@ -18,7 +18,7 @@
             자료실
           </button>
           <button class="tab-btn" :class="{ 'active': activeTab === 'news' }" @click="activeTab = 'news'">
-            언론 보도 & 소식
+            결산자료
           </button>
         </div>
 
@@ -65,22 +65,30 @@
             </div>
           </div>
 
-          <!-- News Cards Grid -->
-          <div v-if="activeTab === 'news'" class="news-grid">
-            <div v-for="item in news" :key="item.id" class="news-card glass-card">
-              <div class="news-img-placeholder">
-                <div class="news-img-overlay">
-                  <span class="news-badge">{{ item.category }}</span>
-                </div>
-                <!-- Visual graphic represented with gradient in CSS -->
-                <div class="gradient-graphic" :style="{ background: item.gradient }">
-                  <span class="graphic-logo title-serif">CSF</span>
+          <!-- Settlement Reports / 결산자료 Grid -->
+          <div v-if="activeTab === 'news'" class="resources-grid">
+            <div v-for="item in settlementReports" :key="item.id" class="resource-card">
+              <div class="resource-info">
+                <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
+                <div class="resource-text">
+                  <div class="resource-meta">
+                    <span class="resource-category">{{ item.category }}</span>
+                    <span class="resource-date">{{ item.date }}</span>
+                  </div>
+                  <h4 class="resource-title">{{ item.title }}</h4>
+                  <p class="resource-desc">{{ item.desc }}</p>
                 </div>
               </div>
-              <div class="news-info">
-                <span class="news-date">{{ item.date }}</span>
-                <h4 class="news-title"><a href="#">{{ item.title }}</a></h4>
-                <p class="news-summary">{{ item.summary }}</p>
+              <div class="resource-download">
+                <span class="file-size">{{ item.size }}</span>
+                <button class="btn btn-outline download-btn" @click.prevent>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>다운로드</span>
+                </button>
               </div>
             </div>
           </div>
@@ -163,51 +171,45 @@ const resources = [
     format: 'PDF',
     size: '2.8 MB',
     date: '2026.07.01'
-  },
+  }
+];
+
+const settlementReports = [
   {
-    id: 4,
-    category: '재단 공시',
+    id: 1,
+    category: '결산 공시',
     title: '2025년도 재단법인 신라문화장학재단 결산보고서 및 사업실적 공시',
-    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
+    desc: '공익법인 결산 서류, 기부금 모금·활용 실적 및 회계감사 보고서 공시',
     format: 'PDF',
     size: '4.1 MB',
     date: '2026.04.30'
   },
   {
-    id: 5,
-    category: '재단 규정',
+    id: 2,
+    category: '정관 및 규정',
     title: '신라문화장학재단 정관 및 장학생 선발·관리 규정',
     desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
     format: 'PDF',
     size: '880 KB',
     date: '2026.01.10'
-  }
-];
-
-const news = [
-  {
-    id: 1,
-    category: '재단 소식',
-    date: '2026.07.18',
-    title: '제10기 글로벌 아티스트 파리 연수 지원사업 마무리',
-    summary: '프랑스 파리 국립 예술대학교에서 진행된 3주간의 하계 심화 연수 프로그램에 참여한 12명의 장학생들이 성공적으로 창작 연구 워크숍을 마쳤습니다.',
-    gradient: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)'
-  },
-  {
-    id: 2,
-    category: '언론 보도',
-    date: '2026.07.05',
-    title: '전통문화 장학생 이지윤 양, 국가무형문화재 최연소 이수',
-    summary: '신라문화장학재단으로부터 3년간 전통문화 계승 장학금을 수여 받은 이지윤(가야금 병창 전공) 학생이 문화재청 주관 심사를 통해 역대 최연소 무형문화재 이수자로 선정되었습니다.',
-    gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)'
   },
   {
     id: 3,
-    category: '인재 기획',
-    date: '2026.06.12',
-    title: '미래를 여는 미디어 아티스트, 장학생 송민우 군 전시 성황',
-    summary: '가상 공간과 현실을 넘나드는 디지털 캔버스로 화제를 모은 미디어 아티스트 송민우 군이 인사동 갤러리에서 개최한 첫 단독 초대전이 많은 호평 속에 마쳤습니다.',
-    gradient: 'linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)'
+    category: '감사 보고서',
+    title: '2025년도 외부 회계감사 보고서 및 기부금 지출 명세서',
+    desc: '삼일회계법인 수행 공익법인 외부 회계감사 결과 및 기부금 세부 집행 내역',
+    format: 'PDF',
+    size: '2.3 MB',
+    date: '2026.03.15'
+  },
+  {
+    id: 4,
+    category: '결산 공시',
+    title: '2024년도 재단법인 신라문화장학재단 연간 기부금 모금액 및 활용실적',
+    desc: '국세청 홈택스 공익법인 공시 시스템 등록 연간 기부금 총액 및 사업비 집행 명세',
+    format: 'PDF',
+    size: '3.5 MB',
+    date: '2025.04.28'
   }
 ];
 
