@@ -16,34 +16,34 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">재단소개</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub', undefined, undefined, 'greetings')">설립취지 & 인사말</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub', undefined, undefined, 'performance')">사업실적</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub', undefined, undefined, 'contact')">찾아오시는 길</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">설립취지 & 인사말</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">사업실적</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">찾아오시는 길</a></li>
             </ul>
           </div>
           
           <div class="footer-links-col">
             <h4 class="col-title title-serif">커뮤니티</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')">게시판</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'alumni')">동문찾기</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">게시판</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">동문찾기</a></li>
             </ul>
           </div>
 
           <div class="footer-links-col">
             <h4 class="col-title title-serif">자료실</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">신청방법</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'notices', 'news')">소식</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'notices', 'archive')">결산자료</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">신청방법</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">소식</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
             </ul>
           </div>
 
           <div class="footer-links-col">
             <h4 class="col-title title-serif">공지사항</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'notices', 'notice')">공지사항</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">온라인 장학 신청</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">공지사항</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">온라인 장학 신청</a></li>
             </ul>
           </div>
         </div>
@@ -85,29 +85,14 @@
 </template>
 
 <script setup lang="ts">
+import type { ViewType } from '../App.vue';
+
 const emit = defineEmits<{
-  (e: 'navigate', view: 'home' | 'about-sub'): void;
+  (e: 'navigate', view: ViewType, subTab?: string): void;
 }>();
 
-const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, noticeTab?: string, subTab?: string, programTab?: string) => {
-  emit('navigate', view);
-  
-  if (view === 'about-sub' && subTab) {
-    window.location.hash = `#about-sub/${subTab}`;
-  } else if (view === 'home' && anchor) {
-    if (noticeTab) {
-      window.dispatchEvent(new CustomEvent('set-notice-tab', { detail: noticeTab }));
-    }
-    if (programTab) {
-      window.dispatchEvent(new CustomEvent('set-program-tab', { detail: programTab }));
-    }
-    setTimeout(() => {
-      const el = document.getElementById(anchor);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  }
+const handleNavClick = (view: ViewType, subTab?: string) => {
+  emit('navigate', view, subTab);
 };
 </script>
 

@@ -10,7 +10,7 @@
         <ul class="nav-links">
           <!-- 1. 재단소개 -->
           <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="nav-link-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="nav-link-dropdown">
               <span>재단소개</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -18,17 +18,17 @@
             </a>
             <ul class="nav-sub-menu">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'greetings' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
                   설립취지 & 인사말
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'performance' }" @click.prevent="handleNavClick('about-sub', undefined, 'performance')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
                   사업실적
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'contact' }" @click.prevent="handleNavClick('about-sub', undefined, 'contact')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
                   찾아오시는 길
                 </a>
               </li>
@@ -37,7 +37,7 @@
 
           <!-- 2. 커뮤니티 -->
           <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')" class="nav-link-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-link-dropdown">
               <span>커뮤니티</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -45,12 +45,12 @@
             </a>
             <ul class="nav-sub-menu">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'board' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')">
+                <a href="#" @click.prevent="handleNavClick('community-sub', 'board')">
                   게시판
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'alumni' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'alumni')">
+                <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
                   동문찾기
                 </a>
               </li>
@@ -59,7 +59,7 @@
 
           <!-- 3. 자료실 -->
           <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && (activeNoticeTab === 'archive' || activeNoticeTab === 'news') }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')" class="nav-link-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="nav-link-dropdown">
               <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -67,17 +67,17 @@
             </a>
             <ul class="nav-sub-menu">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'apply' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
                   신청방법
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'news' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'news')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
                   소식
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
                   결산자료
                 </a>
               </li>
@@ -86,7 +86,7 @@
 
           <!-- 4. 공지사항 -->
           <li class="nav-item-dropdown">
-            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')" class="nav-link-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="nav-link-dropdown">
               <span>공지사항</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -94,7 +94,7 @@
             </a>
             <ul class="nav-sub-menu">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">
+                <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
                   공지사항
                 </a>
               </li>
@@ -105,7 +105,7 @@
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('resources-sub', 'apply')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="!user">
@@ -165,7 +165,7 @@
           <!-- Mobile 1. 재단소개 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="mobile-main-link">
                 재단소개
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileAboutSubOpen = !isMobileAboutSubOpen" aria-label="서브메뉴 토글">
@@ -176,17 +176,17 @@
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileAboutSubOpen">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'greetings' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
                   · 설립취지 & 인사말
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'performance' }" @click.prevent="handleNavClick('about-sub', undefined, 'performance')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
                   · 사업실적
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'contact' }" @click.prevent="handleNavClick('about-sub', undefined, 'contact')">
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
                   · 찾아오시는 길
                 </a>
               </li>
@@ -196,7 +196,7 @@
           <!-- Mobile 2. 커뮤니티 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="mobile-main-link">
                 커뮤니티
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileCommunitySubOpen = !isMobileCommunitySubOpen" aria-label="서브메뉴 토글">
@@ -207,12 +207,12 @@
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileCommunitySubOpen">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'board' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')">
+                <a href="#" @click.prevent="handleNavClick('community-sub', 'board')">
                   · 게시판
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'alumni' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'alumni')">
+                <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
                   · 동문찾기
                 </a>
               </li>
@@ -222,7 +222,7 @@
           <!-- Mobile 3. 자료실 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="mobile-main-link">
                 자료실
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
@@ -233,17 +233,17 @@
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'apply' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
                   · 신청방법
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'news' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'news')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
                   · 소식
                 </a>
               </li>
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
                   · 결산자료
                 </a>
               </li>
@@ -253,7 +253,7 @@
           <!-- Mobile 4. 공지사항 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="mobile-main-link">
                 공지사항
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileNoticeSubOpen = !isMobileNoticeSubOpen" aria-label="서브메뉴 토글">
@@ -264,7 +264,7 @@
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileNoticeSubOpen">
               <li>
-                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">
+                <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
                   · 공지사항
                 </a>
               </li>
@@ -272,7 +272,7 @@
           </li>
 
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('resources-sub', 'apply')">장학금 신청</a>
           </li>
         </ul>
 
@@ -308,45 +308,27 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useAuth } from '../composables/useAuth';
+import type { ViewType } from '../App.vue';
 
 const props = defineProps<{
-  currentView: 'home' | 'about-sub';
+  currentView: ViewType;
 }>();
 
 const emit = defineEmits<{
-  (e: 'navigate', view: 'home' | 'about-sub', subTab?: string): void;
+  (e: 'navigate', view: ViewType, subTab?: string): void;
 }>();
 
 const { user, openAuthModal, openMyPageModal, logout } = useAuth();
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
-const activeSection = ref('');
 const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
-
-const activeSubTab = ref('');
-const activeNoticeTab = ref('notice');
-const activeProgramTab = ref('apply');
 
 const isMobileAboutSubOpen = ref(true);
 const isMobileCommunitySubOpen = ref(false);
 const isMobileResourceSubOpen = ref(false);
 const isMobileNoticeSubOpen = ref(false);
-
-const toggleMobileAboutSub = () => {
-  isMobileAboutSubOpen.value = !isMobileAboutSubOpen.value;
-};
-
-const updateSubTab = () => {
-  const hash = window.location.hash;
-  if (hash.startsWith('#about-sub')) {
-    const parts = hash.split('/');
-    activeSubTab.value = parts[1] || 'greetings';
-  } else {
-    activeSubTab.value = '';
-  }
-};
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -391,72 +373,24 @@ const handleClickOutside = (e: MouseEvent) => {
   }
 };
 
-const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, subTab?: string, noticeTab?: string, programTab?: string) => {
+const handleNavClick = (view: ViewType, subTab?: string) => {
   closeMobileMenu();
   emit('navigate', view, subTab);
-  
-  if (view === 'about-sub') {
-    const targetSubTab = subTab || 'greetings';
-    activeSubTab.value = targetSubTab;
-    window.location.hash = `#about-sub/${targetSubTab}`;
-  } else if (view === 'home') {
-    activeSubTab.value = '';
-    if (noticeTab) {
-      activeNoticeTab.value = noticeTab;
-      window.dispatchEvent(new CustomEvent('set-notice-tab', { detail: noticeTab }));
-    }
-    if (programTab) {
-      activeProgramTab.value = programTab;
-      window.dispatchEvent(new CustomEvent('set-program-tab', { detail: programTab }));
-    }
-    if (anchor) {
-      setTimeout(() => {
-        const el = document.getElementById(anchor);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
-  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50;
-  
-  if (props.currentView !== 'home') {
-    activeSection.value = '';
-    return;
-  }
-  
-  const sections = ['about', 'programs', 'notices'];
-  const scrollPosition = window.scrollY + 100;
-  
-  for (const section of sections) {
-    const el = document.getElementById(section);
-    if (el) {
-      const top = el.offsetTop;
-      const height = el.offsetHeight;
-      if (scrollPosition >= top && scrollPosition < top + height) {
-        activeSection.value = section;
-        return;
-      }
-    }
-  }
-  activeSection.value = '';
 };
 
 onMounted(() => {
-  updateSubTab();
   window.addEventListener('scroll', handleScroll);
-  window.addEventListener('hashchange', updateSubTab);
   document.addEventListener('click', handleClickOutside);
   handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
-  window.removeEventListener('hashchange', updateSubTab);
   document.removeEventListener('click', handleClickOutside);
 });
 </script>
