@@ -176,18 +176,21 @@
               </div>
             </div>
 
-            <!-- Kakao Map Card -->
+            <!-- Map Card -->
             <div class="glass-card map-card">
-              <div class="map-placeholder" style="position: relative; height: 280px;">
-                <div id="daumRoughmapContainer1784779755354" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%; height: 100%;"></div>
-                <div class="map-inner" v-if="!isMapLoaded" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
-                  <div class="map-marker">📍</div>
-                  <div class="map-tooltip">지도를 불러오는 중...</div>
-                </div>
+              <div class="map-placeholder" style="height: 280px; overflow: hidden; border-radius: 6px;">
+                <iframe
+                  title="신라문화장학재단 위치 지도 (석촌역 6번 출구 55m)"
+                  width="100%"
+                  height="100%"
+                  style="border: 0;"
+                  loading="lazy"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=127.09843%2C37.49962%2C127.11043%2C37.50762&amp;layer=mapnik&amp;marker=37.50362%2C127.10443"
+                ></iframe>
               </div>
               <div class="map-actions">
                 <a
-                  href="https://map.kakao.com/link/search/서울특별시 송파구 백제고분로 362"
+                  href="https://map.kakao.com/link/map/신라문화장학재단(신라빌딩),37.50362,127.10443"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="btn btn-outline map-btn"

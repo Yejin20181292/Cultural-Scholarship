@@ -8,9 +8,34 @@
       <!-- Desktop Navigation -->
       <nav class="nav-desktop">
         <ul class="nav-links">
-          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
+          <li class="nav-item-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="nav-link-dropdown">
+              <span>재단소개</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="nav-sub-menu">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'greetings' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')">
+                  설립취지 & 인사말
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'performance' }" @click.prevent="handleNavClick('about-sub', undefined, 'performance')">
+                  사업실적
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'contact' }" @click.prevent="handleNavClick('about-sub', undefined, 'contact')">
+                  찾아오시는 길
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">커뮤니티</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">자료실</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">공지사항</a></li>
         </ul>
       </nav>
 
@@ -73,9 +98,38 @@
     <div class="mobile-menu" :class="{ 'open': isMobileMenuOpen }">
       <nav class="mobile-nav">
         <ul>
-          <li><a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' }" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="mobile-main-link">
+                재단소개
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="toggleMobileAboutSub" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileAboutSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileAboutSubOpen">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'greetings' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')">
+                  · 설립취지 & 인사말
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'performance' }" @click.prevent="handleNavClick('about-sub', undefined, 'performance')">
+                  · 사업실적
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'about-sub' && activeSubTab === 'contact' }" @click.prevent="handleNavClick('about-sub', undefined, 'contact')">
+                  · 찾아오시는 길
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">커뮤니티</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">자료실</a></li>
+          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">공지사항</a></li>
           <li>
             <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
           </li>
@@ -119,7 +173,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'navigate', view: 'home' | 'about-sub'): void;
+  (e: 'navigate', view: 'home' | 'about-sub', subTab?: string): void;
 }>();
 
 const { user, openAuthModal, openMyPageModal, logout } = useAuth();
@@ -129,6 +183,24 @@ const isMobileMenuOpen = ref(false);
 const activeSection = ref('');
 const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
+
+const activeSubTab = ref('');
+const activeNoticeTab = ref('notice');
+const isMobileAboutSubOpen = ref(true);
+
+const toggleMobileAboutSub = () => {
+  isMobileAboutSubOpen.value = !isMobileAboutSubOpen.value;
+};
+
+const updateSubTab = () => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#about-sub')) {
+    const parts = hash.split('/');
+    activeSubTab.value = parts[1] || 'greetings';
+  } else {
+    activeSubTab.value = '';
+  }
+};
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -173,18 +245,30 @@ const handleClickOutside = (e: MouseEvent) => {
   }
 };
 
-const handleNavClick = (view: 'home' | 'about-sub', anchor?: string) => {
+const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, subTab?: string, noticeTab?: string) => {
   closeMobileMenu();
-  emit('navigate', view);
+  emit('navigate', view, subTab);
   
-  if (view === 'home' && anchor) {
-    setTimeout(() => {
-      const el = document.getElementById(anchor);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+  if (view === 'about-sub') {
+    const targetSubTab = subTab || 'greetings';
+    activeSubTab.value = targetSubTab;
+    window.location.hash = `#about-sub/${targetSubTab}`;
+  } else if (view === 'home') {
+    activeSubTab.value = '';
+    if (noticeTab) {
+      activeNoticeTab.value = noticeTab;
+      window.dispatchEvent(new CustomEvent('set-notice-tab', { detail: noticeTab }));
+    }
+    if (anchor) {
+      setTimeout(() => {
+        const el = document.getElementById(anchor);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const handleScroll = () => {
@@ -213,13 +297,16 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
+  updateSubTab();
   window.addEventListener('scroll', handleScroll);
+  window.addEventListener('hashchange', updateSubTab);
   document.addEventListener('click', handleClickOutside);
   handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('hashchange', updateSubTab);
   document.removeEventListener('click', handleClickOutside);
 });
 </script>
@@ -275,7 +362,7 @@ onUnmounted(() => {
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 40px;
+  gap: 32px;
 }
 
 .nav-links a {
@@ -306,6 +393,141 @@ onUnmounted(() => {
 .nav-links a:hover::after,
 .nav-links a.active::after {
   width: 100%;
+}
+
+/* Hover Dropdown Navigation for 재단 소개 */
+.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-link-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-chevron-icon {
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  color: var(--text-secondary);
+}
+
+.nav-item-dropdown:hover .nav-chevron-icon {
+  transform: rotate(180deg);
+  color: var(--primary-color);
+}
+
+.nav-sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 175px;
+  background: #ffffff;
+  border: 1px solid rgba(6, 91, 137, 0.12);
+  border-radius: 12px;
+  padding: 8px 0;
+  list-style: none;
+  box-shadow: 0 12px 28px -4px rgba(6, 91, 137, 0.14), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+  z-index: 1020;
+}
+
+/* Invisible hover bridge to keep dropdown open during cursor travel */
+.nav-sub-menu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+
+.nav-item-dropdown:hover .nav-sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-sub-menu li {
+  width: 100%;
+}
+
+.nav-sub-menu a {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  border-radius: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-sub-menu a::after {
+  display: none !important;
+}
+
+.nav-sub-menu a:hover,
+.nav-sub-menu a.sub-active {
+  background-color: rgba(6, 91, 137, 0.06);
+  color: var(--primary-color);
+  font-weight: 600;
+  padding-left: 22px;
+}
+
+/* Mobile Sub-menu Styling */
+.mobile-dropdown-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-main-link {
+  flex: 1;
+}
+
+.mobile-sub-toggle {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-sub-menu {
+  list-style: none;
+  padding-left: 12px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 2px solid rgba(6, 91, 137, 0.18);
+}
+
+.mobile-sub-menu a {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.mobile-sub-menu a:hover,
+.mobile-sub-menu a.sub-active {
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .header-actions {

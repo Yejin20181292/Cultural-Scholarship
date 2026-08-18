@@ -16,9 +16,10 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">SITEMAP</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub')">재단 소개</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">재단 커뮤니티</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('home', 'notices')">재단 소식</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub')">재단소개</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'programs')">커뮤니티</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'notices', 'archive')">자료실</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('home', 'notices', 'notice')">공지사항</a></li>
             </ul>
           </div>
           
@@ -73,10 +74,13 @@ const emit = defineEmits<{
   (e: 'navigate', view: 'home' | 'about-sub'): void;
 }>();
 
-const handleNavClick = (view: 'home' | 'about-sub', anchor?: string) => {
+const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, noticeTab?: string) => {
   emit('navigate', view);
   
   if (view === 'home' && anchor) {
+    if (noticeTab) {
+      window.dispatchEvent(new CustomEvent('set-notice-tab', { detail: noticeTab }));
+    }
     setTimeout(() => {
       const el = document.getElementById(anchor);
       if (el) {

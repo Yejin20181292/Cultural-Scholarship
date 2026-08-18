@@ -14,6 +14,9 @@
           <button class="tab-btn" :class="{ 'active': activeTab === 'notice' }" @click="activeTab = 'notice'">
             공지사항
           </button>
+          <button class="tab-btn" :class="{ 'active': activeTab === 'archive' }" @click="activeTab = 'archive'">
+            자료실
+          </button>
           <button class="tab-btn" :class="{ 'active': activeTab === 'news' }" @click="activeTab = 'news'">
             언론 보도 & 소식
           </button>
@@ -31,6 +34,34 @@
               <svg class="item-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
+            </div>
+          </div>
+
+          <!-- Archive / Resources Downloads -->
+          <div v-if="activeTab === 'archive'" class="resources-grid">
+            <div v-for="item in resources" :key="item.id" class="resource-card">
+              <div class="resource-info">
+                <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
+                <div class="resource-text">
+                  <div class="resource-meta">
+                    <span class="resource-category">{{ item.category }}</span>
+                    <span class="resource-date">{{ item.date }}</span>
+                  </div>
+                  <h4 class="resource-title">{{ item.title }}</h4>
+                  <p class="resource-desc">{{ item.desc }}</p>
+                </div>
+              </div>
+              <div class="resource-download">
+                <span class="file-size">{{ item.size }}</span>
+                <button class="btn btn-outline download-btn" @click.prevent>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>다운로드</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -60,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const headerRef = ref<HTMLElement | null>(null);
 const tabsRef = ref<HTMLElement | null>(null);
@@ -105,6 +136,54 @@ const notices = [
   }
 ];
 
+const resources = [
+  {
+    id: 1,
+    category: '장학 서식',
+    title: '2026년도 하반기 장학금 지원 신청서 및 지도교수 추천서 양식',
+    desc: '신라문화장학재단 장학금 신청을 위한 공통 제출 서식 팩 (신청서, 자기소개서, 추천서 합본)',
+    format: 'HWP',
+    size: '1.2 MB',
+    date: '2026.07.20'
+  },
+  {
+    id: 2,
+    category: '동의서/안내',
+    title: '개인정보 수집·이용 및 제3자 제공 동의서 (장학생용)',
+    desc: '장학생 선발 심사 및 장학금 지급 처리를 위한 필수 제출 동의서 양식',
+    format: 'PDF',
+    size: '450 KB',
+    date: '2026.07.15'
+  },
+  {
+    id: 3,
+    category: '작성 가이드',
+    title: '학업·창작 계획서 및 포트폴리오 작성 가이드라인',
+    desc: '문화예술 및 전통문화 분야 장학금 신청자를 위한 포트폴리오 작성 표준 안내서',
+    format: 'PDF',
+    size: '2.8 MB',
+    date: '2026.07.01'
+  },
+  {
+    id: 4,
+    category: '재단 공시',
+    title: '2025년도 재단법인 신라문화장학재단 결산보고서 및 사업실적 공시',
+    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
+    format: 'PDF',
+    size: '4.1 MB',
+    date: '2026.04.30'
+  },
+  {
+    id: 5,
+    category: '재단 규정',
+    title: '신라문화장학재단 정관 및 장학생 선발·관리 규정',
+    desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
+    format: 'PDF',
+    size: '880 KB',
+    date: '2026.01.10'
+  }
+];
+
 const news = [
   {
     id: 1,
@@ -132,7 +211,16 @@ const news = [
   }
 ];
 
+const handleNoticeTabEvent = (e: Event) => {
+  const customEvent = e as CustomEvent;
+  if (customEvent.detail) {
+    activeTab.value = customEvent.detail;
+  }
+};
+
 onMounted(() => {
+  window.addEventListener('set-notice-tab', handleNoticeTabEvent);
+
   const elements = [headerRef.value, tabsRef.value];
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -146,6 +234,10 @@ onMounted(() => {
   elements.forEach(el => {
     if (el) observer.observe(el);
   });
+});
+
+onUnmounted(() => {
+  window.removeEventListener('set-notice-tab', handleNoticeTabEvent);
 });
 </script>
 
@@ -402,6 +494,123 @@ onMounted(() => {
   overflow: hidden;
 }
 
+/* Resources Grid / List */
+.resources-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resource-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all var(--transition-fast);
+}
+
+.resource-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 24px rgba(6, 91, 137, 0.08);
+  transform: translateY(-2px);
+}
+
+.resource-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.file-format-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 52px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.file-format-badge.hwp {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.file-format-badge.pdf {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.resource-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.resource-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resource-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: rgba(6, 91, 137, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.resource-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.resource-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.resource-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.resource-download {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 20px;
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
 @media (max-width: 1024px) {
   .news-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -430,6 +639,21 @@ onMounted(() => {
   .news-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .resource-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+  }
+
+  .resource-download {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
   }
 }
 </style>

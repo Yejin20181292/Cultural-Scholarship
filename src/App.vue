@@ -24,11 +24,13 @@ const updateViewFromHash = () => {
   currentView.value = getViewFromHash();
 };
 
-const navigateTo = (view: 'home' | 'about-sub') => {
+const navigateTo = (view: 'home' | 'about-sub', subTab?: string) => {
   currentView.value = view;
   if (view === 'about-sub') {
-    if (!window.location.hash.startsWith('#about-sub')) {
-      window.location.hash = 'about-sub';
+    if (subTab) {
+      window.location.hash = `#about-sub/${subTab}`;
+    } else if (!window.location.hash.startsWith('#about-sub')) {
+      window.location.hash = 'about-sub/greetings';
     }
   } else {
     window.history.pushState("", document.title, window.location.pathname + window.location.search);
