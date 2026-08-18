@@ -48,6 +48,48 @@
             </a>
           </li>
         </ul>
+
+        <!-- Desktop Full-Width Mega Menu Dropdown Panel -->
+        <div class="mega-menu-panel">
+          <div class="container mega-menu-container">
+            <!-- Col 1: 재단소개 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 설립취지 & 인사말</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">· 사업실적</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">· 찾아오시는 길</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 2: 커뮤니티 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('community-sub', 'board')">커뮤니티</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">· 게시판</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">· 동문찾기</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: 자료실 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'apply')">자료실</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">· 신청방법</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 결산자료</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 4: 공지사항 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('notice-sub', 'notice')">공지사항</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">· 공지사항</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </nav>
 
       <div class="header-actions">
@@ -102,84 +144,6 @@
         <button class="mobile-toggle" @click="toggleMobileMenu" aria-label="메뉴 열기">
           <span class="hamburger-bar" :class="{ 'open': isMobileMenuOpen }"></span>
         </button>
-      </div>
-    </div>
-
-    <!-- Desktop Full-Width Mega Menu Dropdown Panel -->
-    <div class="mega-menu-panel">
-      <div class="container mega-menu-container">
-        <!-- Col 1: 재단소개 -->
-        <div class="mega-menu-col">
-          <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
-          <ul class="mega-sub-list">
-            <li>
-              <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
-                설립취지 & 인사말
-              </a>
-            </li>
-            <li>
-              <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
-                사업실적
-              </a>
-            </li>
-            <li>
-              <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
-                찾아오시는 길
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Col 2: 커뮤니티 -->
-        <div class="mega-menu-col">
-          <h4 class="mega-col-title" @click="handleNavClick('community-sub', 'board')">커뮤니티</h4>
-          <ul class="mega-sub-list">
-            <li>
-              <a href="#" @click.prevent="handleNavClick('community-sub', 'board')">
-                게시판
-              </a>
-            </li>
-            <li>
-              <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
-                동문찾기
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Col 3: 자료실 -->
-        <div class="mega-menu-col">
-          <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'apply')">자료실</h4>
-          <ul class="mega-sub-list">
-            <li>
-              <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
-                신청방법
-              </a>
-            </li>
-            <li>
-              <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
-                소식
-              </a>
-            </li>
-            <li>
-              <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
-                결산자료
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Col 4: 공지사항 -->
-        <div class="mega-menu-col">
-          <h4 class="mega-col-title" @click="handleNavClick('notice-sub', 'notice')">공지사항</h4>
-          <ul class="mega-sub-list">
-            <li>
-              <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
-                공지사항
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
 
@@ -426,26 +390,23 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--header-height);
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  transition: all var(--transition-normal);
-  border-bottom: 1px solid transparent;
-}
-
-.header.scrolled {
-  background: rgba(248, 250, 252, 0.85);
+  background: rgba(248, 250, 252, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  height: 70px;
   border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: var(--header-height);
+}
+
+.header.scrolled .header-container {
+  height: 70px;
 }
 
 .logo {
@@ -466,6 +427,7 @@ onUnmounted(() => {
 
 .nav-desktop {
   display: block;
+  position: static;
 }
 
 .nav-links {
@@ -480,13 +442,13 @@ onUnmounted(() => {
   letter-spacing: 0.02em;
   color: var(--text-primary);
   position: relative;
-  padding: 8px 0;
+  padding: 24px 0;
 }
 
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 16px;
   left: 0;
   width: 0;
   height: 1px;
@@ -502,11 +464,6 @@ onUnmounted(() => {
 .nav-links a:hover::after,
 .nav-links a.active::after {
   width: 100%;
-}
-
-/* Hover Dropdown Navigation for 재단 소개 */
-.nav-item-dropdown {
-  position: relative;
 }
 
 /* Nav Chevron Icon */
@@ -539,26 +496,14 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/* Hover bridge for seamless mouse transition */
-.mega-menu-panel::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 100%;
-  height: 20px;
-}
-
 /* Trigger Mega Menu when hovering nav-desktop or mega-menu-panel */
-.nav-desktop:hover ~ .mega-menu-panel,
-.mega-menu-panel:hover {
+.nav-desktop:hover .mega-menu-panel {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.nav-desktop:hover .nav-chevron-icon,
-.mega-menu-panel:hover ~ .header-container .nav-chevron-icon {
+.nav-desktop:hover .nav-chevron-icon {
   transform: rotate(180deg);
   color: var(--primary-color);
 }
