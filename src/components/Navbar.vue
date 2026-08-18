@@ -8,6 +8,7 @@
       <!-- Desktop Navigation -->
       <nav class="nav-desktop">
         <ul class="nav-links">
+          <!-- 1. 재단소개 -->
           <li class="nav-item-dropdown">
             <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="nav-link-dropdown">
               <span>재단소개</span>
@@ -33,15 +34,78 @@
               </li>
             </ul>
           </li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">커뮤니티</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">자료실</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">공지사항</a></li>
+
+          <!-- 2. 커뮤니티 -->
+          <li class="nav-item-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')" class="nav-link-dropdown">
+              <span>커뮤니티</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="nav-sub-menu">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'board' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')">
+                  게시판
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'alumni' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'alumni')">
+                  동문찾기
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 3. 자료실 -->
+          <li class="nav-item-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && (activeNoticeTab === 'archive' || activeNoticeTab === 'news') }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')" class="nav-link-dropdown">
+              <span>자료실</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="nav-sub-menu">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'apply' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">
+                  신청방법
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'news' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'news')">
+                  소식
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">
+                  결산자료
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 4. 공지사항 -->
+          <li class="nav-item-dropdown">
+            <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')" class="nav-link-dropdown">
+              <span>공지사항</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="nav-sub-menu">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">
+                  공지사항
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="!user">
@@ -98,12 +162,13 @@
     <div class="mobile-menu" :class="{ 'open': isMobileMenuOpen }">
       <nav class="mobile-nav">
         <ul>
+          <!-- Mobile 1. 재단소개 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
               <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', undefined, 'greetings')" class="mobile-main-link">
                 재단소개
               </a>
-              <button class="mobile-sub-toggle" @click.stop="toggleMobileAboutSub" aria-label="서브메뉴 토글">
+              <button class="mobile-sub-toggle" @click.stop="isMobileAboutSubOpen = !isMobileAboutSubOpen" aria-label="서브메뉴 토글">
                 <svg class="chevron-icon" :class="{ 'rotate': isMobileAboutSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -127,11 +192,87 @@
               </li>
             </ul>
           </li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs')">커뮤니티</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">자료실</a></li>
-          <li><a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">공지사항</a></li>
+
+          <!-- Mobile 2. 커뮤니티 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'programs' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')" class="mobile-main-link">
+                커뮤니티
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="isMobileCommunitySubOpen = !isMobileCommunitySubOpen" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileCommunitySubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileCommunitySubOpen">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'board' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'board')">
+                  · 게시판
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'alumni' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'alumni')">
+                  · 동문찾기
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Mobile 3. 자료실 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')" class="mobile-main-link">
+                자료실
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileResourceSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeProgramTab === 'apply' }" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">
+                  · 신청방법
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'news' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'news')">
+                  · 소식
+                </a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'archive' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'archive')">
+                  · 결산자료
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Mobile 4. 공지사항 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'home' && activeSection === 'notices' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')" class="mobile-main-link">
+                공지사항
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="isMobileNoticeSubOpen = !isMobileNoticeSubOpen" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileNoticeSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileNoticeSubOpen">
+              <li>
+                <a href="#" :class="{ 'sub-active': currentView === 'home' && activeNoticeTab === 'notice' }" @click.prevent="handleNavClick('home', 'notices', undefined, 'notice')">
+                  · 공지사항
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('home', 'programs', undefined, undefined, 'apply')">장학금 신청</a>
           </li>
         </ul>
 
@@ -186,7 +327,12 @@ const dropdownRef = ref<HTMLElement | null>(null);
 
 const activeSubTab = ref('');
 const activeNoticeTab = ref('notice');
+const activeProgramTab = ref('apply');
+
 const isMobileAboutSubOpen = ref(true);
+const isMobileCommunitySubOpen = ref(false);
+const isMobileResourceSubOpen = ref(false);
+const isMobileNoticeSubOpen = ref(false);
 
 const toggleMobileAboutSub = () => {
   isMobileAboutSubOpen.value = !isMobileAboutSubOpen.value;
@@ -245,7 +391,7 @@ const handleClickOutside = (e: MouseEvent) => {
   }
 };
 
-const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, subTab?: string, noticeTab?: string) => {
+const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, subTab?: string, noticeTab?: string, programTab?: string) => {
   closeMobileMenu();
   emit('navigate', view, subTab);
   
@@ -258,6 +404,10 @@ const handleNavClick = (view: 'home' | 'about-sub', anchor?: string, subTab?: st
     if (noticeTab) {
       activeNoticeTab.value = noticeTab;
       window.dispatchEvent(new CustomEvent('set-notice-tab', { detail: noticeTab }));
+    }
+    if (programTab) {
+      activeProgramTab.value = programTab;
+      window.dispatchEvent(new CustomEvent('set-program-tab', { detail: programTab }));
     }
     if (anchor) {
       setTimeout(() => {
