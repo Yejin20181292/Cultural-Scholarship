@@ -18,20 +18,20 @@
             </a>
           </li>
 
-          <!-- 2. 커뮤니티 -->
+          <!-- 2. 장학사업 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-main-link">
-              <span>커뮤니티</span>
+            <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'programs')" class="nav-main-link">
+              <span>장학사업</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
           </li>
 
-          <!-- 3. 자료실 -->
+          <!-- 3. 커뮤니티 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="nav-main-link">
-              <span>자료실</span>
+            <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-main-link">
+              <span>커뮤니티</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
@@ -42,6 +42,16 @@
           <li>
             <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="nav-main-link">
               <span>공지사항</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+          </li>
+
+          <!-- 5. 자료실 -->
+          <li>
+            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'archive')" class="nav-main-link">
+              <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
@@ -62,22 +72,22 @@
               </ul>
             </div>
 
-            <!-- Col 2: 커뮤니티 -->
+            <!-- Col 2: 장학사업 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('scholarship-sub', 'programs')">장학사업</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">· 장학 프로그램</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">· 지원자격 진단</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">· 신청 안내</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: 커뮤니티 -->
             <div class="mega-menu-col">
               <h4 class="mega-col-title" @click="handleNavClick('community-sub', 'board')">커뮤니티</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">· 게시판</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">· 동문찾기</a></li>
-              </ul>
-            </div>
-
-            <!-- Col 3: 자료실 -->
-            <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'apply')">자료실</h4>
-              <ul class="mega-sub-list">
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">· 신청방법</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 결산자료</a></li>
               </ul>
             </div>
 
@@ -88,13 +98,23 @@
                 <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">· 공지사항</a></li>
               </ul>
             </div>
+
+            <!-- Col 5: 자료실 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'archive')">자료실</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 서식자료실</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 결산자료</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('resources-sub', 'apply')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'calc')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="!user">
@@ -182,7 +202,38 @@
             </ul>
           </li>
 
-          <!-- Mobile 2. 커뮤니티 -->
+          <!-- Mobile 2. 장학사업 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'programs')" class="mobile-main-link">
+                장학사업
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="isMobileScholarshipSubOpen = !isMobileScholarshipSubOpen" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileScholarshipSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileScholarshipSubOpen">
+              <li>
+                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">
+                  · 장학 프로그램
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">
+                  · 지원자격 진단
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">
+                  · 신청 안내
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Mobile 3. 커뮤니티 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
               <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="mobile-main-link">
@@ -203,37 +254,6 @@
               <li>
                 <a href="#" @click.prevent="handleNavClick('community-sub', 'alumni')">
                   · 동문찾기
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Mobile 3. 자료실 -->
-          <li class="mobile-dropdown-group">
-            <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="mobile-main-link">
-                자료실
-              </a>
-              <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
-                <svg class="chevron-icon" :class="{ 'rotate': isMobileResourceSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-            </div>
-            <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
-                  · 신청방법
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
-                  · 소식
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
-                  · 결산자료
                 </a>
               </li>
             </ul>
@@ -260,8 +280,39 @@
             </ul>
           </li>
 
+          <!-- Mobile 5. 자료실 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'archive')" class="mobile-main-link">
+                자료실
+              </a>
+              <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
+                <svg class="chevron-icon" :class="{ 'rotate': isMobileResourceSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
+              <li>
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
+                  · 서식자료실
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
+                  · 소식
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
+                  · 결산자료
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('resources-sub', 'apply')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'calc')">장학금 신청</a>
           </li>
         </ul>
 
@@ -315,9 +366,10 @@ const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 
 const isMobileAboutSubOpen = ref(true);
+const isMobileScholarshipSubOpen = ref(false);
 const isMobileCommunitySubOpen = ref(false);
-const isMobileResourceSubOpen = ref(false);
 const isMobileNoticeSubOpen = ref(false);
+const isMobileResourceSubOpen = ref(false);
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -515,11 +567,11 @@ onUnmounted(() => {
   color: var(--primary-color);
 }
 
-/* Mega Menu Container & 4 Columns with Equal Height */
+/* Mega Menu Container & 5 Columns with Equal Height */
 .mega-menu-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 32px 20px 36px;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 32px 16px 36px;
   gap: 0;
   align-items: stretch;
 }
@@ -527,7 +579,7 @@ onUnmounted(() => {
 .mega-menu-col {
   display: flex;
   flex-direction: column;
-  padding: 0 32px;
+  padding: 0 20px;
   border-right: 1px solid rgba(6, 91, 137, 0.1);
 }
 

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.vue';
 import HeroSection from './components/HeroSection.vue';
 import AboutSection from './components/AboutSection.vue';
 import AboutSubpage from './components/AboutSubpage.vue';
+import ScholarshipSubpage from './components/ScholarshipSubpage.vue';
 import CommunitySubpage from './components/CommunitySubpage.vue';
 import ResourcesSubpage from './components/ResourcesSubpage.vue';
 import NoticeSubpage from './components/NoticeSubpage.vue';
@@ -13,14 +14,15 @@ import Footer from './components/Footer.vue';
 import AuthModal from './components/AuthModal.vue';
 import MyPageModal from './components/MyPageModal.vue';
 
-export type ViewType = 'home' | 'about-sub' | 'community-sub' | 'resources-sub' | 'notice-sub';
+export type ViewType = 'home' | 'about-sub' | 'scholarship-sub' | 'community-sub' | 'notice-sub' | 'resources-sub';
 
 const getViewFromHash = (): ViewType => {
   const hash = window.location.hash;
   if (hash.startsWith('#about-sub')) return 'about-sub';
+  if (hash.startsWith('#scholarship-sub')) return 'scholarship-sub';
   if (hash.startsWith('#community-sub')) return 'community-sub';
-  if (hash.startsWith('#resources-sub')) return 'resources-sub';
   if (hash.startsWith('#notice-sub')) return 'notice-sub';
+  if (hash.startsWith('#resources-sub')) return 'resources-sub';
   return 'home';
 };
 
@@ -34,12 +36,14 @@ const navigateTo = (view: ViewType, subTab?: string) => {
   currentView.value = view;
   if (view === 'about-sub') {
     window.location.hash = subTab ? `#about-sub/${subTab}` : '#about-sub/greetings';
+  } else if (view === 'scholarship-sub') {
+    window.location.hash = subTab ? `#scholarship-sub/${subTab}` : '#scholarship-sub/programs';
   } else if (view === 'community-sub') {
     window.location.hash = subTab ? `#community-sub/${subTab}` : '#community-sub/board';
-  } else if (view === 'resources-sub') {
-    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/apply';
   } else if (view === 'notice-sub') {
     window.location.hash = subTab ? `#notice-sub/${subTab}` : '#notice-sub/notice';
+  } else if (view === 'resources-sub') {
+    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/archive';
   } else {
     window.history.pushState("", document.title, window.location.pathname + window.location.search);
   }
@@ -69,14 +73,17 @@ onUnmounted(() => {
       <template v-else-if="currentView === 'about-sub'">
         <AboutSubpage @back="navigateTo('home')" />
       </template>
+      <template v-else-if="currentView === 'scholarship-sub'">
+        <ScholarshipSubpage @back="navigateTo('home')" />
+      </template>
       <template v-else-if="currentView === 'community-sub'">
         <CommunitySubpage @back="navigateTo('home')" />
       </template>
-      <template v-else-if="currentView === 'resources-sub'">
-        <ResourcesSubpage @back="navigateTo('home')" />
-      </template>
       <template v-else-if="currentView === 'notice-sub'">
         <NoticeSubpage @back="navigateTo('home')" />
+      </template>
+      <template v-else-if="currentView === 'resources-sub'">
+        <ResourcesSubpage @back="navigateTo('home')" />
       </template>
     </main>
     <Footer @navigate="navigateTo" />

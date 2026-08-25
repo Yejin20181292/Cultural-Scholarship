@@ -23,6 +23,15 @@
           </div>
           
           <div class="footer-links-col">
+            <h4 class="col-title title-serif">장학사업</h4>
+            <ul>
+              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학 프로그램</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">지원자격 진단</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">신청 안내</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
             <h4 class="col-title title-serif">커뮤니티</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">게시판</a></li>
@@ -31,19 +40,19 @@
           </div>
 
           <div class="footer-links-col">
-            <h4 class="col-title title-serif">자료실</h4>
+            <h4 class="col-title title-serif">공지사항</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">신청방법</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">소식</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">공지사항</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">온라인 장학 신청</a></li>
             </ul>
           </div>
 
           <div class="footer-links-col">
-            <h4 class="col-title title-serif">공지사항</h4>
+            <h4 class="col-title title-serif">자료실</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">공지사항</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">온라인 장학 신청</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">서식자료실</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">소식</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
             </ul>
           </div>
         </div>
@@ -148,7 +157,8 @@ const handleNavClick = (view: ViewType, subTab?: string) => {
 
 .footer-links-group {
   display: flex;
-  gap: 80px;
+  gap: 48px;
+  flex-wrap: wrap;
 }
 
 .footer-links-col h4 {
