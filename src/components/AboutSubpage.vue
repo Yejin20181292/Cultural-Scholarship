@@ -211,7 +211,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
-  { id: 'history', name: '연혁' },
+  { id: 'history', name: '회사연혁' },
   { id: 'contact', name: '찾아오시는 길' }
 ];
 

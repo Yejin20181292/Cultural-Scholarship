@@ -67,7 +67,7 @@
               <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 설립취지 & 인사말</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'history')">· 연혁</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'history')">· 회사연혁</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">· 찾아오시는 길</a></li>
               </ul>
             </div>
@@ -192,7 +192,7 @@
               </li>
               <li>
                 <a href="#" @click.prevent="handleNavClick('about-sub', 'history')">
-                  · 연혁
+                  · 회사연혁
                 </a>
               </li>
               <li>
