@@ -67,7 +67,6 @@
               <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 설립취지 & 인사말</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">· 사업실적</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">· 찾아오시는 길</a></li>
               </ul>
             </div>
@@ -78,6 +77,7 @@
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">· 장학 프로그램</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">· 지원자격 진단</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">· 사업실적</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">· 신청 안내</a></li>
               </ul>
             </div>
@@ -190,11 +190,6 @@
                 </a>
               </li>
               <li>
-                <a href="#" @click.prevent="handleNavClick('about-sub', 'performance')">
-                  · 사업실적
-                </a>
-              </li>
-              <li>
                 <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
                   · 찾아오시는 길
                 </a>
@@ -223,6 +218,11 @@
               <li>
                 <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">
                   · 지원자격 진단
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">
+                  · 사업실적
                 </a>
               </li>
               <li>

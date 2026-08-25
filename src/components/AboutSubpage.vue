@@ -61,85 +61,7 @@
               <div class="portrait-caption">재단 설립자</div>
             </div>
           </div>
-        </div>
-
-
-        <!-- 2. 사업실적 -->
-        <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
-          <div class="performance-simple-wrapper">
-            <div class="glass-card perf-main-card">
-              <!-- Top Banner Quote Text -->
-              <div class="perf-intro-banner">
-                <p class="perf-intro-text">
-                  “(재)신라문화장학재단은<br />지난 47년간 약 5,390명에 달하는 학생들의 소중한 꿈을 지원하였습니다.”
-                </p>
-              </div>
-
-              <!-- Historical Photos Grid -->
-              <div class="perf-photos-grid">
-                <div class="perf-photo-card" @click="openImageModal(historyPhoto1, '제28기 장학증서 수여식')">
-                  <div class="photo-img-wrapper">
-                    <img :src="historyPhoto1" alt="제28기 장학증서 수여식" class="perf-photo-img" />
-                    <div class="photo-zoom-badge">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                      <span>확대보기</span>
-                    </div>
-                  </div>
-                  <div class="photo-caption">제28기 장학증서 수여식</div>
-                </div>
-
-                <div class="perf-photo-card" @click="openImageModal(historyPhoto2, '제1기 장학증서 수여식 (1979.3.17)')">
-                  <div class="photo-img-wrapper">
-                    <img :src="historyPhoto2" alt="제1기 장학증서 수여식 (1979.3.17)" class="perf-photo-img" />
-                    <div class="photo-zoom-badge">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                      <span>확대보기</span>
-                    </div>
-                  </div>
-                  <div class="photo-caption">제1기 장학증서 수여식 (1979.3.17)</div>
-                </div>
-              </div>
-
-              <div class="perf-section-divider"></div>
-
-              <!-- Table Section -->
-              <h2 class="perf-summary-title title-serif">
-                <u>사업 실적</u><span class="year-range">(1979년 ~ 2025년)</span>
-              </h2>
-              
-              <div class="perf-simple-table-wrapper">
-                <table class="perf-simple-table">
-                  <thead>
-                    <tr>
-                      <th class="col-type">사업의 종류</th>
-                      <th class="col-amount">금 &nbsp; &nbsp; &nbsp; 액</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="cell-type">장 &nbsp; &nbsp; 학 &nbsp; &nbsp; 금</td>
-                      <td class="cell-amount">39,046,757,858</td>
-                    </tr>
-                    <tr>
-                      <td class="cell-type">연 &nbsp; &nbsp; 구 &nbsp; &nbsp; 비</td>
-                      <td class="cell-amount">234,400,000</td>
-                    </tr>
-                    <tr>
-                      <td class="cell-type">행 &nbsp; 사 &nbsp; 경 &nbsp; 비</td>
-                      <td class="cell-amount">1,160,483,461</td>
-                    </tr>
-                    <tr class="row-total">
-                      <td class="cell-type">합 &nbsp; &nbsp; &nbsp; &nbsp; 계</td>
-                      <td class="cell-amount total-val">₩40,441,641,319</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. 찾아오시는 길 -->
+        <!-- 2. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -259,7 +181,6 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
-  { id: 'performance', name: '사업실적' },
   { id: 'contact', name: '찾아오시는 길' }
 ];
 
@@ -344,14 +265,6 @@ watch(activeTab, (newTab) => {
     initKakaoMap();
   }
 });
-
-const performanceItems = [
-  { year: '2025', program: '문화예술 꿈나무 및 전통문화 계승 장학', count: '145', amount: '6억 2,000만 원', highlight: '글로벌 아티스트 해외 전시 12회 지원 및 성과발표회 개최' },
-  { year: '2024', program: '전통예술 전수자 및 대학생 창작 지원금', count: '130', amount: '5억 8,000만 원', highlight: '국악·전통공예 이수자 지원 확대 (30명 신규 선발)' },
-  { year: '2023', program: '문화예술 꿈나무 멘토링 및 학업 장학', count: '125', amount: '5억 3,000만 원', highlight: '장학생 멘토링 봉사단 2기 출범 및 아동 멘토링 진행' },
-  { year: '2022', program: '신진 아티스트 및 학술 연구 지원', count: '115', amount: '4억 9,000만 원', highlight: '학술 연구 지원 펀드 1억 원 확충 및 공모전 개최' },
-  { year: '2021', program: '코로나19 긴급 창작 지원 장학금', count: '110', amount: '4억 5,000만 원', highlight: '예술계 격려 특별 지원금 및 온라인 전시회 지원' }
-];
 </script>
 
 <style scoped>

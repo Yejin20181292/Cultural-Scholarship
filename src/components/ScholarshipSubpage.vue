@@ -5,7 +5,7 @@
       <div class="container banner-container">
         <span class="banner-subtitle">SCHOLARSHIP PROGRAMS</span>
         <h1 class="banner-title title-serif">장학사업</h1>
-        <p class="banner-desc">신라문화장학재단이 지원하는 분야별 장학 프로그램 및 지원자격 진단을 안내해드립니다.</p>
+        <p class="banner-desc">신라문화장학재단이 지원하는 분야별 장학 프로그램, 사업실적 및 지원자격 진단을 안내해드립니다.</p>
       </div>
     </div>
 
@@ -122,7 +122,82 @@
           </div>
         </div>
 
-        <!-- 3. 신청 안내 Tab -->
+        <!-- 3. 사업실적 Tab -->
+        <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
+          <div class="performance-simple-wrapper">
+            <div class="glass-card perf-main-card">
+              <!-- Top Banner Quote Text -->
+              <div class="perf-intro-banner">
+                <p class="perf-intro-text">
+                  “(재)신라문화장학재단은<br />지난 47년간 약 5,390명에 달하는 학생들의 소중한 꿈을 지원하였습니다.”
+                </p>
+              </div>
+
+              <!-- Historical Photos Grid -->
+              <div class="perf-photos-grid">
+                <div class="perf-photo-card" @click="openImageModal(historyPhoto1, '제28기 장학증서 수여식')">
+                  <div class="photo-img-wrapper">
+                    <img :src="historyPhoto1" alt="제28기 장학증서 수여식" class="perf-photo-img" />
+                    <div class="photo-zoom-badge">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                      <span>확대보기</span>
+                    </div>
+                  </div>
+                  <div class="photo-caption">제28기 장학증서 수여식</div>
+                </div>
+
+                <div class="perf-photo-card" @click="openImageModal(historyPhoto2, '제1기 장학증서 수여식 (1979.3.17)')">
+                  <div class="photo-img-wrapper">
+                    <img :src="historyPhoto2" alt="제1기 장학증서 수여식 (1979.3.17)" class="perf-photo-img" />
+                    <div class="photo-zoom-badge">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                      <span>확대보기</span>
+                    </div>
+                  </div>
+                  <div class="photo-caption">제1기 장학증서 수여식 (1979.3.17)</div>
+                </div>
+              </div>
+
+              <div class="perf-section-divider"></div>
+
+              <!-- Table Section -->
+              <h2 class="perf-summary-title title-serif">
+                <u>사업 실적</u><span class="year-range">(1979년 ~ 2025년)</span>
+              </h2>
+              
+              <div class="perf-simple-table-wrapper">
+                <table class="perf-simple-table">
+                  <thead>
+                    <tr>
+                      <th class="col-type">사업의 종류</th>
+                      <th class="col-amount">금 &nbsp; &nbsp; &nbsp; 액</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="cell-type">장 &nbsp; &nbsp; 학 &nbsp; &nbsp; 금</td>
+                      <td class="cell-amount">39,046,757,858</td>
+                    </tr>
+                    <tr>
+                      <td class="cell-type">연 &nbsp; &nbsp; 구 &nbsp; &nbsp; 비</td>
+                      <td class="cell-amount">234,400,000</td>
+                    </tr>
+                    <tr>
+                      <td class="cell-type">행 &nbsp; 사 &nbsp; 경 &nbsp; 비</td>
+                      <td class="cell-amount">1,160,483,461</td>
+                    </tr>
+                    <tr class="row-total">
+                      <td class="cell-type">합 &nbsp; &nbsp; &nbsp; &nbsp; 계</td>
+                      <td class="cell-amount total-val">₩40,441,641,319</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 신청 안내 Tab -->
         <div v-if="activeTab === 'guide'" class="tab-pane reveal active">
           <div class="guide-wrapper glass-card">
             <h3 class="guide-title title-serif">장학금 선발 절차 및 신청 안내</h3>
@@ -165,19 +240,59 @@
         </div>
       </div>
     </div>
+
+    <!-- Image Modal / Lightbox -->
+    <Teleport to="body">
+      <Transition name="modal-fade">
+        <div v-if="previewImage" class="image-modal-overlay" @click.self="closeImageModal">
+          <div class="image-modal-content">
+            <button class="image-modal-close" @click="closeImageModal" aria-label="닫기">
+              &times;
+            </button>
+            <div class="image-modal-body">
+              <img :src="previewImage.src" :alt="previewImage.title" class="enlarged-image" />
+            </div>
+            <div class="image-modal-caption">
+              {{ previewImage.title }}
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, watch, onMounted, onUnmounted } from 'vue';
+import historyPhoto1 from '../assets/history_photo1.jpg';
+import historyPhoto2 from '../assets/history_photo2.jpg';
 
 defineEmits(['back']);
 
 const tabs = [
   { id: 'programs', name: '장학 프로그램' },
   { id: 'calc', name: '지원자격 진단' },
+  { id: 'performance', name: '사업실적' },
   { id: 'guide', name: '신청 안내' }
 ];
+
+const previewImage = ref<{ src: string; title: string } | null>(null);
+
+const openImageModal = (src: string, title: string) => {
+  previewImage.value = { src, title };
+  document.body.style.overflow = 'hidden';
+};
+
+const closeImageModal = () => {
+  previewImage.value = null;
+  document.body.style.overflow = '';
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && previewImage.value) {
+    closeImageModal();
+  }
+};
 
 const getTabFromHash = (): string => {
   const hash = window.location.hash;
@@ -259,10 +374,13 @@ watch(
 onMounted(() => {
   updateTabFromHash();
   window.addEventListener('hashchange', updateTabFromHash);
+  window.addEventListener('keydown', handleKeyDown);
 });
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', updateTabFromHash);
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
 });
 </script>
 
@@ -531,6 +649,299 @@ onUnmounted(() => {
   margin-bottom: 24px;
 }
 
+/* Performance (사업실적) */
+.performance-simple-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 40px;
+}
+
+.perf-main-card {
+  width: 100%;
+  max-width: 800px;
+  padding: 45px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.perf-intro-banner {
+  background: rgba(6, 91, 137, 0.04);
+  border: 1px solid rgba(6, 91, 137, 0.15);
+  border-radius: 12px;
+  padding: 22px 30px;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.perf-intro-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color, #065b89);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.perf-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.perf-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  cursor: pointer;
+}
+
+.perf-photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(6, 91, 137, 0.12);
+}
+
+.photo-img-wrapper {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f1f5f9;
+  position: relative;
+}
+
+.perf-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.perf-photo-card:hover .perf-photo-img {
+  transform: scale(1.03);
+}
+
+.photo-zoom-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.perf-photo-card:hover .photo-zoom-badge {
+  opacity: 1;
+}
+
+.photo-caption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary, #475569);
+}
+
+.perf-section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color, #e2e8f0);
+  margin-bottom: 35px;
+}
+
+.perf-summary-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.perf-summary-title u {
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+.perf-summary-title .year-range {
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.perf-simple-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.perf-simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+.perf-simple-table th,
+.perf-simple-table td {
+  border: 1px solid #d1d5db;
+  padding: 16px 24px;
+}
+
+.perf-simple-table th {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--primary-color, #065b89);
+}
+
+.col-type {
+  width: 42%;
+  text-align: center;
+}
+
+.col-amount {
+  width: 58%;
+  text-align: center;
+}
+
+.cell-type {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.cell-amount {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+  padding-right: 36px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.row-total .cell-type,
+.row-total .cell-amount {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Image Modal / Lightbox */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(12, 21, 36, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.image-modal-close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+  z-index: 2010;
+}
+
+.image-modal-close:hover {
+  transform: scale(1.1);
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.image-modal-body {
+  max-width: 100%;
+  max-height: calc(85vh - 60px);
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enlarged-image {
+  max-width: 100%;
+  max-height: calc(85vh - 60px);
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.image-modal-caption {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Modal Fade Animation */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
 /* Guide Wrapper */
 .guide-wrapper {
   max-width: 960px;
@@ -623,5 +1034,8 @@ onUnmounted(() => {
   .calc-form { grid-template-columns: 1fr; }
   .process-steps { flex-direction: column; }
   .step-arrow { transform: rotate(90deg); margin: 8px 0; }
+  .perf-main-card { padding: 28px 18px; }
+  .perf-photos-grid { grid-template-columns: 1fr; gap: 18px; }
+  .photo-img-wrapper { height: 200px; }
 }
 </style>
