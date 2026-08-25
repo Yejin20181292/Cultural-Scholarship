@@ -59,8 +59,9 @@
             <div class="greetings-portrait-wrapper">
               <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 설립자" class="founder-portrait-img" />
               <div class="portrait-caption">재단 설립자</div>
-            </div>
           </div>
+        </div>
+
         <!-- 2. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
