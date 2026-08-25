@@ -63,7 +63,35 @@
           </div>
         </div>
 
-        <!-- 2. 찾아오시는 길 -->
+        <!-- 2. 연혁 (History) -->
+        <div v-if="activeTab === 'history'" class="tab-pane reveal active">
+          <div class="history-timeline-wrapper glass-card">
+            <div class="timeline-header">
+              <span class="timeline-subtitle">FOUNDATION HISTORY</span>
+              <h2 class="timeline-title title-serif">신라문화장학재단 발자취</h2>
+              <p class="timeline-desc">1978년 설립 이래 인재 육성과 문화예술 발전을 위해 걸어온 47년간의 역사입니다.</p>
+            </div>
+
+            <div class="timeline-container">
+              <div v-for="item in historyData" :key="item.era" class="timeline-era-block">
+                <div class="era-badge-column">
+                  <span class="era-badge title-serif">{{ item.era }}</span>
+                </div>
+                <div class="timeline-content-column">
+                  <div v-for="event in item.events" :key="event.year" class="timeline-event-card">
+                    <div class="event-year-tag">{{ event.year }}</div>
+                    <div class="event-body">
+                      <h4 class="event-title">{{ event.title }}</h4>
+                      <p class="event-desc">{{ event.desc }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -183,7 +211,36 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
+  { id: 'history', name: '연혁' },
   { id: 'contact', name: '찾아오시는 길' }
+];
+
+const historyData = [
+  {
+    era: '2020s ~ 현재',
+    events: [
+      { year: '2025.12', title: '누적 장학생 5,390명 배출 및 지원액 400억 원 돌파', desc: '47년간 지속적인 장학 사업을 통해 국내외 문화예술 및 학술 인재 육성 성과 달성' },
+      { year: '2023.05', title: '글로벌 아티스트 장학 프로그램 확대', desc: '해외 예술대학(원) 진학자 및 글로벌 콩쿠르 참가 장학생에 대한 파리·유럽 연수 지원' },
+      { year: '2021.03', title: '문화예술 꿈나무 및 전통문화 계승 장학 개편', desc: '초·중·고 예능 인재 1:1 명사 멘토링 매칭 및 무형문화재 전수자 지원 강화' }
+    ]
+  },
+  {
+    era: '2000s ~ 2010s',
+    events: [
+      { year: '2018.10', title: '제40기 장학증서 수여식 및 동문 네트워킹 데이', desc: '역대 장학생 및 후원자가 함께하는 멘토링 네트워크 프로그램 개시' },
+      { year: '2011.04', title: '재단법인 인재 육성 공모 사업 도입', desc: '순수미술, 음악, 전통공예 등 예술 전공자 대상 전액 등록금 지원 사업 시행' },
+      { year: '2005.09', title: '장학 재단 기본 재산 200억 원 확충', desc: '안정적인 장학 사업 추진을 위한 기본 재산 증자 및 서울 송파 사옥 확보' }
+    ]
+  },
+  {
+    era: '1978s ~ 1990s',
+    events: [
+      { year: '1996.03', title: '누적 장학생 1,000명 돌파', desc: '전국 우수 대학생 및 학술 연구자에 대한 연구 장려금 확대 지원' },
+      { year: '1988.05', title: '학술연구비 및 대학생 연구 지원 확대', desc: '인문·예술 분야 연구자에 대한 장학금 지원 규정 신설' },
+      { year: '1979.03', title: '제1기 장학증서 수여식 개최 (1979. 3. 17)', desc: '재단법인 신라문화장학재단 설립 승인 및 첫 번째 장학생 수여식 집행' },
+      { year: '1978.11', title: '재단법인 신라문화장학재단 설립 발기인 대회', desc: '경제적 여건에 구애받지 않고 인재를 육성하기 위한 장학재단 설립 추진' }
+    ]
+  }
 ];
 
 const getTabFromHash = (): string => {
@@ -471,6 +528,129 @@ watch(activeTab, (newTab) => {
   font-weight: 500;
   color: var(--primary-color);
   text-align: center;
+}
+
+/* 2. History Timeline (연혁) */
+.history-timeline-wrapper {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 45px 50px;
+  text-align: left;
+}
+
+.timeline-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.timeline-subtitle {
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.timeline-title {
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.timeline-desc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: relative;
+}
+
+.timeline-era-block {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 30px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.era-badge-column {
+  position: sticky;
+  top: 100px;
+}
+
+.era-badge {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.timeline-content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 2px dashed rgba(6, 91, 137, 0.2);
+  padding-left: 28px;
+}
+
+.timeline-event-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.timeline-event-card::before {
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.timeline-event-card:hover {
+  transform: translateX(4px);
+  border-color: var(--primary-color);
+  box-shadow: 0 6px 20px rgba(6, 91, 137, 0.08);
+}
+
+.event-year-tag {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.event-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
 }
 
 /* 2. Mission & Vision */
