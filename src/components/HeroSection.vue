@@ -10,7 +10,7 @@
         <span class="hero-subtitle title-serif floating">SILLA CULTURAL SCHOLARSHIP FOUNDATION</span>
         <h1 class="hero-title title-serif">
           신라문화장학재단이<br />
-          <span class="highlight">함께하겠습니다.</span>
+          <span class="highlight">함께할게요.</span>
         </h1>
         <p class="hero-description">
           신라문화장학재단은 재능 있는 예술 인재들이 경제적 어려움 없이 창의성과 잠재력을 발휘하여 
