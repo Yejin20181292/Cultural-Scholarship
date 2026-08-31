@@ -18,6 +18,7 @@
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">설립취지 & 인사말</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'history')">회사연혁</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'donors')">출연사</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">찾아오시는 길</a></li>
             </ul>
           </div>

@@ -91,7 +91,71 @@
           </div>
         </div>
 
-        <!-- 3. 찾아오시는 길 -->
+        <!-- 3. 출연사 (Donors & Contributors) -->
+        <div v-if="activeTab === 'donors'" class="tab-pane reveal active">
+          <div class="donors-wrapper glass-card">
+            <div class="donors-header">
+              <span class="donors-subtitle">FOUNDATION CONTRIBUTORS & PARTNERS</span>
+              <h2 class="donors-title title-serif">신라문화장학재단 출연사 안내</h2>
+              <p class="donors-desc">인재 육성과 문화예술 발전을 위해 뜻을 함께하고 장학 기금을 출연해 주신 동반자 기업입니다.</p>
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="donors-stats-grid">
+              <div class="donor-stat-card">
+                <div class="stat-icon">🏢</div>
+                <div class="stat-info">
+                  <span class="stat-num">12개사</span>
+                  <span class="stat-label">총 출연 기업</span>
+                </div>
+              </div>
+              <div class="donor-stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                  <span class="stat-num">350억 원</span>
+                  <span class="stat-label">누적 출연 기금</span>
+                </div>
+              </div>
+              <div class="donor-stat-card">
+                <div class="stat-icon">🤝</div>
+                <div class="stat-info">
+                  <span class="stat-num">47년</span>
+                  <span class="stat-label">동반 파트너십</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Donors Grid -->
+            <div class="donors-grid">
+              <div v-for="company in donorCompanies" :key="company.name" class="donor-card">
+                <div class="donor-card-header">
+                  <div class="donor-avatar-box">
+                    <span class="donor-avatar-text">{{ company.logoText }}</span>
+                  </div>
+                  <div class="donor-title-group">
+                    <h4 class="donor-name">{{ company.name }}</h4>
+                    <span class="donor-category-badge">{{ company.category }}</span>
+                  </div>
+                </div>
+                <p class="donor-desc">{{ company.desc }}</p>
+                <div class="donor-footer-meta">
+                  <span class="meta-label">출연 기간</span>
+                  <span class="meta-value">{{ company.period }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Banner -->
+            <div class="donors-footer-banner">
+              <div class="banner-icon">💡</div>
+              <p class="banner-text">
+                <strong>신라문화장학재단</strong>은 출연사들의 고귀한 뜻을 이어받아 투명하고 명확한 장학 기금 운용으로 미래를 이끌어갈 학술 및 문화예술 인재를 아낌없이 지원하겠습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -212,7 +276,53 @@ const handleKeyDown = (e: KeyboardEvent) => {
 const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
   { id: 'history', name: '회사연혁' },
+  { id: 'donors', name: '출연사' },
   { id: 'contact', name: '찾아오시는 길' }
+];
+
+const donorCompanies = [
+  {
+    name: '(주)신라산업',
+    logoText: '신라',
+    category: '주력 출연사',
+    desc: '재단 설립 발기인 기업으로, 지속적인 기본 재산 증자 및 학술 장학 기금 출연을 통해 장학 사업의 터전을 마련했습니다.',
+    period: '1978년 ~ 현재'
+  },
+  {
+    name: '신라건설(주)',
+    logoText: '건설',
+    category: '예술·문화 인재 기금',
+    desc: '전통 문화예술 보존 및 청년 예술가 멘토링 지원을 위한 전용 장학 펀드를 지속적으로 출연하고 있습니다.',
+    period: '1985년 ~ 현재'
+  },
+  {
+    name: '(주)신라통상',
+    logoText: '통상',
+    category: '글로벌 연수 펀드',
+    desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.',
+    period: '1992년 ~ 현재'
+  },
+  {
+    name: '신라에너지(주)',
+    logoText: '에너지',
+    category: '전통문화 계승 펀드',
+    desc: '무형문화재 전수자 및 초·중·고 예능 꿈나무 육성을 위해 특화된 장학 기금을 전액 지원하고 있습니다.',
+    period: '2001년 ~ 현재'
+  },
+  {
+    name: '(주)신라로지스',
+    logoText: '로지스',
+    category: '미래 융합 인재 기금',
+    desc: '학술 연구자 및 ICT 융합 문화예술 프로젝트 분야 지원을 위한 장학 기금을 지속 출연합니다.',
+    period: '2008년 ~ 현재'
+  },
+  {
+    name: '(주)신라미디어',
+    logoText: '미디어',
+    category: '미디어·공연 지원 기금',
+    desc: '청년 창작자 공모전 및 전시·연주회 개최 후원 펀드를 출연하여 예술 생태계 활성화에 기여합니다.',
+    period: '2015년 ~ 현재'
+  }
 ];
 
 const historyData = [
@@ -1212,5 +1322,222 @@ watch(activeTab, (newTab) => {
     flex-direction: column;
     align-items: center;
   }
+
+  .donors-wrapper {
+    padding: 30px 20px;
+  }
+
+  .donors-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donors-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Donors Tab Styles */
+.donors-wrapper {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  padding: 45px 50px;
+  text-align: left;
+}
+
+.donors-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.donors-subtitle {
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.donors-title {
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.donors-desc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.donors-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.donor-stat-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(6, 91, 137, 0.04);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.donor-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(6, 91, 137, 0.1);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  background: rgba(6, 91, 137, 0.08);
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.donors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.donor-card {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.donor-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 28px rgba(6, 91, 137, 0.12);
+}
+
+.donor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.donor-avatar-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary-color), #097ab7);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(6, 91, 137, 0.2);
+}
+
+.donor-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.donor-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.donor-category-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: rgba(6, 91, 137, 0.08);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.donor-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.donor-footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(6, 91, 137, 0.15);
+  font-size: 0.82rem;
+}
+
+.meta-label {
+  color: var(--text-muted);
+}
+
+.meta-value {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.donors-footer-banner {
+  background: linear-gradient(135deg, rgba(6, 91, 137, 0.06), rgba(6, 91, 137, 0.02));
+  border: 1px solid rgba(6, 91, 137, 0.15);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.banner-text {
+  font-size: 0.93rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
 }
 </style>
