@@ -145,13 +145,6 @@
               </div>
             </div>
 
-            <!-- Bottom Banner -->
-            <div class="donors-footer-banner">
-              <div class="banner-icon">💡</div>
-              <p class="banner-text">
-                <strong>신라문화장학재단</strong>은 출연사들의 고귀한 뜻을 이어받아 투명하고 명확한 장학 기금 운용으로 미래를 이끌어갈 학술 및 문화예술 인재를 아낌없이 지원하겠습니다.
-              </p>
-            </div>
           </div>
         </div>
 
