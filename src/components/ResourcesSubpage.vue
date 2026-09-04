@@ -4,7 +4,7 @@
     <div class="sub-banner">
       <div class="container banner-container">
         <span class="banner-subtitle">RESOURCES & GUIDELINES</span>
-        <h1 class="banner-title title-serif">자료실 & 장학 안내</h1>
+        <h1 class="banner-title title-serif">자료실</h1>
         <p class="banner-desc">신라문화장학재단 장학금 신청 안내, 언론 소식 및 결산 서류를 안내해드립니다.</p>
       </div>
     </div>
