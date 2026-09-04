@@ -41,7 +41,7 @@
                 <li>직전 학기 평균 학점 4.3 만점 기준 4.5 환산 3.0 이상</li>
                 <li>교환 학생 및 P/F 수업은 PASS 학점을 자격 유지 성적으로 인정</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('youth')">자세히 보기</button>
+              <button class="btn btn-outline card-btn" @click="openDetail('youth')">자세히 보기</button>
             </div>
 
             <!-- Program 2 -->
@@ -55,7 +55,7 @@
                 <li>무형문화재 전수 교육 및 이수 활동비 지원</li>
                 <li>해외 전통예술 문화교류 쇼케이스 기회 제공</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('heritage')">자세히 보기</button>
+              <button class="btn btn-outline card-btn" @click="openDetail('heritage')">자세히 보기</button>
             </div>
 
             <!-- Program 3 -->
@@ -69,12 +69,12 @@
                 <li>세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원</li>
                 <li>글로벌 갤러리 및 매니지먼트 소개 네트워킹</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('global')">자세히 보기</button>
+              <button class="btn btn-outline card-btn" @click="openDetail('global')">자세히 보기</button>
             </div>
           </div>
 
           <!-- Interactive Calculator / Checker -->
-          <div class="calculator-wrapper glass-card">
+          <div class="calculator-wrapper glass-card" ref="calcRef">
             <h3 class="calc-title title-serif">나의 장학금 지원 자격 알아보기</h3>
             <p class="calc-desc">간단히 정보를 선택해 지원 가능한 장학 프로그램을 실시간으로 확인해보세요.</p>
             
@@ -173,11 +173,62 @@
         </div>
       </div>
     </div>
+
+    <!-- Detail Modal -->
+    <Transition name="modal-fade">
+      <div v-if="activeDetail" class="detail-modal-overlay" @click.self="closeDetail">
+        <div class="detail-modal-content" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title">
+          <button class="detail-modal-close" @click="closeDetail" aria-label="닫기">&times;</button>
+
+          <div class="detail-modal-header">
+            <span class="detail-modal-badge title-serif">{{ activeDetail.badge }}</span>
+            <h3 id="detail-modal-title" class="detail-modal-title">{{ activeDetail.title }}</h3>
+            <p class="detail-modal-target">{{ activeDetail.target }}</p>
+          </div>
+
+          <div class="detail-modal-body">
+            <section v-for="section in activeDetail.sections" :key="section.heading" class="detail-section">
+              <h4 class="detail-section-heading">{{ section.heading }}</h4>
+
+              <ol class="detail-section-list" :class="{ numbered: section.items.some(it => it.sub) }">
+                <li v-for="(item, i) in section.items" :key="i" class="detail-item">
+                  <span class="detail-item-text">{{ item.text }}</span>
+
+                  <ul v-if="item.sub" class="detail-sub-list">
+                    <li v-for="(s, j) in item.sub" :key="j">
+                      <span class="detail-sub-marker">{{ circled(j) }}</span>
+                      <span>{{ s }}</span>
+                    </li>
+                  </ul>
+
+                  <p v-if="item.caption" class="detail-item-caption">({{ item.caption }})</p>
+                </li>
+              </ol>
+
+              <div v-if="section.note" class="detail-note">
+                <p v-for="(line, i) in section.note.lines" :key="i" class="detail-note-line">
+                  <span v-if="i === 0" class="detail-note-mark">※</span>{{ line }}
+                </p>
+                <p v-if="section.note.email" class="detail-note-line detail-note-email">
+                  {{ section.note.emailLabel }} :
+                  <a :href="`mailto:${section.note.email}`">{{ section.note.email }}</a>
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <div class="detail-modal-footer">
+            <button class="btn btn-primary" @click="goToChecker">내 지원 자격 진단하기</button>
+            <button class="btn btn-outline" @click="closeDetail">닫기</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
 
 defineEmits(['back']);
 
@@ -218,6 +269,134 @@ const form = reactive({
 
 const resultTitle = ref('');
 const resultText = ref('');
+
+// Detail Modal
+// 카드 3개의 "자세히 보기" 상세 내용. 재단 확정 문구가 나오면 sections 안의 items만 교체하면 된다.
+interface DetailItem {
+  text: string;
+  sub?: string[];
+  caption?: string;
+}
+
+interface DetailNote {
+  lines: string[];
+  emailLabel?: string;
+  email?: string;
+}
+
+interface DetailSection {
+  heading: string;
+  items: DetailItem[];
+  note?: DetailNote;
+}
+
+interface DetailContent {
+  badge: string;
+  title: string;
+  target: string;
+  sections: DetailSection[];
+}
+
+// ① ② ③ ... 하위 항목 기호. 9개를 넘으면 숫자로 대체된다.
+const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
+const circled = (i: number) => CIRCLED[i] ?? `${i + 1}.`;
+
+const details: Record<string, DetailContent> = {
+  youth: {
+    badge: '01',
+    title: '장학생 자격 유지 조건',
+    target: '대상: 국내 소재 대학교 재학생',
+    sections: [
+      {
+        heading: '자격 유지 성적 기준',
+        items: [
+          {
+            text: '직전 학기 평균 학점이 아래의 기준을 충족해야 함',
+            sub: ['4.5 만점 기준 : 3.0 이상', '4.3 만점 기준 : 4.5 환산 3.0 이상'],
+            caption: '각 대학교에 따라서 차이가 있을 수 있으며, 소속 대학교별 환산 점수에 따름'
+          },
+          {
+            text: '교환 학생 및 P/F 수업 이수 학생',
+            sub: ['PASS 학점을 자격 유지 성적으로 인정']
+          }
+        ],
+        note: {
+          lines: [
+            '성적 기준 미달의 경우 성적 증명서와 성적 미달 사유서(자유 양식)를 재단 장학담당자 메일로 제출',
+            '성적 기준 미달 발생시 1회에 한해서 자격 유지 심사'
+          ],
+          emailLabel: '장학담당자 메일',
+          email: 'silla_yujin@naver.com'
+        }
+      }
+    ]
+  },
+  heritage: {
+    badge: '02',
+    title: '전통문화 계승 장학금',
+    target: '대상: 국악·전통공예·무형문화재 전수자',
+    sections: [
+      {
+        heading: '지원 내용',
+        items: [
+          { text: '학기당 등록금 최대 500만 원 지원' },
+          { text: '무형문화재 전수 교육 및 이수 활동비 지원' },
+          { text: '해외 전통예술 문화교류 쇼케이스 기회 제공' }
+        ]
+      },
+      {
+        heading: '신청 방법 및 제출 서류',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
+  },
+  global: {
+    badge: '03',
+    title: '글로벌 아티스트 장학금',
+    target: '대상: 해외 예술대학(원) 진학/재학생',
+    sections: [
+      {
+        heading: '지원 내용',
+        items: [
+          { text: '연간 최대 2,000만 원 체재비 및 학비 후원' },
+          { text: '세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원' },
+          { text: '글로벌 갤러리 및 매니지먼트 소개 네트워킹' }
+        ]
+      },
+      {
+        heading: '신청 방법 및 제출 서류',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
+  }
+};
+
+const detailKey = ref<string | null>(null);
+const activeDetail = computed(() => (detailKey.value ? details[detailKey.value] : null));
+const calcRef = ref<HTMLElement | null>(null);
+
+const openDetail = (type: string) => {
+  if (!details[type]) return;
+  detailKey.value = type;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeDetail = () => {
+  detailKey.value = null;
+  document.body.style.overflow = '';
+};
+
+// 모달에서 바로 하단 자격 진단 계산기로 연결한다.
+const goToChecker = () => {
+  const type = detailKey.value;
+  closeDetail();
+  if (type) openCheck(type);
+  calcRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && detailKey.value) closeDetail();
+};
 
 const openCheck = (type: string) => {
   if (type === 'youth') {
@@ -339,10 +518,13 @@ const resources = [
 onMounted(() => {
   updateTabFromHash();
   window.addEventListener('hashchange', updateTabFromHash);
+  window.addEventListener('keydown', handleKeyDown);
 });
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', updateTabFromHash);
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
 });
 </script>
 
@@ -794,5 +976,276 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .banner-desc { white-space: normal; }
+}
+
+/* Detail Modal */
+.detail-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(12, 21, 36, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.detail-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.detail-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
+  font-size: 1.7rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  z-index: 2010;
+}
+
+.detail-modal-close:hover {
+  background: var(--primary-color);
+  color: var(--white);
+  transform: scale(1.08);
+}
+
+.detail-modal-header {
+  padding: 32px 32px 24px;
+  background: linear-gradient(135deg, rgba(6, 91, 137, 0.06) 0%, rgba(6, 91, 137, 0) 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-modal-badge {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.detail-modal-title {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.detail-modal-target {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.detail-modal-body {
+  padding: 28px 32px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.detail-section + .detail-section {
+  margin-top: 26px;
+}
+
+.detail-section-heading {
+  font-size: 1.05rem;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  padding-left: 12px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.detail-section-list {
+  list-style: none;
+  counter-reset: detail-item;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-section-list > li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* 하위 항목이 없는 단순 목록: 점 불릿 */
+.detail-section-list > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  opacity: 0.45;
+}
+
+/* 하위 항목이 있는 목록: 1) 2) 번호 */
+.detail-section-list.numbered > li {
+  padding-left: 26px;
+}
+
+.detail-section-list.numbered > li::before {
+  counter-increment: detail-item;
+  content: counter(detail-item) ')';
+  top: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  opacity: 1;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.detail-item-text {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.detail-sub-list {
+  list-style: none;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-sub-list li {
+  display: flex;
+  gap: 8px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.detail-sub-marker {
+  flex-shrink: 0;
+  color: var(--primary-color);
+  opacity: 0.75;
+}
+
+.detail-item-caption {
+  margin-top: 6px;
+  padding-left: 22px;
+  font-size: 0.87rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.detail-note {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--primary-color);
+  border-radius: 0 8px 8px 0;
+  background: rgba(6, 91, 137, 0.05);
+}
+
+.detail-note-line {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.detail-note-line + .detail-note-line {
+  margin-top: 6px;
+}
+
+.detail-note-mark {
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.detail-note-line + .detail-note-email {
+  margin-top: 10px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.detail-note-email a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.detail-note-email a:hover {
+  color: var(--secondary-color);
+}
+
+.detail-modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 20px 32px;
+  border-top: 1px solid var(--border-color);
+  background: rgba(248, 250, 252, 0.7);
+}
+
+@media (max-width: 600px) {
+  .detail-modal-header,
+  .detail-modal-body,
+  .detail-modal-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .detail-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .detail-modal-footer .btn {
+    width: 100%;
+  }
+}
+
+/* Modal Fade Animation */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.modal-fade-enter-active .detail-modal-content,
+.modal-fade-leave-active .detail-modal-content {
+  transition: transform 0.25s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-from .detail-modal-content,
+.modal-fade-leave-to .detail-modal-content {
+  transform: scale(0.96);
 }
 </style>
