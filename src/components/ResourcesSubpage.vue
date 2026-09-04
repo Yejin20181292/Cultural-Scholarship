@@ -39,7 +39,7 @@
               <ul class="program-details">
                 <li>직전 학기 평균 학점 4.5만점 기준 3.0 이상</li>
                 <li>직전 학기 평균 학점 4.3 만점 기준 4.5 환산 3.0 이상</li>
-                <li>매년 연말 재단 장학생 성과 전시/발표 기회</li>
+                <li>교환 학생 및 P/F 수업은 PASS 학점을 자격 유지 성적으로 인정</li>
               </ul>
               <button class="btn btn-outline card-btn" @click="openCheck('youth')">자세히 보기</button>
             </div>
