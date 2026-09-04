@@ -27,7 +27,7 @@
 
       <!-- Tab Content Area -->
       <div class="tab-view-content">
-        <!-- 1. 신청방법 Tab -->
+        <!-- 1. 신고 및 신청 Tab -->
         <div v-if="activeTab === 'apply'" class="tab-pane reveal active">
           <div class="programs-grid">
             <!-- Program 1 -->
@@ -182,7 +182,7 @@ import { ref, reactive, watch, onMounted, onUnmounted } from 'vue';
 defineEmits(['back']);
 
 const tabs = [
-  { id: 'apply', name: '신청방법' },
+  { id: 'apply', name: '신고 및 신청' },
   { id: 'news', name: '소식' },
   { id: 'archive', name: '결산자료' }
 ];

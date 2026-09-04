@@ -103,7 +103,7 @@
             <div class="mega-menu-col">
               <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'archive')">자료실</h4>
               <ul class="mega-sub-list">
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 서식자료실</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">· 신고 및 신청</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 결산자료</a></li>
               </ul>
@@ -294,8 +294,8 @@
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
               <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
-                  · 서식자료실
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">
+                  · 신고 및 신청
                 </a>
               </li>
               <li>

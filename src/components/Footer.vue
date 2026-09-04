@@ -50,7 +50,7 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">자료실</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">서식자료실</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">신고 및 신청</a></li>
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">소식</a></li>
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
             </ul>
