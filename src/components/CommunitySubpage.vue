@@ -84,9 +84,8 @@
             <div class="alumni-filter-bar glass-card">
               <div class="filter-buttons">
                 <button class="filter-chip" :class="{ active: selectedAlumniFilter === 'all' }" @click="selectedAlumniFilter = 'all'">전체 동문</button>
-                <button class="filter-chip" :class="{ active: selectedAlumniFilter === '순수예술' }" @click="selectedAlumniFilter = '순수예술'">순수예술</button>
-                <button class="filter-chip" :class="{ active: selectedAlumniFilter === '전통문화' }" @click="selectedAlumniFilter = '전통문화'">전통문화</button>
-                <button class="filter-chip" :class="{ active: selectedAlumniFilter === '미디어아트' }" @click="selectedAlumniFilter = '미디어아트'">미디어아트</button>
+                <button class="filter-chip" :class="{ active: selectedAlumniFilter === '재학생' }" @click="selectedAlumniFilter = '재학생'">재학생</button>
+                <button class="filter-chip" :class="{ active: selectedAlumniFilter === '졸업생' }" @click="selectedAlumniFilter = '졸업생'">졸업생</button>
               </div>
               <div class="alumni-search-box">
                 <input type="text" v-model="alumniSearchQuery" placeholder="동문 이름 / 전공 검색..." class="alumni-input" />
@@ -188,15 +187,15 @@ const selectedAlumniFilter = ref('all');
 const alumniSearchQuery = ref('');
 
 const alumniList = [
-  { id: 1, name: '이지윤', cohort: '7기 장학생', category: '전통문화', field: '가야금 병창 전공', achievement: '국가무형문화재 최연소 이수자 선정', avatarBg: 'linear-gradient(135deg, #c5a880 0%, #8c6d4f 100%)' },
-  { id: 2, name: '송민우', cohort: '8기 장학생', category: '미디어아트', field: '디지털 캔버스 & 3D', achievement: '인사동 갤러리 단독 초대전 개최', avatarBg: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)' },
-  { id: 3, name: '한소희', cohort: '5기 장학생', category: '순수예술', field: '클래식 바이올린', achievement: '파리 국립 고등음악원 수석 입학', avatarBg: 'linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)' },
-  { id: 4, name: '강현우', cohort: '6기 장학생', category: '순수예술', field: '조소 & 아날로그 조각', achievement: '대한민국 미술대전 대상 수상', avatarBg: 'linear-gradient(135deg, #4f3b32 0%, #c5a880 100%)' }
+  { id: 1, name: '이지윤', cohort: '7기 장학생', status: '재학생', category: '전통문화', field: '가야금 병창 전공', achievement: '국가무형문화재 최연소 이수자 선정', avatarBg: 'linear-gradient(135deg, #c5a880 0%, #8c6d4f 100%)' },
+  { id: 2, name: '송민우', cohort: '8기 장학생', status: '재학생', category: '미디어아트', field: '디지털 캔버스 & 3D', achievement: '인사동 갤러리 단독 초대전 개최', avatarBg: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)' },
+  { id: 3, name: '한소희', cohort: '5기 장학생', status: '졸업생', category: '순수예술', field: '클래식 바이올린', achievement: '파리 국립 고등음악원 수석 입학', avatarBg: 'linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)' },
+  { id: 4, name: '강현우', cohort: '6기 장학생', status: '졸업생', category: '순수예술', field: '조소 & 아날로그 조각', achievement: '대한민국 미술대전 대상 수상', avatarBg: 'linear-gradient(135deg, #4f3b32 0%, #c5a880 100%)' }
 ];
 
 const filteredAlumniList = computed(() => {
   return alumniList.filter(item => {
-    const matchesFilter = selectedAlumniFilter.value === 'all' || item.category === selectedAlumniFilter.value;
+    const matchesFilter = selectedAlumniFilter.value === 'all' || item.status === selectedAlumniFilter.value;
     const matchesQuery = !alumniSearchQuery.value || item.name.includes(alumniSearchQuery.value) || item.field.includes(alumniSearchQuery.value);
     return matchesFilter && matchesQuery;
   });
