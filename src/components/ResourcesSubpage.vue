@@ -33,7 +33,7 @@
             <!-- Program 1 -->
             <div class="glass-card program-card">
               <div class="program-badge title-serif">01</div>
-              <h3 class="program-title">문화예술 꿈나무 장학금</h3>
+              <h3 class="program-title">장학생 자격 유지 조건</h3>
               <p class="program-target">대상: 초·중·고교 재능 보유 학생</p>
               <div class="program-divider"></div>
               <ul class="program-details">
