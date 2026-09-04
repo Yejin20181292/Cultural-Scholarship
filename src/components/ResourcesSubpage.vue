@@ -37,7 +37,7 @@
               <p class="program-target">대상: 국내 소재 대학교 재학생</p>
               <div class="program-divider"></div>
               <ul class="program-details">
-                <li>월 50만 원 학업/창작 장려금 지원</li>
+                <li>직전 학기 평균 학점 4.5만점 기준 3.0 이상</li>
                 <li>분야별 예술계 거장과의 1:1 멘토링 매칭</li>
                 <li>매년 연말 재단 장학생 성과 전시/발표 기회</li>
               </ul>
