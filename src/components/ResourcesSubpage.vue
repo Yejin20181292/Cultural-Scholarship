@@ -1034,7 +1034,7 @@ onUnmounted(() => {
 }
 
 .detail-modal-header {
-  padding: 32px 32px 24px;
+  padding: 32px 32px 6px;
   background: linear-gradient(135deg, rgba(6, 91, 137, 0.06) 0%, rgba(6, 91, 137, 0) 100%);
   border-bottom: 1px solid var(--border-color);
 }
@@ -1060,7 +1060,7 @@ onUnmounted(() => {
 }
 
 .detail-modal-body {
-  padding: 28px 32px;
+  padding: 7px 32px 28px;
   overflow-y: auto;
   flex: 1;
 }
