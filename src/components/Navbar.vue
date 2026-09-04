@@ -78,9 +78,7 @@
               <h4 class="mega-col-title" @click="handleNavClick('scholarship-sub', 'programs')">장학사업</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">· 장학 프로그램</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">· 지원자격 진단</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">· 사업실적</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">· 신청 안내</a></li>
               </ul>
             </div>
 
@@ -116,7 +114,7 @@
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'calc')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="!user">
@@ -228,18 +226,8 @@
                 </a>
               </li>
               <li>
-                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'calc')">
-                  · 지원자격 진단
-                </a>
-              </li>
-              <li>
                 <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">
                   · 사업실적
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'guide')">
-                  · 신청 안내
                 </a>
               </li>
             </ul>
@@ -324,7 +312,7 @@
           </li>
 
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'calc')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학금 신청</a>
           </li>
         </ul>
 

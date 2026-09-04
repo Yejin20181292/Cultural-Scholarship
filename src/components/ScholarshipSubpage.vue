@@ -5,7 +5,7 @@
       <div class="container banner-container">
         <span class="banner-subtitle">SCHOLARSHIP PROGRAMS</span>
         <h1 class="banner-title title-serif">장학사업</h1>
-        <p class="banner-desc">신라문화장학재단이 지원하는 분야별 장학 프로그램, 사업실적 및 지원자격 진단을 안내해드립니다.</p>
+        <p class="banner-desc">신라문화장학재단이 지원하는 분야별 장학 프로그램과 사업실적을 안내해드립니다.</p>
       </div>
     </div>
 
@@ -41,7 +41,6 @@
                 <li>분야별 예술계 거장과의 1:1 멘토링 매칭</li>
                 <li>매년 연말 재단 장학생 성과 전시/발표 기회</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('youth')">자격 진단하기</button>
             </div>
 
             <!-- Program 2 -->
@@ -55,7 +54,6 @@
                 <li>무형문화재 전수 교육 및 이수 활동비 지원</li>
                 <li>해외 전통예술 문화교류 쇼케이스 기회 제공</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('heritage')">자격 진단하기</button>
             </div>
 
             <!-- Program 3 -->
@@ -69,60 +67,11 @@
                 <li>세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원</li>
                 <li>글로벌 갤러리 및 매니지먼트 소개 네트워킹</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openCheck('global')">자격 진단하기</button>
             </div>
           </div>
         </div>
 
-        <!-- 2. 지원자격 진단 Tab -->
-        <div v-if="activeTab === 'calc'" class="tab-pane reveal active">
-          <div class="calculator-wrapper glass-card">
-            <h3 class="calc-title title-serif">나의 장학금 지원 자격 알아보기</h3>
-            <p class="calc-desc">간단히 정보를 선택해 지원 가능한 장학 프로그램을 실시간으로 확인해보세요.</p>
-            
-            <div class="calc-form">
-              <div class="form-group">
-                <label>학력 상태</label>
-                <select v-model="form.education">
-                  <option value="">선택해주세요</option>
-                  <option value="school">초·중·고교 재학생</option>
-                  <option value="college">대학교 재학생</option>
-                  <option value="graduate">대학원생 이상</option>
-                </select>
-              </div>
-              
-              <div class="form-group">
-                <label>예술 분야</label>
-                <select v-model="form.category">
-                  <option value="">선택해주세요</option>
-                  <option value="fine-arts">순수예술 (미술, 음악, 무용, 문학)</option>
-                  <option value="traditional">전통문화 (국악, 전통공예, 무형문화재)</option>
-                  <option value="modern">실용예술 및 미디어아트</option>
-                </select>
-              </div>
-              
-              <div class="form-group">
-                <label>희망 활동</label>
-                <select v-model="form.location">
-                  <option value="">선택해주세요</option>
-                  <option value="domestic">국내 창작 및 학업</option>
-                  <option value="overseas">해외 유학 및 글로벌 공모/전시</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="calc-result" v-if="resultText">
-              <div class="result-box">
-                <h4 class="result-badge">진단 결과</h4>
-                <p class="result-title">{{ resultTitle }}</p>
-                <p class="result-desc">{{ resultText }}</p>
-                <a href="#" class="btn btn-primary result-btn" @click.prevent="goToApply">온라인 신청하기</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. 사업실적 Tab -->
+        <!-- 2. 사업실적 Tab -->
         <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
           <div class="performance-simple-wrapper">
             <div class="glass-card perf-main-card">
@@ -197,47 +146,6 @@
           </div>
         </div>
 
-        <!-- 4. 신청 안내 Tab -->
-        <div v-if="activeTab === 'guide'" class="tab-pane reveal active">
-          <div class="guide-wrapper glass-card">
-            <h3 class="guide-title title-serif">장학금 선발 절차 및 신청 안내</h3>
-            <p class="guide-desc">신라문화장학재단은 매년 공정한 심사를 통해 미래의 문화 인재를 선발합니다.</p>
-            
-            <div class="process-steps">
-              <div class="step-card">
-                <div class="step-num">01</div>
-                <h4 class="step-title">공모 및 접수</h4>
-                <p class="step-text">온라인 신청서 및 필수 제출 서류(추천서, 학업계획서 등) 작성 후 접수</p>
-              </div>
-              <div class="step-arrow">→</div>
-              <div class="step-card">
-                <div class="step-num">02</div>
-                <h4 class="step-title">서류 심사</h4>
-                <p class="step-text">재단 심사위원회의 서류 검토 및 적격성/창작 역량 평가</p>
-              </div>
-              <div class="step-arrow">→</div>
-              <div class="step-card">
-                <div class="step-num">03</div>
-                <h4 class="step-title">면접/실기 전형</h4>
-                <p class="step-text">분야별 전문가 심사위원단의 1:1 심층 면접 및 포트폴리오 심사</p>
-              </div>
-              <div class="step-arrow">→</div>
-              <div class="step-card">
-                <div class="step-num">04</div>
-                <h4 class="step-title">최종 발표 및 증서 수여</h4>
-                <p class="step-text">최종 합격자 공지 및 수여식을 통한 장학금 지급 시작</p>
-              </div>
-            </div>
-
-            <div class="guide-notice-box">
-              <h4>💡 꼭 확인하세요!</h4>
-              <ul>
-                <li>장학금 지급 관련 상세 양식은 <strong>[자료실]</strong>에서 다운로드 가능합니다.</li>
-                <li>모든 제출 서류는 공고 마감일 18:00까지 접수된 건에 한하여 유효합니다.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -263,7 +171,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
 
@@ -271,9 +179,7 @@ defineEmits(['back']);
 
 const tabs = [
   { id: 'programs', name: '장학 프로그램' },
-  { id: 'calc', name: '지원자격 진단' },
-  { id: 'performance', name: '사업실적' },
-  { id: 'guide', name: '신청 안내' }
+  { id: 'performance', name: '사업실적' }
 ];
 
 const previewImage = ref<{ src: string; title: string } | null>(null);
@@ -315,61 +221,6 @@ const setActiveTab = (tabId: string) => {
   activeTab.value = tabId;
   window.location.hash = `#scholarship-sub/${tabId}`;
 };
-
-const form = reactive({
-  education: '',
-  category: '',
-  location: ''
-});
-
-const resultTitle = ref('');
-const resultText = ref('');
-
-const openCheck = (type: string) => {
-  setActiveTab('calc');
-  if (type === 'youth') {
-    form.education = 'school';
-    form.category = 'fine-arts';
-    form.location = 'domestic';
-  } else if (type === 'heritage') {
-    form.education = 'college';
-    form.category = 'traditional';
-    form.location = 'domestic';
-  } else if (type === 'global') {
-    form.education = 'college';
-    form.category = 'fine-arts';
-    form.location = 'overseas';
-  }
-};
-
-const goToApply = () => {
-  alert('장학금 온라인 신청 양식 작성 페이지로 이동합니다.');
-};
-
-watch(
-  () => ({ ...form }),
-  (newVal) => {
-    if (!newVal.education || !newVal.category || !newVal.location) {
-      resultTitle.value = '';
-      resultText.value = '';
-      return;
-    }
-
-    if (newVal.location === 'overseas') {
-      resultTitle.value = '★ 글로벌 아티스트 장학금 대상';
-      resultText.value = '해외 예술대학(원) 재학/진학 예정자로서 세계 무대에 도전하기에 아주 적합합니다. 연간 최대 2,000만 원 및 콩쿠르 여비가 지원됩니다.';
-    } else if (newVal.category === 'traditional') {
-      resultTitle.value = '★ 전통문화 계승 장학금 대상';
-      resultText.value = '전통문화 전수자 및 국악 전공 대학(원)생 조건에 적합합니다. 무형문화재 전수 교육비 및 매 학기 등록금 지원이 가능합니다.';
-    } else if (newVal.education === 'school') {
-      resultTitle.value = '★ 문화예술 꿈나무 장학금 대상';
-      resultText.value = '초·중·고교 재학생 예능 인재 조건에 부합합니다. 매월 50만 원의 창작활동 보조비와 1:1 명사 멘토링이 연계됩니다.';
-    } else {
-      resultTitle.value = '★ 일반 창작 육성 및 멘토링 프로그램 지원 대상';
-      resultText.value = '신라문화장학재단의 일반 공모 프로그램(전시 지원 및 멘토링 사업)에 적합합니다. 추후 공지사항을 참조해 포트폴리오를 제출해주세요.';
-    }
-  }
-);
 
 onMounted(() => {
   updateTabFromHash();
