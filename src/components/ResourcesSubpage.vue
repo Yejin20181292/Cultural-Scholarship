@@ -401,9 +401,10 @@ onUnmounted(() => {
 .banner-desc {
   color: var(--text-secondary);
   font-size: 1.1rem;
-  max-width: 600px;
+  max-width: none;
   margin: 0 auto;
   font-weight: 300;
+  white-space: nowrap;
 }
 
 .sub-content {
@@ -789,5 +790,9 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .programs-grid, .news-grid { grid-template-columns: 1fr; }
   .calc-form { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .banner-desc { white-space: normal; }
 }
 </style>
