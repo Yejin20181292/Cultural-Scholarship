@@ -143,6 +143,7 @@
 
         <!-- 3. 결산자료 Tab -->
         <div v-if="activeTab === 'archive'" class="tab-pane reveal active">
+          <p class="archive-notice">국세청 홈택스 홈페이지 내 [국세청 홈택스 &gt; 공익법인결산서류공시 &gt; 공익법인 결산서류등 공시]에서도 열람하실 수 있습니다.</p>
           <div class="resources-grid">
             <div v-for="item in resources" :key="item.id" class="resource-card">
               <div class="resource-info">
@@ -698,6 +699,13 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.archive-notice {
+  margin: 0 0 24px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .resource-card {
