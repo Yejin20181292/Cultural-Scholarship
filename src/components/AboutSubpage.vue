@@ -53,7 +53,7 @@
               </p>
               <div class="signature">
                 <span class="sig-label">재단법인 신라문화장학재단 이사장</span>
-                <span class="sig-name title-serif">홍 길 동</span>
+                <span class="sig-name title-serif">박 준 형</span>
               </div>
             </div>
             <div class="greetings-portrait-wrapper">
