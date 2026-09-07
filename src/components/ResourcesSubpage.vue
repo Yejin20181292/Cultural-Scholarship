@@ -159,14 +159,21 @@
               </div>
               <div class="resource-download">
                 <span class="file-size">{{ item.size }}</span>
-                <button class="btn btn-outline download-btn" @click.prevent>
+                <a
+                  class="btn btn-outline download-btn"
+                  :class="{ 'is-disabled': !item.file }"
+                  :href="item.file"
+                  :download="item.file ? item.filename : null"
+                  :title="item.file ? '' : '준비 중인 자료입니다'"
+                  @click="!item.file && $event.preventDefault()"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
                   <span>다운로드</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -467,7 +474,21 @@ const news = [
   }
 ];
 
-const resources = [
+// file: public/ 기준 절대 경로. 없으면 다운로드 버튼이 비활성 상태로 표시된다.
+// filename: 사용자가 저장할 때 보이는 이름.
+interface ResourceItem {
+  id: number;
+  category: string;
+  title: string;
+  desc: string;
+  format: string;
+  size: string;
+  date: string;
+  file?: string;
+  filename?: string;
+}
+
+const resources: ResourceItem[] = [
   {
     id: 1,
     category: '장학 서식',
@@ -510,8 +531,10 @@ const resources = [
     title: '2021사업연도 공익법인 결산서류 등의 공시',
     desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
     format: 'PDF',
-    size: '880 KB',
-    date: '2026.01.10'
+    size: '6.9 MB',
+    date: '2026.01.10',
+    file: '/docs/2021-settlement-disclosure.pdf',
+    filename: '2021사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   }
 ];
 
@@ -967,6 +990,12 @@ onUnmounted(() => {
   padding: 8px 16px;
   font-size: 0.85rem;
   border-radius: 6px;
+}
+
+/* 파일이 아직 등록되지 않은 자료 */
+.download-btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 1024px) {
