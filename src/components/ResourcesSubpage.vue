@@ -488,7 +488,7 @@ const news: NewsItem[] = [
   {
     id: 4,
     category: '재단 소식',
-    date: 'YYYY.MM.DD',
+    date: '2025.09.09',
     title: '제46기 장학증서 수여식',
     summary: '※ 내용 준비 중입니다. 등록할 소식의 분류·날짜·요약 문구를 알려주시면 반영합니다.',
     gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
