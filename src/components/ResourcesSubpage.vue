@@ -1259,6 +1259,12 @@ onUnmounted(() => {
   color: var(--secondary-color);
 }
 
+/* 전역 .btn(14px 28px, 0.95rem)보다 작게 */
+.detail-modal-footer .btn {
+  padding: 9px 20px;
+  font-size: 0.875rem;
+}
+
 .detail-modal-footer {
   display: flex;
   gap: 10px;
