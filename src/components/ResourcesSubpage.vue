@@ -43,7 +43,7 @@
           </div>
 
           <!-- Interactive Calculator / Checker -->
-          <div class="calculator-wrapper glass-card" ref="calcRef">
+          <div class="calculator-wrapper glass-card">
             <h3 class="calc-title title-serif">나의 장학금 지원 자격 알아보기</h3>
             <p class="calc-desc">간단히 정보를 선택해 지원 가능한 장학 프로그램을 실시간으로 확인해보세요.</p>
             
@@ -193,7 +193,6 @@
           </div>
 
           <div class="detail-modal-footer">
-            <button class="btn btn-primary" @click="goToChecker">내 지원 자격 진단하기</button>
             <button class="btn btn-outline" @click="closeDetail">닫기</button>
           </div>
         </div>
@@ -418,7 +417,6 @@ const programs = computed(() =>
 
 const detailKey = ref<string | null>(null);
 const activeDetail = computed(() => (detailKey.value ? details[detailKey.value] : null));
-const calcRef = ref<HTMLElement | null>(null);
 
 const openDetail = (type: string) => {
   if (!details[type]) return;
@@ -431,32 +429,8 @@ const closeDetail = () => {
   document.body.style.overflow = '';
 };
 
-// 모달에서 바로 하단 자격 진단 계산기로 연결한다.
-const goToChecker = () => {
-  const type = detailKey.value;
-  closeDetail();
-  if (type) openCheck(type);
-  calcRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
-
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Escape' && detailKey.value) closeDetail();
-};
-
-const openCheck = (type: string) => {
-  if (type === 'youth') {
-    form.education = 'school';
-    form.category = 'fine-arts';
-    form.location = 'domestic';
-  } else if (type === 'heritage') {
-    form.education = 'college';
-    form.category = 'traditional';
-    form.location = 'domestic';
-  } else if (type === 'global') {
-    form.education = 'college';
-    form.category = 'fine-arts';
-    form.location = 'overseas';
-  }
 };
 
 watch(
