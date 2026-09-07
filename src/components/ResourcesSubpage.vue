@@ -30,46 +30,15 @@
         <!-- 1. 신고 및 신청 Tab -->
         <div v-if="activeTab === 'apply'" class="tab-pane reveal active">
           <div class="programs-grid">
-            <!-- Program 1 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">01</div>
-              <h3 class="program-title">장학생 자격 유지 조건</h3>
-              <p class="program-target">대상: 국내 소재 대학교 재학생</p>
+            <div v-for="program in programs" :key="program.key" class="glass-card program-card">
+              <div class="program-badge title-serif">{{ program.badge }}</div>
+              <h3 class="program-title">{{ program.title }}</h3>
+              <p class="program-target">{{ program.target }}</p>
               <div class="program-divider"></div>
               <ul class="program-details">
-                <li>직전 학기 평균 학점 4.5만점 기준 3.0 이상</li>
-                <li>직전 학기 평균 학점 4.3 만점 기준 4.5 환산 3.0 이상</li>
-                <li>교환 학생 및 P/F 수업은 PASS 학점을 자격 유지 성적으로 인정</li>
+                <li v-for="(point, i) in program.points" :key="i">{{ point }}</li>
               </ul>
-              <button class="btn btn-outline card-btn" @click="openDetail('youth')">자세히 보기</button>
-            </div>
-
-            <!-- Program 2 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">02</div>
-              <h3 class="program-title">전통문화 계승 장학금</h3>
-              <p class="program-target">대상: 국악·전통공예·무형문화재 전수자</p>
-              <div class="program-divider"></div>
-              <ul class="program-details">
-                <li>학기당 등록금 최대 500만 원 지원</li>
-                <li>무형문화재 전수 교육 및 이수 활동비 지원</li>
-                <li>해외 전통예술 문화교류 쇼케이스 기회 제공</li>
-              </ul>
-              <button class="btn btn-outline card-btn" @click="openDetail('heritage')">자세히 보기</button>
-            </div>
-
-            <!-- Program 3 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">03</div>
-              <h3 class="program-title">글로벌 아티스트 장학금</h3>
-              <p class="program-target">대상: 해외 예술대학(원) 진학/재학생</p>
-              <div class="program-divider"></div>
-              <ul class="program-details">
-                <li>연간 최대 2,000만 원 체재비 및 학비 후원</li>
-                <li>세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원</li>
-                <li>글로벌 갤러리 및 매니지먼트 소개 네트워킹</li>
-              </ul>
-              <button class="btn btn-outline card-btn" @click="openDetail('global')">자세히 보기</button>
+              <button class="btn btn-outline card-btn" @click="openDetail(program.key)">자세히 보기</button>
             </div>
           </div>
 
@@ -301,7 +270,8 @@ interface DetailContent {
   badge: string;
   title: string;
   target: string;
-  sections: DetailSection[];
+  points: string[];        // 카드에 보이는 요약 항목
+  sections: DetailSection[]; // "자세히 보기" 모달에 보이는 상세 내용
 }
 
 // ① ② ③ ... 하위 항목 기호. 9개를 넘으면 숫자로 대체된다.
@@ -313,6 +283,11 @@ const details: Record<string, DetailContent> = {
     badge: '01',
     title: '장학생 자격 유지 조건',
     target: '대상: 국내 소재 대학교 재학생',
+    points: [
+      '직전 학기 평균 학점 4.5만점 기준 3.0 이상',
+      '직전 학기 평균 학점 4.3 만점 기준 4.5 환산 3.0 이상',
+      '교환 학생 및 P/F 수업은 PASS 학점을 자격 유지 성적으로 인정'
+    ],
     sections: [
       {
         heading: '자격 유지 성적 기준',
@@ -342,6 +317,11 @@ const details: Record<string, DetailContent> = {
     badge: '02',
     title: '전통문화 계승 장학금',
     target: '대상: 국악·전통공예·무형문화재 전수자',
+    points: [
+      '학기당 등록금 최대 500만 원 지원',
+      '무형문화재 전수 교육 및 이수 활동비 지원',
+      '해외 전통예술 문화교류 쇼케이스 기회 제공'
+    ],
     sections: [
       {
         heading: '지원 내용',
@@ -361,6 +341,11 @@ const details: Record<string, DetailContent> = {
     badge: '03',
     title: '글로벌 아티스트 장학금',
     target: '대상: 해외 예술대학(원) 진학/재학생',
+    points: [
+      '연간 최대 2,000만 원 체재비 및 학비 후원',
+      '세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원',
+      '글로벌 갤러리 및 매니지먼트 소개 네트워킹'
+    ],
     sections: [
       {
         heading: '지원 내용',
@@ -375,8 +360,61 @@ const details: Record<string, DetailContent> = {
         items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
       }
     ]
+  },
+  program04: {
+    badge: '04',
+    title: '※ 제목 준비 중',
+    target: '대상: 준비 중',
+    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    sections: [
+      {
+        heading: '상세 내용',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
+  },
+  program05: {
+    badge: '05',
+    title: '※ 제목 준비 중',
+    target: '대상: 준비 중',
+    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    sections: [
+      {
+        heading: '상세 내용',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
+  },
+  program06: {
+    badge: '06',
+    title: '※ 제목 준비 중',
+    target: '대상: 준비 중',
+    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    sections: [
+      {
+        heading: '상세 내용',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
+  },
+  program07: {
+    badge: '07',
+    title: '※ 제목 준비 중',
+    target: '대상: 준비 중',
+    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    sections: [
+      {
+        heading: '상세 내용',
+        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+      }
+    ]
   }
 };
+
+// 카드 목록은 details를 그대로 따라간다. 순서는 details에 적은 순서.
+const programs = computed(() =>
+  Object.entries(details).map(([key, d]) => ({ key, ...d }))
+);
 
 const detailKey = ref<string | null>(null);
 const activeDetail = computed(() => (detailKey.value ? details[detailKey.value] : null));
