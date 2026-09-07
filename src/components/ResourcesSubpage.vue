@@ -126,7 +126,7 @@
             <div v-for="item in news" :key="item.id" class="news-card glass-card">
               <div class="news-img-placeholder">
                 <div class="news-img-overlay">
-                  <span class="news-badge">{{ item.category }}</span>
+                  <span v-if="item.category" class="news-badge">{{ item.category }}</span>
                 </div>
                 <img v-if="item.image" :src="item.image" :alt="item.title" class="news-photo" />
                 <div v-else class="gradient-graphic" :style="{ background: item.gradient }">
@@ -452,7 +452,7 @@ watch(
 // image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 배경에 CSF 로고가 표시된다.
 interface NewsItem {
   id: number;
-  category: string;
+  category?: string;
   date: string;
   title: string;
   summary: string;
@@ -463,7 +463,6 @@ interface NewsItem {
 const news: NewsItem[] = [
   {
     id: 1,
-    category: '재단 소식',
     date: '2026.07.18',
     title: '제10기 글로벌 아티스트 파리 연수 지원사업 마무리',
     summary: '프랑스 파리 국립 예술대학교에서 진행된 3주간의 하계 심화 연수 프로그램에 참여한 12명의 장학생들이 성공적으로 창작 연구 워크숍을 마쳤습니다.',
@@ -471,7 +470,6 @@ const news: NewsItem[] = [
   },
   {
     id: 2,
-    category: '언론 보도',
     date: '2026.07.05',
     title: '전통문화 장학생 이지윤 양, 국가무형문화재 최연소 이수',
     summary: '신라문화장학재단으로부터 3년간 전통문화 계승 장학금을 수여 받은 이지윤(가야금 병창 전공) 학생이 문화재청 주관 심사를 통해 역대 최연소 무형문화재 이수자로 선정되었습니다.',
@@ -479,7 +477,6 @@ const news: NewsItem[] = [
   },
   {
     id: 3,
-    category: '인재 기획',
     date: '2026.06.12',
     title: '미래를 여는 미디어 아티스트, 장학생 송민우 군 전시 성황',
     summary: '가상 공간과 현실을 넘나드는 디지털 캔버스로 화제를 모은 미디어 아티스트 송민우 군이 인사동 갤러리에서 개최한 첫 단독 초대전이 많은 호평 속에 마쳤습니다.',
@@ -487,7 +484,6 @@ const news: NewsItem[] = [
   },
   {
     id: 4,
-    category: '재단 소식',
     date: '2025.09.09',
     title: '제46기 장학증서 수여식',
     summary: '2024년 8월 31일 ~ 9월 1일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제46기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
