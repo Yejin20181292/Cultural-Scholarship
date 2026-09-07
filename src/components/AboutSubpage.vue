@@ -112,7 +112,7 @@
               <div class="donor-stat-card">
                 <div class="stat-icon">💰</div>
                 <div class="stat-info">
-                  <span class="stat-num">350억 원</span>
+                  <span class="stat-num">500억 원</span>
                   <span class="stat-label">누적 출연 기금</span>
                 </div>
               </div>
