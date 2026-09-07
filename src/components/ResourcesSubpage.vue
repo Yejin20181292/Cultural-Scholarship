@@ -1117,6 +1117,11 @@ onUnmounted(() => {
   padding: 4px 32px 12px;
 }
 
+/* style.css의 전역 `section { padding: 100px 0 }`가 모달 안까지 적용되므로 여기서 덮어쓴다. */
+.detail-section {
+  padding: 30px 0;
+}
+
 .detail-section + .detail-section {
   margin-top: 26px;
 }
