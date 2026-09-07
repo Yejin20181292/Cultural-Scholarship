@@ -50,7 +50,7 @@
 
           <!-- 5. 자료실 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'archive')" class="nav-main-link">
+            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="nav-main-link">
               <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -101,7 +101,7 @@
 
             <!-- Col 5: 자료실 -->
             <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'archive')">자료실</h4>
+              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'apply')">자료실</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'apply')">· 신고 및 신청</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
@@ -283,7 +283,7 @@
           <!-- Mobile 5. 자료실 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'archive')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'apply')" class="mobile-main-link">
                 자료실
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
