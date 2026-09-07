@@ -243,6 +243,7 @@ import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
 import logoEmblem from '../assets/logo_emblem.png';
+import logoWonil from '../assets/logo_wonil.png';
 
 defineEmits(['back']);
 
@@ -297,6 +298,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '(주)원일특강',
     logoText: '원일',
+    logo: logoWonil,
     category: '글로벌 연수 펀드',
     desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.'
   },
