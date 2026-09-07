@@ -293,7 +293,7 @@ const donorCompanies: DonorCompany[] = [
     logoText: '교역',
     logo: logoEmblem,
     category: '예술·문화 인재 기금',
-    desc: '전통 문화예술 보존 및 청년 예술가 멘토링 지원을 위한 전용 장학 펀드를 지속적으로 출연하고 있습니다.'
+    desc: '1967년 설립된 원양어업·수산물 유통 기업으로, 북·남 태평양에서 참치를 어획해 국내외 시장에 공급하고 있습니다.'
   },
   {
     name: '(주)원일특강',
