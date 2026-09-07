@@ -527,7 +527,7 @@ const resources: ResourceItem[] = [
     desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
     format: 'PDF',
     size: '6.9 MB',
-    date: '2026.01.10',
+    date: '2022. 04. 27.',
     file: '/docs/2021-settlement-disclosure.pdf'
   }
 ];
