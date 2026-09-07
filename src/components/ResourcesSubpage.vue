@@ -493,7 +493,7 @@ const resources: ResourceItem[] = [
     id: 1,
     title: '2026년도 하반기 장학금 지원 신청서 및 지도교수 추천서 양식',
     desc: '신라문화장학재단 장학금 신청을 위한 공통 제출 서식 팩 (신청서, 자기소개서, 추천서 합본)',
-    format: 'HWP',
+    format: 'PDF',
     size: '1.2 MB',
     date: '2026.07.20'
   },
