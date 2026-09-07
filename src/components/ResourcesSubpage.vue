@@ -1114,7 +1114,7 @@ onUnmounted(() => {
 }
 
 .detail-modal-body {
-  padding: 4px 32px 28px;
+  padding: 4px 32px 12px;
 }
 
 .detail-section + .detail-section {
@@ -1258,7 +1258,7 @@ onUnmounted(() => {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  padding: 20px 32px;
+  padding: 14px 32px;
   border-top: 1px solid var(--border-color);
   background: rgba(248, 250, 252, 0.7);
 }
