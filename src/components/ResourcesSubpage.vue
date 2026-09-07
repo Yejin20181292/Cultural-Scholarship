@@ -1041,16 +1041,19 @@ onUnmounted(() => {
   -webkit-backdrop-filter: blur(8px);
   z-index: 2000;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 20px;
+  /* 모달 안쪽에는 스크롤을 두지 않는다. 화면보다 커질 때만 여기서 전체가 움직인다. */
+  overflow-y: auto;
 }
 
 .detail-modal-content {
   position: relative;
   width: 100%;
   max-width: 620px;
-  max-height: 85vh;
+  /* flex-start + margin auto: 세로 가운데 정렬하면서, 넘칠 때 위쪽이 잘리지 않게 한다. */
+  margin: auto;
   display: flex;
   flex-direction: column;
   background: var(--white);
@@ -1112,8 +1115,6 @@ onUnmounted(() => {
 
 .detail-modal-body {
   padding: 4px 32px 28px;
-  overflow-y: auto;
-  flex: 1;
 }
 
 .detail-section + .detail-section {
