@@ -292,7 +292,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라교역(주)',
     logoText: '교역',
     logo: logoEmblem,
-    category: '예술·문화 인재 기금',
+    category: '본사',
     desc: '1967년 설립된 원양어업·수산물 유통 기업으로, 북·남 태평양에서 참치를 어획해 국내외 시장에 공급하고 있습니다.'
   },
   {
