@@ -1088,7 +1088,7 @@ onUnmounted(() => {
 }
 
 .detail-modal-header {
-  padding: 32px 32px 3px;
+  padding: 32px 32px 10px;
   background: linear-gradient(135deg, rgba(6, 91, 137, 0.06) 0%, rgba(6, 91, 137, 0) 100%);
   border-bottom: 1px solid var(--border-color);
 }
