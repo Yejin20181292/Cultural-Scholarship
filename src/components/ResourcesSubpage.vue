@@ -490,7 +490,7 @@ const news: NewsItem[] = [
     category: '재단 소식',
     date: '2025.09.09',
     title: '제46기 장학증서 수여식',
-    summary: '※ 내용 준비 중입니다. 등록할 소식의 분류·날짜·요약 문구를 알려주시면 반영합니다.',
+    summary: '2024년 8월 31일 ~ 9월 1일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제46기 장학생 장학증서 수여식 및 오리엔···',
     gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
     image: news46thCeremony
   }
