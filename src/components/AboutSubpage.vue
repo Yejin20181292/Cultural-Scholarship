@@ -129,8 +129,9 @@
             <div class="donors-grid">
               <div v-for="company in donorCompanies" :key="company.name" class="donor-card">
                 <div class="donor-card-header">
-                  <div class="donor-avatar-box">
-                    <span class="donor-avatar-text">{{ company.logoText }}</span>
+                  <div class="donor-avatar-box" :class="{ 'has-logo': company.logo }">
+                    <img v-if="company.logo" :src="company.logo" :alt="company.name" class="donor-avatar-img" />
+                    <span v-else class="donor-avatar-text">{{ company.logoText }}</span>
                   </div>
                   <div class="donor-title-group">
                     <h4 class="donor-name">{{ company.name }}</h4>
@@ -241,6 +242,7 @@
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
+import logoEmblem from '../assets/logo_emblem.png';
 
 defineEmits(['back']);
 
@@ -269,7 +271,16 @@ const tabs = [
   { id: 'contact', name: '찾아오시는 길' }
 ];
 
-const donorCompanies = [
+// logo: 실제 로고 이미지가 있을 때만 지정한다. 없으면 logoText 글자가 파란 사각형에 표시된다.
+interface DonorCompany {
+  name: string;
+  logoText: string;
+  category: string;
+  desc: string;
+  logo?: string;
+}
+
+const donorCompanies: DonorCompany[] = [
   {
     name: '회장님',
     logoText: '회장',
@@ -279,6 +290,7 @@ const donorCompanies = [
   {
     name: '신라교역(주)',
     logoText: '교역',
+    logo: logoEmblem,
     category: '예술·문화 인재 기금',
     desc: '전통 문화예술 보존 및 청년 예술가 멘토링 지원을 위한 전용 장학 펀드를 지속적으로 출연하고 있습니다.'
   },
@@ -1449,6 +1461,19 @@ watch(activeTab, (newTab) => {
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 4px 10px rgba(6, 91, 137, 0.2);
+  overflow: hidden;
+}
+
+/* 로고 이미지는 자체 배경과 형태가 있으므로 파란 사각형을 걷어낸다. */
+.donor-avatar-box.has-logo {
+  background: none;
+  box-shadow: none;
+}
+
+.donor-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .donor-title-group {
