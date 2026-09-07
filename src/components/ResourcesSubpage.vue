@@ -491,7 +491,6 @@ interface ResourceItem {
 const resources: ResourceItem[] = [
   {
     id: 1,
-    category: '장학 서식',
     title: '2026년도 하반기 장학금 지원 신청서 및 지도교수 추천서 양식',
     desc: '신라문화장학재단 장학금 신청을 위한 공통 제출 서식 팩 (신청서, 자기소개서, 추천서 합본)',
     format: 'HWP',
@@ -500,7 +499,6 @@ const resources: ResourceItem[] = [
   },
   {
     id: 2,
-    category: '동의서/안내',
     title: '개인정보 수집·이용 및 제3자 제공 동의서 (장학생용)',
     desc: '장학생 선발 심사 및 장학금 지급 처리를 위한 필수 제출 동의서 양식',
     format: 'PDF',
@@ -509,7 +507,6 @@ const resources: ResourceItem[] = [
   },
   {
     id: 3,
-    category: '작성 가이드',
     title: '학업·창작 계획서 및 포트폴리오 작성 가이드라인',
     desc: '문화예술 및 전통문화 분야 장학금 신청자를 위한 포트폴리오 작성 표준 안내서',
     format: 'PDF',
@@ -518,7 +515,6 @@ const resources: ResourceItem[] = [
   },
   {
     id: 4,
-    category: '재단 공시',
     title: '2025년도 재단법인 신라문화장학재단 결산보고서 및 사업실적 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
