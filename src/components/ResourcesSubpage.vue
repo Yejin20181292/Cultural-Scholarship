@@ -129,9 +129,7 @@
                   <span v-if="item.category" class="news-badge">{{ item.category }}</span>
                 </div>
                 <img v-if="item.image" :src="item.image" :alt="item.title" class="news-photo" />
-                <div v-else class="gradient-graphic" :style="{ background: item.gradient }">
-                  <span class="graphic-logo title-serif">CSF</span>
-                </div>
+                <div v-else class="gradient-graphic" :style="{ background: item.gradient }"></div>
               </div>
               <div class="news-info">
                 <span class="news-date">{{ item.date }}</span>
@@ -449,7 +447,7 @@ watch(
 );
 
 // News & Resources Sample Data
-// image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 배경에 CSF 로고가 표시된다.
+// image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 색상 배경만 표시된다.
 interface NewsItem {
   id: number;
   category?: string;
@@ -883,12 +881,6 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.graphic-logo {
-  font-size: 2.2rem;
-  color: rgba(255, 255, 255, 0.15);
-  font-weight: 800;
 }
 
 .news-info {
