@@ -150,7 +150,7 @@
                 <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
                 <div class="resource-text">
                   <div class="resource-meta">
-                    <span class="resource-category">{{ item.category }}</span>
+                    <span v-if="item.category" class="resource-category">{{ item.category }}</span>
                     <span class="resource-date">{{ item.date }}</span>
                   </div>
                   <h4 class="resource-title">{{ item.title }}</h4>
@@ -163,7 +163,7 @@
                   class="btn btn-outline download-btn"
                   :class="{ 'is-disabled': !item.file }"
                   :href="item.file"
-                  :download="item.file ? item.filename : null"
+                  :download="item.file ? (item.filename ?? '') : null"
                   :title="item.file ? '' : '준비 중인 자료입니다'"
                   @click="!item.file && $event.preventDefault()"
                 >
@@ -475,10 +475,10 @@ const news = [
 ];
 
 // file: public/ 기준 절대 경로. 없으면 다운로드 버튼이 비활성 상태로 표시된다.
-// filename: 사용자가 저장할 때 보이는 이름.
+// filename: 저장될 이름을 서버 파일명과 다르게 하고 싶을 때만 지정한다. 생략하면 서버 파일명 그대로 저장된다.
 interface ResourceItem {
   id: number;
-  category: string;
+  category?: string;
   title: string;
   desc: string;
   format: string;
@@ -527,14 +527,12 @@ const resources: ResourceItem[] = [
   },
   {
     id: 5,
-    category: '재단 규정',
     title: '2021사업연도 공익법인 결산서류 등의 공시',
     desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
     format: 'PDF',
     size: '6.9 MB',
     date: '2026.01.10',
-    file: '/docs/2021-settlement-disclosure.pdf',
-    filename: '2021사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
+    file: '/docs/2021-settlement-disclosure.pdf'
   }
 ];
 
