@@ -128,7 +128,8 @@
                 <div class="news-img-overlay">
                   <span class="news-badge">{{ item.category }}</span>
                 </div>
-                <div class="gradient-graphic" :style="{ background: item.gradient }">
+                <img v-if="item.image" :src="item.image" :alt="item.title" class="news-photo" />
+                <div v-else class="gradient-graphic" :style="{ background: item.gradient }">
                   <span class="graphic-logo title-serif">CSF</span>
                 </div>
               </div>
@@ -236,6 +237,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
+import news46thCeremony from '../assets/news_46th_ceremony.jpg';
 
 defineEmits(['back']);
 
@@ -447,7 +449,18 @@ watch(
 );
 
 // News & Resources Sample Data
-const news = [
+// image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 배경에 CSF 로고가 표시된다.
+interface NewsItem {
+  id: number;
+  category: string;
+  date: string;
+  title: string;
+  summary: string;
+  gradient: string;
+  image?: string;
+}
+
+const news: NewsItem[] = [
   {
     id: 1,
     category: '재단 소식',
@@ -476,9 +489,10 @@ const news = [
     id: 4,
     category: '재단 소식',
     date: 'YYYY.MM.DD',
-    title: '※ 제목 준비 중 — 실제 소식으로 교체 예정',
-    summary: '※ 내용 준비 중입니다. 등록할 소식의 분류·날짜·제목·요약 문구를 알려주시면 반영합니다.',
-    gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)'
+    title: '제46기 장학증서 수여식',
+    summary: '※ 내용 준비 중입니다. 등록할 소식의 분류·날짜·요약 문구를 알려주시면 반영합니다.',
+    gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
+    image: news46thCeremony
   }
 ];
 
@@ -867,6 +881,12 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.news-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .graphic-logo {
