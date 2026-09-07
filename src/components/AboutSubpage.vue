@@ -138,10 +138,6 @@
                   </div>
                 </div>
                 <p class="donor-desc">{{ company.desc }}</p>
-                <div class="donor-footer-meta">
-                  <span class="meta-label">출연 기간</span>
-                  <span class="meta-value">{{ company.period }}</span>
-                </div>
               </div>
             </div>
 
@@ -278,43 +274,37 @@ const donorCompanies = [
     name: '(주)신라산업',
     logoText: '신라',
     category: '주력 출연사',
-    desc: '재단 설립 발기인 기업으로, 지속적인 기본 재산 증자 및 학술 장학 기금 출연을 통해 장학 사업의 터전을 마련했습니다.',
-    period: '1978년 ~ 현재'
+    desc: '재단 설립 발기인 기업으로, 지속적인 기본 재산 증자 및 학술 장학 기금 출연을 통해 장학 사업의 터전을 마련했습니다.'
   },
   {
     name: '신라건설(주)',
     logoText: '건설',
     category: '예술·문화 인재 기금',
-    desc: '전통 문화예술 보존 및 청년 예술가 멘토링 지원을 위한 전용 장학 펀드를 지속적으로 출연하고 있습니다.',
-    period: '1985년 ~ 현재'
+    desc: '전통 문화예술 보존 및 청년 예술가 멘토링 지원을 위한 전용 장학 펀드를 지속적으로 출연하고 있습니다.'
   },
   {
     name: '(주)신라통상',
     logoText: '통상',
     category: '글로벌 연수 펀드',
-    desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.',
-    period: '1992년 ~ 현재'
+    desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.'
   },
   {
     name: '신라에너지(주)',
     logoText: '에너지',
     category: '전통문화 계승 펀드',
-    desc: '무형문화재 전수자 및 초·중·고 예능 꿈나무 육성을 위해 특화된 장학 기금을 전액 지원하고 있습니다.',
-    period: '2001년 ~ 현재'
+    desc: '무형문화재 전수자 및 초·중·고 예능 꿈나무 육성을 위해 특화된 장학 기금을 전액 지원하고 있습니다.'
   },
   {
     name: '(주)신라로지스',
     logoText: '로지스',
     category: '미래 융합 인재 기금',
-    desc: '학술 연구자 및 ICT 융합 문화예술 프로젝트 분야 지원을 위한 장학 기금을 지속 출연합니다.',
-    period: '2008년 ~ 현재'
+    desc: '학술 연구자 및 ICT 융합 문화예술 프로젝트 분야 지원을 위한 장학 기금을 지속 출연합니다.'
   },
   {
     name: '(주)신라미디어',
     logoText: '미디어',
     category: '미디어·공연 지원 기금',
-    desc: '청년 창작자 공모전 및 전시·연주회 개최 후원 펀드를 출연하여 예술 생태계 활성화에 기여합니다.',
-    period: '2015년 ~ 현재'
+    desc: '청년 창작자 공모전 및 전시·연주회 개최 후원 펀드를 출연하여 예술 생태계 활성화에 기여합니다.'
   }
 ];
 
@@ -1492,24 +1482,6 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
   margin-bottom: 16px;
   flex-grow: 1;
-}
-
-.donor-footer-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(6, 91, 137, 0.15);
-  font-size: 0.82rem;
-}
-
-.meta-label {
-  color: var(--text-muted);
-}
-
-.meta-value {
-  color: var(--primary-color);
-  font-weight: 600;
 }
 
 .donors-footer-banner {
