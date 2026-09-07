@@ -105,7 +105,7 @@
               <div class="donor-stat-card">
                 <div class="stat-icon">🏢</div>
                 <div class="stat-info">
-                  <span class="stat-num">12개사</span>
+                  <span class="stat-num">6개사</span>
                   <span class="stat-label">총 출연 기업</span>
                 </div>
               </div>
@@ -119,7 +119,7 @@
               <div class="donor-stat-card">
                 <div class="stat-icon">🤝</div>
                 <div class="stat-info">
-                  <span class="stat-num">47년</span>
+                  <span class="stat-num">24년</span>
                   <span class="stat-label">동반 파트너십</span>
                 </div>
               </div>
