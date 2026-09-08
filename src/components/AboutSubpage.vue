@@ -137,8 +137,10 @@
                     <h4 class="donor-name">{{ company.name }}</h4>
                     <span class="donor-category-badge">{{ company.category }}</span>
                   </div>
+                </div>
+                <p class="donor-desc">{{ company.desc }}</p>
+                <div v-if="company.site" class="donor-footer-meta">
                   <a
-                    v-if="company.site"
                     class="donor-site-link"
                     :href="company.site"
                     target="_blank"
@@ -146,14 +148,13 @@
                     :title="`${company.name} 홈페이지를 새 창에서 엽니다`"
                   >
                     <span>홈페이지 바로가기</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                       <polyline points="15 3 21 3 21 9"></polyline>
                       <line x1="10" y1="14" x2="21" y2="3"></line>
                     </svg>
                   </a>
                 </div>
-                <p class="donor-desc">{{ company.desc }}</p>
               </div>
             </div>
 
@@ -1477,18 +1478,22 @@ watch(activeTab, (newTab) => {
   margin-bottom: 14px;
 }
 
-/* 카드 우측 상단 홈페이지 바로가기 */
+/* 카드 하단 홈페이지 바로가기 (기존 "출연 기간" 자리) */
+.donor-footer-meta {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(6, 91, 137, 0.15);
+}
+
 .donor-site-link {
-  margin-left: auto;
-  align-self: flex-start;
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 9px;
+  gap: 5px;
+  padding: 6px 12px;
   border: 1px solid var(--border-color-hover);
   border-radius: 20px;
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 500;
   white-space: nowrap;
   color: var(--primary-color);
