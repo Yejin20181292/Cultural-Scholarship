@@ -300,7 +300,7 @@ const donorCompanies: DonorCompany[] = [
     logoText: '원일',
     logo: logoWonil,
     category: '특수강·후판',
-    desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.'
+    desc: '1977년에 설립되어 후판·구조용강판 등 특수강을 가공해 각종 산업에 공급하는 코스닥 상장 기업입니다.'
   },
   {
     name: '신라에스지(주)',
