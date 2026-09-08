@@ -305,7 +305,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라에스지(주)',
     logoText: '에스지',
-    category: '전통문화 계승 펀드',
+    category: '어육소시지·수산물·가공식품·축육·OEM등',
     desc: '무형문화재 전수자 및 초·중·고 예능 꿈나무 육성을 위해 특화된 장학 기금을 전액 지원하고 있습니다.'
   },
   {
