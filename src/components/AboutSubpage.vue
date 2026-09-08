@@ -1459,7 +1459,7 @@ watch(activeTab, (newTab) => {
 .donor-avatar-box {
   width: 44px;
   height: 44px;
-  border-radius: 10px;
+  border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-color), #097ab7);
   color: #ffffff;
   font-weight: 700;
