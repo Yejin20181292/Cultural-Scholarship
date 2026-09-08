@@ -137,6 +137,21 @@
                     <h4 class="donor-name">{{ company.name }}</h4>
                     <span class="donor-category-badge">{{ company.category }}</span>
                   </div>
+                  <a
+                    v-if="company.site"
+                    class="donor-site-link"
+                    :href="company.site"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    :title="`${company.name} 홈페이지를 새 창에서 엽니다`"
+                  >
+                    <span>홈페이지 바로가기</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
                 </div>
                 <p class="donor-desc">{{ company.desc }}</p>
               </div>
@@ -282,6 +297,7 @@ interface DonorCompany {
   category: string;
   desc: string;
   logo?: string;
+  site?: string; // 회사 홈페이지. 없으면 바로가기 버튼이 표시되지 않는다.
 }
 
 const donorCompanies: DonorCompany[] = [
@@ -295,6 +311,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라교역(주)',
     logoText: '교역',
     logo: logoEmblem,
+    site: 'http://www.sla.co.kr',
     category: '원양어업',
     desc: '1967년 설립된 원양어업·수산물 유통 기업으로, 북·남 태평양에서 참치를 어획해 국내외 시장에 공급하고 있습니다.'
   },
@@ -302,6 +319,7 @@ const donorCompanies: DonorCompany[] = [
     name: '(주)원일특강',
     logoText: '원일',
     logo: logoWonil,
+    site: 'https://www.wonilsteel.co.kr',
     category: '특수강·후판',
     desc: '1977년에 설립되어 후판·구조용강판 등 특수강을 가공해 각종 산업에 공급하는 코스닥 상장 기업입니다.'
   },
@@ -309,6 +327,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라에스지(주)',
     logoText: '에스지',
     logo: logoSillaSG,
+    site: 'https://www.sillasg.co.kr',
     category: '어육소시지·수산물·가공식품·축육·OEM등',
     desc: '1977년에 설립되어 어육소시지·수산물 가공식품 제조와 축육 유통, OEM 생산 등을 주력으로 하는 기업입니다.'
   },
@@ -316,6 +335,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라엔지니어링(주)',
     logoText: '엔지',
     logo: logoSillaEng,
+    site: 'http://www.sillaeng.co.kr',
     category: '자동차용 외판금형·몰드베이스',
     desc: '1987년에 설립되어 자동차용 외판 금형과 사출 금형용 몰드베이스를 전문으로 제작하는 기업입니다.'
   },
@@ -323,6 +343,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라섬유(주)',
     logoText: '섬유',
     logo: logoSillaTextile,
+    site: 'http://www.sillatextile.co.kr',
     category: '섬유·부동산·휴대폰',
     desc: '1976년에 섬유사업으로 설립되어 현재는 부동산 임대업과 휴대폰 판매업을 주력으로 하는 코스닥 상장 기업입니다.'
   }
@@ -1454,6 +1475,31 @@ watch(activeTab, (newTab) => {
   align-items: center;
   gap: 14px;
   margin-bottom: 14px;
+}
+
+/* 카드 우측 상단 홈페이지 바로가기 */
+.donor-site-link {
+  margin-left: auto;
+  align-self: flex-start;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border: 1px solid var(--border-color-hover);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.7);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.donor-site-link:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
 }
 
 .donor-avatar-box {
