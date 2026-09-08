@@ -244,6 +244,7 @@ import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
 import logoEmblem from '../assets/logo_emblem.png';
 import logoWonil from '../assets/logo_wonil.png';
+import logoSillaSG from '../assets/logo_sillasg.png';
 
 defineEmits(['back']);
 
@@ -305,6 +306,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라에스지(주)',
     logoText: '에스지',
+    logo: logoSillaSG,
     category: '어육소시지·수산물·가공식품·축육·OEM등',
     desc: '1977년에 설립되어 어육소시지·수산물 가공식품 제조와 축육 유통, OEM 생산 등을 주력으로 하는 기업입니다.'
   },
