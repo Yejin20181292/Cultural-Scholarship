@@ -311,7 +311,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라엔지니어링(주)',
     logoText: '엔지',
-    category: '미래 융합 인재 기금',
+    category: '자동차용 외판금형·몰드베이스',
     desc: '학술 연구자 및 ICT 융합 문화예술 프로젝트 분야 지원을 위한 장학 기금을 지속 출연합니다.'
   },
   {
