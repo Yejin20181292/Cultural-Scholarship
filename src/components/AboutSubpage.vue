@@ -246,6 +246,7 @@ import logoEmblem from '../assets/logo_emblem.png';
 import logoWonil from '../assets/logo_wonil.png';
 import logoSillaSG from '../assets/logo_sillasg.png';
 import logoSillaEng from '../assets/logo_sillaeng.png';
+import logoSillaTextile from '../assets/logo_sillatextile.png';
 
 defineEmits(['back']);
 
@@ -321,6 +322,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라섬유(주)',
     logoText: '섬유',
+    logo: logoSillaTextile,
     category: '섬유·부동산·휴대폰',
     desc: '1976년에 섬유사업으로 설립되어 현재는 부동산 임대업과 휴대폰 판매업을 주력으로 하는 코스닥 상장 기업입니다.'
   }
