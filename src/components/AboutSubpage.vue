@@ -292,7 +292,7 @@ const donorCompanies: DonorCompany[] = [
     name: '신라교역(주)',
     logoText: '교역',
     logo: logoEmblem,
-    category: '본사',
+    category: '원양어업',
     desc: '1967년 설립된 원양어업·수산물 유통 기업으로, 북·남 태평양에서 참치를 어획해 국내외 시장에 공급하고 있습니다.'
   },
   {
@@ -317,7 +317,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라섬유(주)',
     logoText: '섬유',
-    category: '미디어·공연 지원 기금',
+    category: '섬유·부동산·휴대폰',
     desc: '1976년에 섬유사업으로 설립되어 현재는 부동산 임대업과 휴대폰 판매업을 주력으로 하는 코스닥 상장 기업입니다.'
   }
 ];
