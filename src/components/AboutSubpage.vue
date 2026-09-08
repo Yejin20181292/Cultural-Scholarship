@@ -299,7 +299,7 @@ const donorCompanies: DonorCompany[] = [
     name: '(주)원일특강',
     logoText: '원일',
     logo: logoWonil,
-    category: '글로벌 연수 펀드',
+    category: '특수강·후판',
     desc: '글로벌 아티스트 파리·유럽 해외 연수 지원 및 국제 콩쿠르 참가 장학생 펀드를 지속 후원합니다.'
   },
   {
