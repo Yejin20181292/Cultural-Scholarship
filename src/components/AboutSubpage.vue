@@ -245,6 +245,7 @@ import historyPhoto2 from '../assets/history_photo2.jpg';
 import logoEmblem from '../assets/logo_emblem.png';
 import logoWonil from '../assets/logo_wonil.png';
 import logoSillaSG from '../assets/logo_sillasg.png';
+import logoSillaEng from '../assets/logo_sillaeng.png';
 
 defineEmits(['back']);
 
@@ -313,6 +314,7 @@ const donorCompanies: DonorCompany[] = [
   {
     name: '신라엔지니어링(주)',
     logoText: '엔지',
+    logo: logoSillaEng,
     category: '자동차용 외판금형·몰드베이스',
     desc: '1987년에 설립되어 자동차용 외판 금형과 사출 금형용 몰드베이스를 전문으로 제작하는 기업입니다.'
   },
