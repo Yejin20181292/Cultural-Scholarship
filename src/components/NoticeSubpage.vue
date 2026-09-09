@@ -148,7 +148,7 @@ const notices: Notice[] = [
     id: 4,
     type: 'event',
     tagText: '행사',
-    title: '제12회 문화예술 꿈나무 장학생 연말 전시회 개최 안내',
+    title: '2021 신라문화장학재단 장학생 공개선발',
     date: '2026.06.30',
     content: ['내용 준비 중입니다.']
   },
