@@ -154,8 +154,8 @@ const notices: Notice[] = [
     id: 3,
     type: 'normal',
     tagText: '안내',
-    title: '2026 신라문화장학재단 학술 세미나 참가자 모집 안내',
-    date: '2026.07.08',
+    title: '2022 신라문화장학재단 장학생 공개선발',
+    date: '2022.01.27',
     content: ['내용 준비 중입니다.']
   },
   {
