@@ -67,7 +67,7 @@
                     :alt="`${selectedNotice.title} ${i + 1}쪽`" class="detail-image" />
                 </div>
 
-                <a v-if="selectedNotice.file" class="btn btn-outline detail-download-btn"
+                <a v-if="selectedNotice.file" class="btn btn-primary detail-download-btn"
                   :href="selectedNotice.file" :download="selectedNotice.filename">
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -533,6 +533,8 @@ onUnmounted(() => {
   font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--white);
 }
 
 .detail-nav {
