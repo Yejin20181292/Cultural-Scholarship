@@ -116,10 +116,10 @@ const notices = [
   },
   {
     id: 2,
-    type: 'normal',
-    tagText: '일반',
-    title: '전통문화 계승 장학금 2차 면접 전형 대상자 발표',
-    date: '2026.07.15'
+    type: 'event',
+    tagText: '안내',
+    title: '2023 신라문화장학재단 장학생 공개선발',
+    date: '2023.02.02'
   },
   {
     id: 3,
