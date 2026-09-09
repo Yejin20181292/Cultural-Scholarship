@@ -105,7 +105,7 @@ const notices = [
     id: 5,
     type: 'normal',
     tagText: '일반',
-    title: '재단 개인정보처리방침 변경 고지 및 시행 안내',
+    title: '장학생 여러분께',
     date: '2026.06.25'
   }
 ];
