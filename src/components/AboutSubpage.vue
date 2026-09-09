@@ -170,21 +170,27 @@
               <p class="people-desc">재단의 운영과 장학 사업을 이끌어가는 임원진입니다.</p>
             </div>
 
-            <div v-for="group in boardGroups" :key="group.label" class="board-group">
-              <div class="board-group-header">
-                <h3 class="board-group-title">{{ group.label }}</h3>
-                <span v-if="group.note" class="board-group-note">{{ group.note }}</span>
-              </div>
-              <div class="people-grid">
-                <div v-for="(member, idx) in group.members" :key="idx" class="person-card">
-                  <div class="person-avatar" :class="{ 'is-chair': member.role === '이사장' }">
-                    {{ member.name.charAt(0) }}
-                  </div>
-                  <div class="person-info">
-                    <span class="person-role">{{ member.role }}</span>
-                    <h4 class="person-name">{{ member.name }}</h4>
-                  </div>
+            <div class="board-tables">
+              <div v-for="group in boardGroups" :key="group.label" class="board-group">
+                <div class="board-group-header">
+                  <h3 class="board-group-title">{{ group.label }}</h3>
+                  <span v-if="group.note" class="board-group-note">{{ group.note }}</span>
                 </div>
+                <table class="board-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">직위</th>
+                      <th scope="col">성명</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(member, idx) in group.members" :key="idx"
+                      :class="{ 'is-chair': member.role === '이사장' }">
+                      <td class="cell-role">{{ member.role }}</td>
+                      <td class="cell-name">{{ member.name }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1104,10 +1110,6 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
 }
 
-.board-group + .board-group {
-  margin-top: 44px;
-}
-
 .board-group-header {
   display: flex;
   align-items: baseline;
@@ -1129,65 +1131,47 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
 }
 
-.people-grid {
+.board-tables {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
 }
 
-.person-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(255, 255, 255, 0.65);
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.board-table th,
+.board-table td {
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 22px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  padding: 11px 14px;
+  text-align: center;
 }
 
-.person-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-color-hover);
-  box-shadow: 0 12px 28px rgba(6, 91, 137, 0.1);
-}
-
-.person-avatar {
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--white);
-  background: linear-gradient(135deg, #0a7bb5, var(--primary-color));
-}
-
-.person-avatar.is-chair {
-  background: linear-gradient(135deg, #c9a227, #9c7c14);
-}
-
-.person-info {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-.person-role {
-  font-size: 0.74rem;
-  font-weight: 600;
+.board-table th {
+  background: rgba(6, 91, 137, 0.07);
   color: var(--primary-color);
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
-.person-name {
-  font-size: 1.05rem;
-  font-weight: 600;
+.board-table td {
+  color: var(--text-secondary);
+  font-weight: 300;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.board-table tr.is-chair td {
+  background: rgba(6, 91, 137, 0.04);
   color: var(--text-primary);
+  font-weight: 500;
+}
+
+.board-table .cell-name {
+  letter-spacing: 2px;
 }
 
 
@@ -1198,6 +1182,11 @@ watch(activeTab, (newTab) => {
 
   .people-title {
     font-size: 1.6rem;
+  }
+
+  .board-tables {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
 
