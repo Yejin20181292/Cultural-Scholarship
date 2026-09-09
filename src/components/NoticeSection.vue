@@ -140,7 +140,7 @@ const notices = [
     type: 'normal',
     tagText: '일반',
     title: '장학생 여러분께',
-    date: '2026.06.25'
+    date: '2020.12.03'
   }
 ];
 
