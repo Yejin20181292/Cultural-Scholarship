@@ -161,7 +161,31 @@
           </div>
         </div>
 
-        <!-- 4. 찾아오시는 길 -->
+        <!-- 4. 함께하는 사람들 (People) -->
+        <div v-if="activeTab === 'people'" class="tab-pane reveal active">
+          <div class="people-wrapper glass-card">
+            <div class="people-header">
+              <span class="people-subtitle">BOARD OF DIRECTORS</span>
+              <h2 class="people-title title-serif">함께하는 사람들</h2>
+              <p class="people-desc">재단의 운영과 장학 사업을 이끌어가는 임원진입니다.</p>
+            </div>
+
+            <div class="people-grid">
+              <div v-for="(member, idx) in boardMembers" :key="idx" class="person-card">
+                <div class="person-avatar" :class="{ 'is-chair': member.role === '이사장' }">
+                  {{ member.name.charAt(0) }}
+                </div>
+                <div class="person-info">
+                  <span class="person-role">{{ member.role }}</span>
+                  <h4 class="person-name">{{ member.name }}</h4>
+                  <p v-if="member.note" class="person-note">{{ member.note }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -288,6 +312,7 @@ const tabs = [
   { id: 'greetings', name: '설립취지 & 인사말' },
   { id: 'history', name: '회사연혁' },
   { id: 'donors', name: '출연사' },
+  { id: 'people', name: '함께하는 사람들' },
   { id: 'contact', name: '찾아오시는 길' }
 ];
 
@@ -377,6 +402,21 @@ const historyData = [
     ]
   }
 ];
+interface BoardMember {
+  role: string;
+  name: string;
+  note: string;
+}
+
+// TODO: '○○○'은 자리표시자입니다. 실제 임원 명단을 받으면 교체해야 합니다.
+const boardMembers: BoardMember[] = [
+  { role: '이사장', name: '박준형', note: '재단 운영 총괄' },
+  { role: '이사', name: '○○○', note: '' },
+  { role: '이사', name: '○○○', note: '' },
+  { role: '이사', name: '○○○', note: '' },
+  { role: '감사', name: '○○○', note: '' }
+];
+
 
 const getTabFromHash = (): string => {
   const hash = window.location.hash;
@@ -1001,6 +1041,114 @@ watch(activeTab, (newTab) => {
 }
 
 /* 3. Contact / Location */
+/* ===== 4. 함께하는 사람들 ===== */
+.people-wrapper {
+  padding: 50px;
+}
+
+.people-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.people-subtitle {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.people-title {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.people-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.person-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 22px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.person-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-color-hover);
+  box-shadow: 0 12px 28px rgba(6, 91, 137, 0.1);
+}
+
+.person-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--white);
+  background: linear-gradient(135deg, #0a7bb5, var(--primary-color));
+}
+
+.person-avatar.is-chair {
+  background: linear-gradient(135deg, #c9a227, #9c7c14);
+}
+
+.person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.person-role {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+}
+
+.person-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.person-note {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .people-wrapper {
+    padding: 30px 20px;
+  }
+
+  .people-title {
+    font-size: 1.6rem;
+  }
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
