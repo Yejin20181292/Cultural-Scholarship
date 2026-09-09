@@ -108,6 +108,13 @@ const activeTab = ref('notice');
 
 const notices = [
   {
+    id: 6,
+    type: 'event',
+    tagText: '안내',
+    title: '2026 신라문화장학재단 장학생 공개선발',
+    date: '2026.01.16'
+  },
+  {
     id: 1,
     type: 'event',
     tagText: '안내',
