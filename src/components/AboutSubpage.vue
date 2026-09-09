@@ -828,7 +828,9 @@ watch(activeTab, (newTab) => {
 .timeline-event-card::before {
   content: '';
   position: absolute;
-  left: -35px;
+  /* 점선(2px)의 중앙에 원의 중심을 맞춘다. */
+  left: -30px;
+  transform: translateX(-50%);
   top: 24px;
   width: 12px;
   height: 12px;
