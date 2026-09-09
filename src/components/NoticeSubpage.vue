@@ -107,6 +107,7 @@ import noticeLetter01 from '../assets/notice_letter01.jpeg';
 import noticeLetter02 from '../assets/notice_letter02.jpeg';
 import notice2021Recruit from '../assets/notice_2021_recruit.jpeg';
 import notice2022Recruit from '../assets/notice_2022_recruit.jpeg';
+import notice2023Recruit from '../assets/notice_2023_recruit.jpeg';
 
 defineEmits(['back']);
 
@@ -149,7 +150,12 @@ const notices: Notice[] = [
     tagText: '안내',
     title: '2023 신라문화장학재단 장학생 공개선발',
     date: '2023.02.02',
-    content: ['내용 준비 중입니다.']
+    content: [
+      '2023년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2023Recruit]
   },
   {
     id: 3,
