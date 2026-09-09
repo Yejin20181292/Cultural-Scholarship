@@ -29,23 +29,54 @@
       <div class="tab-view-content">
         <div v-if="activeTab === 'notice'" class="tab-pane reveal active">
           <div class="notice-container">
-            <div class="notice-search-bar glass-card">
-              <div class="search-input-wrapper">
-                <input type="text" v-model="searchQuery" placeholder="공지사항 제목/내용 검색..." class="notice-search-input" />
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              </div>
-            </div>
-
-            <div class="notice-list glass-card">
-              <div v-for="item in filteredNotices" :key="item.id" class="notice-item">
-                <span class="item-tag" :class="item.type">{{ item.tagText }}</span>
-                <div class="item-main">
-                  <a href="#" class="item-title" @click.prevent>{{ item.title }}</a>
-                  <span class="item-date">{{ item.date }}</span>
+            <!-- 목록 -->
+            <template v-if="!selectedNotice">
+              <div class="notice-search-bar glass-card">
+                <div class="search-input-wrapper">
+                  <input type="text" v-model="searchQuery" placeholder="공지사항 제목/내용 검색..." class="notice-search-input" />
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </div>
-                <svg class="item-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+              </div>
+
+              <div class="notice-list glass-card">
+                <div v-for="item in filteredNotices" :key="item.id" class="notice-item" @click="openNotice(item.id)">
+                  <span class="item-tag" :class="item.type">{{ item.tagText }}</span>
+                  <div class="item-main">
+                    <a :href="`#notice-sub/detail/${item.id}`" class="item-title" @click.prevent>{{ item.title }}</a>
+                    <span class="item-date">{{ item.date }}</span>
+                  </div>
+                  <svg class="item-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </template>
+
+            <!-- 상세 -->
+            <div v-else class="notice-detail glass-card">
+              <div class="detail-header">
+                <span class="item-tag" :class="selectedNotice.type">{{ selectedNotice.tagText }}</span>
+                <h2 class="detail-title">{{ selectedNotice.title }}</h2>
+                <span class="detail-date">{{ selectedNotice.date }}</span>
+              </div>
+
+              <div class="detail-body">
+                <p v-for="(para, i) in selectedNotice.content" :key="i" class="detail-para">{{ para }}</p>
+              </div>
+
+              <div class="detail-nav">
+                <button v-if="prevNotice" class="detail-nav-btn" @click="openNotice(prevNotice.id)">
+                  <span class="nav-label">이전 글</span>
+                  <span class="nav-title">{{ prevNotice.title }}</span>
+                </button>
+                <button v-if="nextNotice" class="detail-nav-btn" @click="openNotice(nextNotice.id)">
+                  <span class="nav-label">다음 글</span>
+                  <span class="nav-title">{{ nextNotice.title }}</span>
+                </button>
+              </div>
+
+              <div class="detail-actions">
+                <button class="btn btn-outline" @click="closeNotice">목록으로</button>
               </div>
             </div>
           </div>
@@ -78,35 +109,40 @@ const notices = [
     type: 'important',
     tagText: '중요',
     title: '2026년도 하반기 글로벌 아티스트 장학생 모집 공고',
-    date: '2026.07.20'
+    date: '2026.07.20',
+    content: ['내용 준비 중입니다.']
   },
   {
     id: 2,
     type: 'normal',
     tagText: '일반',
     title: '전통문화 계승 장학금 2차 면접 전형 대상자 발표',
-    date: '2026.07.15'
+    date: '2026.07.15',
+    content: ['내용 준비 중입니다.']
   },
   {
     id: 3,
     type: 'normal',
     tagText: '안내',
     title: '2026 신라문화장학재단 학술 세미나 참가자 모집 안내',
-    date: '2026.07.08'
+    date: '2026.07.08',
+    content: ['내용 준비 중입니다.']
   },
   {
     id: 4,
     type: 'event',
     tagText: '행사',
     title: '제12회 문화예술 꿈나무 장학생 연말 전시회 개최 안내',
-    date: '2026.06.30'
+    date: '2026.06.30',
+    content: ['내용 준비 중입니다.']
   },
   {
     id: 5,
     type: 'normal',
     tagText: '일반',
     title: '장학생 여러분께',
-    date: '2020.12.03'
+    date: '2020.12.03',
+    content: ['내용 준비 중입니다.']
   }
 ];
 
@@ -115,8 +151,49 @@ const filteredNotices = computed(() => {
   return notices.filter(n => n.title.toLowerCase().includes(searchQuery.value.toLowerCase()));
 });
 
-onMounted(() => {
+const getDetailIdFromHash = (): number | null => {
+  const parts = window.location.hash.split('/');
+  if (parts[1] === 'detail' && parts[2]) {
+    const id = Number(parts[2]);
+    return Number.isFinite(id) ? id : null;
+  }
+  return null;
+};
+
+const selectedId = ref<number | null>(getDetailIdFromHash());
+
+const selectedNotice = computed(() => notices.find(n => n.id === selectedId.value) ?? null);
+
+const currentIndex = computed(() => notices.findIndex(n => n.id === selectedId.value));
+const prevNotice = computed(() => (currentIndex.value > 0 ? notices[currentIndex.value - 1] : null));
+const nextNotice = computed(() =>
+  currentIndex.value >= 0 && currentIndex.value < notices.length - 1 ? notices[currentIndex.value + 1] : null
+);
+
+const openNotice = (id: number) => {
+  window.location.hash = `#notice-sub/detail/${id}`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const closeNotice = () => {
   window.location.hash = '#notice-sub/notice';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// 뒤로 가기/앞으로 가기로도 목록과 상세를 오갈 수 있어야 한다.
+const syncFromHash = () => {
+  selectedId.value = getDetailIdFromHash();
+};
+
+onMounted(() => {
+  if (!window.location.hash.startsWith('#notice-sub')) {
+    window.location.hash = '#notice-sub/notice';
+  }
+  window.addEventListener('hashchange', syncFromHash);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', syncFromHash);
 });
 </script>
 
@@ -336,5 +413,115 @@ onMounted(() => {
 .notice-item:hover .item-arrow {
   color: var(--primary-color);
   transform: translateX(3px);
+}
+
+/* ===== 공지 상세 ===== */
+.notice-item {
+  cursor: pointer;
+}
+
+.notice-detail {
+  padding: 40px 44px;
+  text-align: left;
+}
+
+.detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.detail-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.detail-date {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.detail-body {
+  min-height: 180px;
+  margin-bottom: 36px;
+}
+
+.detail-para {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+  word-break: keep-all;
+}
+
+.detail-para + .detail-para {
+  margin-top: 16px;
+}
+
+.detail-nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-color);
+}
+
+.detail-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 4px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background var(--transition-fast);
+}
+
+.detail-nav-btn:hover {
+  background: rgba(6, 91, 137, 0.04);
+}
+
+.nav-label {
+  flex-shrink: 0;
+  width: 56px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.nav-title {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .notice-detail {
+    padding: 28px 20px;
+  }
+
+  .detail-title {
+    font-size: 1.25rem;
+  }
 }
 </style>
