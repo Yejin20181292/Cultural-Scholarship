@@ -106,6 +106,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import noticeLetter01 from '../assets/notice_letter01.jpeg';
 import noticeLetter02 from '../assets/notice_letter02.jpeg';
 import notice2021Recruit from '../assets/notice_2021_recruit.jpeg';
+import notice2022Recruit from '../assets/notice_2022_recruit.jpeg';
 
 defineEmits(['back']);
 
@@ -156,7 +157,14 @@ const notices: Notice[] = [
     tagText: '안내',
     title: '2022 신라문화장학재단 장학생 공개선발',
     date: '2022.01.27',
-    content: ['내용 준비 중입니다.']
+    content: [
+      '2022년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2022Recruit],
+    file: '/docs/2022-scholarship-recruitment.pdf',
+    filename: '2022공개선발요강.pdf'
   },
   {
     id: 4,
