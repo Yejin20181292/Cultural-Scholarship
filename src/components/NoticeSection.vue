@@ -123,7 +123,7 @@ const notices = [
   },
   {
     id: 3,
-    type: 'normal',
+    type: 'event',
     tagText: '안내',
     title: '2022 신라문화장학재단 장학생 공개선발',
     date: '2022.01.27'
