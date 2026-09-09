@@ -66,6 +66,17 @@
                   <img v-for="(src, i) in selectedNotice.images" :key="i" :src="src"
                     :alt="`${selectedNotice.title} ${i + 1}쪽`" class="detail-image" />
                 </div>
+
+                <a v-if="selectedNotice.file" class="btn btn-outline detail-download-btn"
+                  :href="selectedNotice.file" :download="selectedNotice.filename">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>{{ selectedNotice.filename }}</span>
+                </a>
               </div>
 
               <div class="detail-nav">
@@ -118,6 +129,8 @@ interface Notice {
   date: string;
   content: string[];
   images?: string[]; // 본문이 이미지로 된 공지에만 사용한다.
+  file?: string; // public/ 기준 첨부파일 경로
+  filename?: string; // 내려받을 때 저장될 이름
 }
 
 const notices: Notice[] = [
@@ -156,7 +169,9 @@ const notices: Notice[] = [
       '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
       '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
     ],
-    images: [notice2021Recruit]
+    images: [notice2021Recruit],
+    file: '/docs/2021-scholarship-recruitment.pdf',
+    filename: '2021공개선발요강.pdf'
   },
   {
     id: 5,
@@ -505,6 +520,17 @@ onUnmounted(() => {
 
 .detail-para + .detail-para {
   margin-top: 16px;
+}
+
+.detail-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .detail-nav {
