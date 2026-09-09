@@ -96,7 +96,7 @@
           <div class="donors-wrapper glass-card">
             <div class="donors-header">
               <span class="donors-subtitle">FOUNDATION CONTRIBUTORS & PARTNERS</span>
-              <h2 class="donors-title title-serif">신라문화장학재단 출연사 안내</h2>
+              <h2 class="donors-title title-serif">출연사 안내</h2>
               <p class="donors-desc">뜻을 함께하고 장학 기금을 위해 출연해 주신 동반자 기업입니다.</p>
             </div>
 
