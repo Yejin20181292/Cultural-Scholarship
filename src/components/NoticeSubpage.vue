@@ -62,6 +62,10 @@
 
               <div class="detail-body">
                 <p v-for="(para, i) in selectedNotice.content" :key="i" class="detail-para">{{ para }}</p>
+                <div v-if="selectedNotice.images" class="detail-images">
+                  <img v-for="(src, i) in selectedNotice.images" :key="i" :src="src"
+                    :alt="`${selectedNotice.title} ${i + 1}쪽`" class="detail-image" />
+                </div>
               </div>
 
               <div class="detail-nav">
@@ -88,6 +92,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import noticeLetter01 from '../assets/notice_letter01.jpeg';
+import noticeLetter02 from '../assets/notice_letter02.jpeg';
 
 defineEmits(['back']);
 
@@ -103,7 +109,17 @@ const setActiveTab = (tabId: string) => {
   window.location.hash = `#notice-sub/${tabId}`;
 };
 
-const notices = [
+interface Notice {
+  id: number;
+  type: string;
+  tagText: string;
+  title: string;
+  date: string;
+  content: string[];
+  images?: string[]; // 본문이 이미지로 된 공지에만 사용한다.
+}
+
+const notices: Notice[] = [
   {
     id: 1,
     type: 'important',
@@ -142,7 +158,8 @@ const notices = [
     tagText: '일반',
     title: '장학생 여러분께',
     date: '2020.12.03',
-    content: ['내용 준비 중입니다.']
+    content: [],
+    images: [noticeLetter01, noticeLetter02]
   }
 ];
 
@@ -463,6 +480,20 @@ onUnmounted(() => {
   color: var(--text-secondary);
   font-weight: 300;
   word-break: keep-all;
+}
+
+.detail-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
 .detail-para + .detail-para {
