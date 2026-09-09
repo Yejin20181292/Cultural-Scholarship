@@ -165,10 +165,12 @@ const selectedId = ref<number | null>(getDetailIdFromHash());
 const selectedNotice = computed(() => notices.find(n => n.id === selectedId.value) ?? null);
 
 const currentIndex = computed(() => notices.findIndex(n => n.id === selectedId.value));
-const prevNotice = computed(() => (currentIndex.value > 0 ? notices[currentIndex.value - 1] : null));
-const nextNotice = computed(() =>
+// 목록이 최신순이라 배열 뒤로 갈수록 오래된 글이다.
+// 따라서 이전 글 = 배열의 다음 항목(더 오래된 글), 다음 글 = 배열의 앞 항목(더 최근 글)이다.
+const prevNotice = computed(() =>
   currentIndex.value >= 0 && currentIndex.value < notices.length - 1 ? notices[currentIndex.value + 1] : null
 );
+const nextNotice = computed(() => (currentIndex.value > 0 ? notices[currentIndex.value - 1] : null));
 
 const openNotice = (id: number) => {
   window.location.hash = `#notice-sub/detail/${id}`;
