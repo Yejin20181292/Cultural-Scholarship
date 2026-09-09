@@ -131,9 +131,9 @@ const notices = [
   {
     id: 4,
     type: 'event',
-    tagText: '행사',
+    tagText: '안내',
     title: '2021 신라문화장학재단 장학생 공개선발',
-    date: '2026.06.30'
+    date: '2021.01.27'
   },
   {
     id: 5,
