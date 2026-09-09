@@ -138,10 +138,10 @@ interface Notice {
 const notices: Notice[] = [
   {
     id: 1,
-    type: 'important',
-    tagText: '중요',
-    title: '2026년도 하반기 글로벌 아티스트 장학생 모집 공고',
-    date: '2026.07.20',
+    type: 'event',
+    tagText: '안내',
+    title: '2025 신라문화장학재단 장학생 공개선발',
+    date: '2025.01.21',
     content: ['내용 준비 중입니다.']
   },
   {
