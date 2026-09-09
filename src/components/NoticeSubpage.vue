@@ -523,10 +523,12 @@ onUnmounted(() => {
 }
 
 .detail-download-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  margin-top: 24px;
+  width: fit-content;
+  margin: 24px auto 0;
   padding: 11px 20px;
   font-size: 0.9rem;
   font-weight: 500;
