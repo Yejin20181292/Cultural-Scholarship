@@ -69,7 +69,7 @@
             <div class="timeline-header">
               <span class="timeline-subtitle">FOUNDATION HISTORY</span>
               <h2 class="timeline-title title-serif">신라문화장학재단 발자취</h2>
-              <p class="timeline-desc">1978년 설립 이래 인재 육성과 문화예술 발전을 위해 걸어온 47년간의 역사입니다.</p>
+              <p class="timeline-desc">1978년 설립 이래 인재 육성과 학생들의 발전을 위해 걸어온 40년간의 역사입니다.</p>
             </div>
 
             <div class="timeline-container">
