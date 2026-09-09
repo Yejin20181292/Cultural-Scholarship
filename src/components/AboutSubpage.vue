@@ -170,15 +170,20 @@
               <p class="people-desc">재단의 운영과 장학 사업을 이끌어가는 임원진입니다.</p>
             </div>
 
-            <div class="people-grid">
-              <div v-for="(member, idx) in boardMembers" :key="idx" class="person-card">
-                <div class="person-avatar" :class="{ 'is-chair': member.role === '이사장' }">
-                  {{ member.name.charAt(0) }}
-                </div>
-                <div class="person-info">
-                  <span class="person-role">{{ member.role }}</span>
-                  <h4 class="person-name">{{ member.name }}</h4>
-                  <p v-if="member.note" class="person-note">{{ member.note }}</p>
+            <div v-for="group in boardGroups" :key="group.label" class="board-group">
+              <div class="board-group-header">
+                <h3 class="board-group-title">{{ group.label }}</h3>
+                <span v-if="group.note" class="board-group-note">{{ group.note }}</span>
+              </div>
+              <div class="people-grid">
+                <div v-for="(member, idx) in group.members" :key="idx" class="person-card">
+                  <div class="person-avatar" :class="{ 'is-chair': member.role === '이사장' }">
+                    {{ member.name.charAt(0) }}
+                  </div>
+                  <div class="person-info">
+                    <span class="person-role">{{ member.role }}</span>
+                    <h4 class="person-name">{{ member.name }}</h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -405,16 +410,43 @@ const historyData = [
 interface BoardMember {
   role: string;
   name: string;
-  note: string;
 }
 
-// TODO: '○○○'은 자리표시자입니다. 실제 임원 명단을 받으면 교체해야 합니다.
-const boardMembers: BoardMember[] = [
-  { role: '이사장', name: '박준형', note: '재단 운영 총괄' },
-  { role: '이사', name: '○○○', note: '' },
-  { role: '이사', name: '○○○', note: '' },
-  { role: '이사', name: '○○○', note: '' },
-  { role: '감사', name: '○○○', note: '' }
+interface BoardGroup {
+  label: string;
+  note: string;
+  members: BoardMember[];
+}
+
+const boardGroups: BoardGroup[] = [
+  {
+    label: '최초 설립시 이사회',
+    note: '1978년 재단 설립 당시',
+    members: [
+      { role: '이사장', name: '박준형' },
+      { role: '이사', name: '박성형' },
+      { role: '이사', name: '오상락' },
+      { role: '이사', name: '유용근' },
+      { role: '이사', name: '최종태' },
+      { role: '이사', name: '김찬규' },
+      { role: '감사', name: '이보갈' },
+      { role: '감사', name: '정재현' }
+    ]
+  },
+  {
+    label: '현재 이사회',
+    note: '',
+    members: [
+      { role: '이사장', name: '박준형' },
+      { role: '이사', name: '최종태' },
+      { role: '이사', name: '이명섭' },
+      { role: '이사', name: '김석환' },
+      { role: '이사', name: '오인영' },
+      { role: '이사', name: '김용식' },
+      { role: '감사', name: '최문호' },
+      { role: '감사', name: '권익환' }
+    ]
+  }
 ];
 
 
@@ -1072,6 +1104,31 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
 }
 
+.board-group + .board-group {
+  margin-top: 44px;
+}
+
+.board-group-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.board-group-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.board-group-note {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
 .people-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1133,11 +1190,6 @@ watch(activeTab, (newTab) => {
   color: var(--text-primary);
 }
 
-.person-note {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-  font-weight: 300;
-}
 
 @media (max-width: 768px) {
   .people-wrapper {
