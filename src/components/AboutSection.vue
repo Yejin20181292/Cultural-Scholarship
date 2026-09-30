@@ -5,8 +5,8 @@
         <span class="section-subtitle">FOUNDATION VISION</span>
         <h2 class="section-title">함께 미래를 꽃피우는 재단</h2>
         <p class="section-description">
-          신라문화장학재단은 예술적 가치를 보존하고 창의적인 도전을 장려하며, 
-          재능 있는 인재들이 세상을 밝히는 아티스트로 성장할 수 있는 디딤돌이 되고자 합니다.
+          신라문화장학재단은 학생들의 미래와 비전을 위해 배움의 길을 열어주고,
+          어려움 없이 도전할 수 있도록 응원하며 마음껏 성장할 수 있는 디딤돌이 되고자 합니다.
         </p>
       </div>
 

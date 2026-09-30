@@ -1,6 +1,5 @@
 <template>
   <section class="hero-section">
-    <!-- TODO 임시 미리보기: 워터마크 있는 구매 전 이미지 2장. 구매 후 hero_bg.png 한 장으로 되돌릴 것 -->
     <div class="hero-bg-wrapper">
       <div class="hero-slider-track" :class="{ 'no-transition': !isAnimating }"
         :style="{ transform: `translateX(-${currentSlide * 100}%)` }" @transitionend="onTransitionEnd">
@@ -48,14 +47,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-// TODO 임시: 워터마크 있는 구매 전 이미지. 구매 후 이 import와 슬라이더를 정리할 것
-import heroPreview1 from '../assets/hero_bg_preview1.jpg';
-import heroPreview2 from '../assets/hero_bg_preview2.jpg';
-import heroPreview3 from '../assets/hero_bg_preview3.jpg';
+import heroSlide1 from '../assets/hero_slide1.jpg';
+import heroSlide2 from '../assets/hero_slide2.jpg';
+import heroSlide3 from '../assets/hero_slide3.jpg';
 
 defineEmits(['navigate']);
 
-const slides = [heroPreview1, heroPreview2, heroPreview3];
+const slides = [heroSlide1, heroSlide2, heroSlide3];
 
 // 마지막 장 다음에도 오른쪽으로 계속 넘어가도록, 첫 장을 뒤에 한 번 더 붙인다.
 // 복제본까지 넘어간 뒤 전환 효과를 끄고 첫 장으로 되돌려 놓으면 끊김 없이 순환한다.
