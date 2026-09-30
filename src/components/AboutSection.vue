@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-header reveal" ref="headerRef">
         <span class="section-subtitle">FOUNDATION VISION</span>
-        <h2 class="section-title">문화와 미래를 꽃피우는 재단</h2>
+        <h2 class="section-title">함께 미래를 꽃피우는 재단</h2>
         <p class="section-description">
           신라문화장학재단은 예술적 가치를 보존하고 창의적인 도전을 장려하며, 
           재능 있는 인재들이 세상을 밝히는 아티스트로 성장할 수 있는 디딤돌이 되고자 합니다.

@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # 구매 전 워터마크 미리보기 이미지 (저장소에 올리지 않는다)
-src/assets/hero_bg_preview*.png
+src/assets/hero_bg_preview*

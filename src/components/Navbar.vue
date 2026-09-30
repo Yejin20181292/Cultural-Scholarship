@@ -443,18 +443,14 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: all var(--transition-normal);
-}
-
-.header.scrolled,
-.header:hover {
+  /* 스크롤 여부와 관계없이 항상 흰 배경을 유지한다. */
   background: rgba(248, 250, 252, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
 }
+
 
 .header-container {
   display: flex;
