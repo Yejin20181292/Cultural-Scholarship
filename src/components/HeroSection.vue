@@ -2,7 +2,7 @@
   <section class="hero-section">
     <div class="hero-bg-wrapper">
       <div class="hero-slider-track" :class="{ 'no-transition': !isAnimating }"
-        :style="{ transform: `translateX(-${currentSlide * 100}%)` }" @transitionend="onTransitionEnd">
+        :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
         <div v-for="(src, i) in trackSlides" :key="i" class="hero-slide">
           <img :src="src" alt="Cultural Art Background" class="hero-bg-img" />
         </div>
@@ -62,40 +62,60 @@ const trackSlides = [...slides, slides[0]];
 const currentSlide = ref(0);
 const isAnimating = ref(true);
 const activeDot = computed(() => currentSlide.value % slides.length);
+
 const AUTO_MS = 6000;
+const TRANSITION_MS = 800;   // CSS 전환 시간과 맞춰야 한다
 
 let timer: ReturnType<typeof setInterval> | null = null;
+let snapTimer: ReturnType<typeof setTimeout> | null = null;
+let resumeTimer: ReturnType<typeof setTimeout> | null = null;
 
-// 전환 효과를 끈 채 위치만 옮긴 뒤, 두 프레임 뒤에 효과를 되살린다.
-const jumpTo = (index: number, then?: () => void) => {
-  isAnimating.value = false;
-  currentSlide.value = index;
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      isAnimating.value = true;
-      if (then) then();
-    });
-  });
+const clearSnapTimers = () => {
+  if (snapTimer) { clearTimeout(snapTimer); snapTimer = null; }
+  if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
 };
 
-const onTransitionEnd = () => {
-  // 복제본에 도착했으면 티 나지 않게 진짜 첫 장으로 옮겨 둔다.
-  if (currentSlide.value === slides.length) {
-    jumpTo(0);
-  }
+// 전환 효과를 끈 채 위치만 옮긴다. 화면에는 같은 사진이라 옮긴 티가 나지 않는다.
+// 브라우저 탭이 가려져 있으면 requestAnimationFrame 이 멈추므로 setTimeout 을 쓴다.
+const jumpTo = (index: number, then?: () => void) => {
+  clearSnapTimers();
+  isAnimating.value = false;
+  currentSlide.value = index;
+  resumeTimer = setTimeout(() => {
+    isAnimating.value = true;
+    if (then) then();
+  }, 50);
 };
 
 const advance = () => {
+  // 복제본에 머물러 있으면 먼저 진짜 첫 장으로 되돌린 뒤 진행한다.
+  if (currentSlide.value >= slides.length) {
+    jumpTo(0, () => {
+      currentSlide.value = 1;
+    });
+    return;
+  }
+
   currentSlide.value += 1;
+
+  if (currentSlide.value === slides.length) {
+    // 복제본으로 넘어갔으니 전환이 끝나면 첫 장 자리로 옮겨 둔다.
+    clearSnapTimers();
+    snapTimer = setTimeout(() => jumpTo(0), TRANSITION_MS);
+  }
 };
 
 const startTimer = () => {
+  if (timer) clearInterval(timer);
   timer = setInterval(advance, AUTO_MS);
+};
+
+const stopTimer = () => {
+  if (timer) { clearInterval(timer); timer = null; }
 };
 
 // 직접 넘긴 직후에는 타이머를 다시 시작해, 곧바로 또 넘어가지 않게 한다.
 const resetTimer = () => {
-  if (timer) clearInterval(timer);
   startTimer();
 };
 
@@ -105,7 +125,7 @@ const nextSlide = () => {
 };
 
 const prevSlide = () => {
-  if (currentSlide.value === 0) {
+  if (currentSlide.value <= 0) {
     // 첫 장에서 뒤로 갈 때도 왼쪽으로 이어지도록, 끝의 복제본으로 옮긴 뒤 한 칸 되돌린다.
     jumpTo(slides.length, () => {
       currentSlide.value = slides.length - 1;
@@ -117,13 +137,34 @@ const prevSlide = () => {
 };
 
 const goSlide = (i: number) => {
+  clearSnapTimers();
   currentSlide.value = i;
   resetTimer();
 };
 
-onMounted(startTimer);
+// 탭이 가려진 동안에는 자동 전환을 멈춘다. 그대로 두면 전환이 끝나지
+// 않은 채 위치만 계속 밀려, 돌아왔을 때 빈 화면이 보인다.
+const onVisibilityChange = () => {
+  if (document.hidden) {
+    stopTimer();
+    clearSnapTimers();
+    return;
+  }
+  if (currentSlide.value >= slides.length) {
+    jumpTo(0);
+  }
+  startTimer();
+};
+
+onMounted(() => {
+  startTimer();
+  document.addEventListener('visibilitychange', onVisibilityChange);
+});
+
 onUnmounted(() => {
-  if (timer) clearInterval(timer);
+  stopTimer();
+  clearSnapTimers();
+  document.removeEventListener('visibilitychange', onVisibilityChange);
 });
 </script>
 
