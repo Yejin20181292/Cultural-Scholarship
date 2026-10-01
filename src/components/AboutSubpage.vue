@@ -551,7 +551,12 @@ watch(activeTab, (newTab) => {
   background-size: cover;
   /* 인물들이 사진 중앙 아래쪽에 모여 있어 그 부분이 보이도록 맞춘다. */
   background-position: center 35%;
-  padding: 140px 0 120px;
+  /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  /* 고정 메뉴바에 가려지는 위쪽을 뺀, 실제로 보이는 영역의 가운데에 글자를 놓는다. */
+  padding: calc(60px + var(--header-height)) 0 60px;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
   overflow: hidden;

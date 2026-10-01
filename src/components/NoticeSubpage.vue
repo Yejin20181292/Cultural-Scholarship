@@ -284,10 +284,16 @@ onUnmounted(() => {
 
 .sub-banner {
   position: relative;
-  background-image: url('../assets/history_founder.png');
+  background-image: url('../assets/notice_banner.jpg');
   background-size: cover;
-  background-position: center 30%;
-  padding: 140px 0 100px;
+  /* 책상 위 자료가 사진 아래쪽에 있어 그 부분이 보이도록 맞춘다. */
+  background-position: center 50%;
+  /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  /* 고정 메뉴바에 가려지는 위쪽을 뺀, 실제로 보이는 영역의 가운데에 글자를 놓는다. */
+  padding: calc(60px + var(--header-height)) 0 60px;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
   overflow: hidden;
@@ -301,9 +307,9 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom,
-      rgba(248, 250, 252, 0.52) 0%,
-      rgba(248, 250, 252, 0.42) 60%,
-      var(--bg-color) 100%);
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.45) 60%,
+      rgba(0, 0, 0, 0.65) 100%);
   z-index: 1;
 }
 
@@ -313,7 +319,7 @@ onUnmounted(() => {
 }
 
 .banner-subtitle {
-  color: var(--primary-color);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.25em;
@@ -325,12 +331,12 @@ onUnmounted(() => {
 .banner-title {
   font-size: 3rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 16px;
 }
 
 .banner-desc {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
