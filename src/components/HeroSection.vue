@@ -29,8 +29,8 @@
           <span class="highlight">함께하겠습니다.</span>
         </h1>
         <p class="hero-description">
-          신라문화장학재단은 재능 있는 예술 인재들이 경제적 어려움 없이 창의성과 잠재력을 발휘하여 
-          글로벌 문화 리더로 성장할 수 있도록 든든한 날개가 되어 줍니다.
+          신라문화장학재단은 꿈과 열정을 가진 인재들이 경제적 어려움 없이 무한한 잠재력을 발휘하여
+          미래를 이끄는 리더로 성장할 수 있도록 든든한 날개가 되어 줍니다.
         </p>
         <div class="hero-actions">
           <a href="#programs" class="btn btn-primary">
