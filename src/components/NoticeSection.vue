@@ -81,13 +81,14 @@
               </div>
               <div class="resource-download">
                 <span class="file-size">{{ item.size }}</span>
-                <button class="btn btn-outline download-btn" @click.prevent>
+                <button class="btn btn-outline download-btn"
+                  @click="emit('navigate', 'resources-sub', 'archive')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span>다운로드</span>
+                  <span>자료실에서 받기</span>
                 </button>
               </div>
             </div>
@@ -100,6 +101,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+
+// 홈 화면에는 파일을 두지 않으므로, 내려받기는 자료실로 보낸다.
+const emit = defineEmits(['navigate']);
 
 const headerRef = ref<HTMLElement | null>(null);
 const tabsRef = ref<HTMLElement | null>(null);
@@ -185,11 +189,11 @@ const settlementReports = [
   {
     id: 1,
     category: '결산 공시',
-    title: '2025년도 재단법인 신라문화장학재단 결산보고서 및 사업실적 공시',
-    desc: '공익법인 결산 서류, 기부금 모금·활용 실적 및 회계감사 보고서 공시',
+    title: '2022사업연도 공익법인 결산서류 등의 공시',
+    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
     size: '4.1 MB',
-    date: '2026.04.30'
+    date: '2023.04.28'
   },
   {
     id: 2,

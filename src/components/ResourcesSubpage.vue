@@ -543,19 +543,21 @@ const resources: ResourceItem[] = [
   },
   {
     id: 4,
-    title: '2025년도 재단법인 신라문화장학재단 결산보고서 및 사업실적 공시',
+    title: '2022사업연도 공익법인 결산서류 등의 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '4.1 MB',
-    date: '2026.04.30'
+    size: '12.7 MB',
+    date: '2023.04.28',
+    file: '/docs/2022-settlement-disclosure.pdf',
+    filename: '2022사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   },
   {
     id: 5,
     title: '2021사업연도 공익법인 결산서류 등의 공시',
-    desc: '재단 설립 정관 및 장학생 수혜 자격 유지, 의무사항에 관한 세부 규정',
+    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
     size: '6.9 MB',
-    date: '2022. 04. 27',
+    date: '2022.04.27',
     file: '/docs/2021-settlement-disclosure.pdf'
   }
 ];
@@ -602,10 +604,10 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.45) 60%,
-      rgba(0, 0, 0, 0.65) 100%);
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.2) 100%);
   z-index: 1;
 }
 
