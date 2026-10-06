@@ -212,7 +212,8 @@
             <section v-for="section in activeDetail.sections" :key="section.heading" class="detail-section">
               <h4 class="detail-section-heading">{{ section.heading }}</h4>
 
-              <ol class="detail-section-list" :class="{ numbered: section.items.some(it => it.sub) }">
+              <ol class="detail-section-list"
+                :class="{ numbered: section.numbered ?? section.items.some(it => it.sub) }">
                 <li v-for="(item, i) in section.items" :key="i" class="detail-item">
                   <span class="detail-item-text">{{ item.text }}</span>
 
@@ -229,7 +230,7 @@
 
               <div v-if="section.note" class="detail-note">
                 <p v-for="(line, i) in section.note.lines" :key="i" class="detail-note-line">
-                  <span v-if="i === 0" class="detail-note-mark">※</span>{{ line }}
+                  <span class="detail-note-mark">※</span>{{ line }}
                 </p>
                 <p v-if="section.note.email" class="detail-note-line detail-note-email">
                   {{ section.note.emailLabel }} :
@@ -325,6 +326,7 @@ interface DetailSection {
   heading: string;
   items: DetailItem[];
   note?: DetailNote;
+  numbered?: boolean; // 1) 2) 3) 번호를 붙일지. 지정하지 않으면 하위 항목 유무로 판단한다.
 }
 
 interface DetailContent {
@@ -376,25 +378,55 @@ const details: Record<string, DetailContent> = {
   },
   heritage: {
     badge: '02',
-    title: '전통문화 계승 장학금',
+    title: '장학금 지급 및 등록',
     target: '대상: 국악·전통공예·무형문화재 전수자',
     points: [
-      '학기당 등록금 최대 500만 원 지원',
-      '무형문화재 전수 교육 및 이수 활동비 지원',
-      '해외 전통예술 문화교류 쇼케이스 기회 제공'
+      '1학기 장학금 지급',
+      '2학기 장학금 지급',
+      '등록금 납부 방식에 따른 진행 과정'
     ],
     sections: [
       {
-        heading: '지원 내용',
-        items: [
-          { text: '학기당 등록금 최대 500만 원 지원' },
-          { text: '무형문화재 전수 교육 및 이수 활동비 지원' },
-          { text: '해외 전통예술 문화교류 쇼케이스 기회 제공' }
-        ]
+        heading: '1학기 장학금 지급',
+        numbered: true,
+        items: [{ text: '3월 초에 소속 대학교 계좌로 송금' }]
       },
       {
-        heading: '신청 방법 및 제출 서류',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '2학기 장학금 지급',
+        numbered: true,
+        items: [{ text: '9월 초에 소속 대학교 계좌로 송금' }]
+      },
+      {
+        heading: '등록금 납부 방식에 따른 진행 과정',
+        items: [
+          {
+            text: '장학생이 등록금을 (선)납부하는 경우',
+            sub: [
+              '본등록기간에 등록하는 경우에 해당',
+              '재단에서 각 학교로 장학금 송금 → 소속 대학교에서 수령 후 → 장학생에게 재송금 처리 (각 대학별 송금 일자 다름)'
+            ]
+          },
+          {
+            text: '장학생이 등록금을 (선)납부하지 않는 경우',
+            sub: [
+              '학기별 장학금 지급 기간에 재단에서 각 학교로 장학금 송금',
+              '추가등록 기간내에 재단 장학금으로 등록 처리됨'
+            ]
+          },
+          {
+            text: '등록금 고지서 선감면 (등록금 고지서에 등록금을 0원으로 기재)',
+            sub: [
+              '선감면 고지서를 발급받은 후, 금융기관에서 영수인을 날인 받으면 학교에서 등록으로 처리'
+            ]
+          }
+        ],
+        note: {
+          lines: [
+            '각 소속 대학교 추가 등록 기간 및 장학금 지급 일자 확인 요망',
+            '각 소속 대학교에 등록 방식의 확인 요망',
+            '선감면 제도의 실행 여부 확인 요망'
+          ]
+        }
       }
     ]
   },
@@ -1415,11 +1447,11 @@ onUnmounted(() => {
 
 /* style.css의 전역 `section { padding: 100px 0 }`가 모달 안까지 적용되므로 여기서 덮어쓴다. */
 .detail-section {
-  padding: 30px 0;
+  padding: 16px 0;
 }
 
 .detail-section + .detail-section {
-  margin-top: 26px;
+  margin-top: 10px;
 }
 
 .detail-section-heading {
