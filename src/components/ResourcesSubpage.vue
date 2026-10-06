@@ -42,51 +42,6 @@
             </div>
           </div>
 
-          <!-- Interactive Calculator / Checker -->
-          <div class="calculator-wrapper glass-card">
-            <h3 class="calc-title title-serif">나의 장학금 지원 자격 알아보기</h3>
-            <p class="calc-desc">간단히 정보를 선택해 지원 가능한 장학 프로그램을 실시간으로 확인해보세요.</p>
-            
-            <div class="calc-form">
-              <div class="form-group">
-                <label>학력 상태</label>
-                <select v-model="form.education">
-                  <option value="">선택해주세요</option>
-                  <option value="school">초·중·고교 재학생</option>
-                  <option value="college">대학교 재학생</option>
-                  <option value="graduate">대학원생 이상</option>
-                </select>
-              </div>
-              
-              <div class="form-group">
-                <label>예술 분야</label>
-                <select v-model="form.category">
-                  <option value="">선택해주세요</option>
-                  <option value="fine-arts">순수예술 (미술, 음악, 무용, 문학)</option>
-                  <option value="traditional">전통문화 (국악, 전통공예, 무형문화재)</option>
-                  <option value="modern">실용예술 및 미디어아트</option>
-                </select>
-              </div>
-              
-              <div class="form-group">
-                <label>희망 활동</label>
-                <select v-model="form.location">
-                  <option value="">선택해주세요</option>
-                  <option value="domestic">국내 창작 및 학업</option>
-                  <option value="overseas">해외 유학 및 글로벌 공모/전시</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="calc-result" v-if="resultText">
-              <div class="result-box">
-                <h4 class="result-badge">진단 결과</h4>
-                <p class="result-title">{{ resultTitle }}</p>
-                <p class="result-desc">{{ resultText }}</p>
-                <a href="#" class="btn btn-primary result-btn">온라인 신청하기</a>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 2. 소식 Tab -->
@@ -212,7 +167,7 @@
             <section v-for="section in activeDetail.sections" :key="section.heading" class="detail-section">
               <h4 class="detail-section-heading">{{ section.heading }}</h4>
 
-              <ol class="detail-section-list"
+              <ol v-if="section.items.length" class="detail-section-list"
                 :class="{ numbered: section.numbered ?? section.items.some(it => it.sub) }">
                 <li v-for="(item, i) in section.items" :key="i" class="detail-item">
                   <span class="detail-item-text">{{ item.text }}</span>
@@ -228,6 +183,40 @@
                 </li>
               </ol>
 
+              <div v-if="section.table" class="detail-table-wrap">
+                <table class="detail-table">
+                  <thead>
+                    <tr>
+                      <th v-for="(h, i) in section.table.headers" :key="i" scope="col">{{ h }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(row, i) in section.table.rows" :key="i">
+                      <th scope="row">{{ row.label }}</th>
+                      <td v-for="(cell, j) in row.cells" :key="j"
+                        :colspan="row.cells.length === 1 ? section.table.headers.length - 1 : 1">
+                        <span v-for="(line, k) in cell" :key="k" class="detail-table-line">{{ line }}</span>
+                        <a v-if="row.email" class="detail-table-line" :href="`mailto:${row.email}`">{{ row.email }}</a>
+                        <span v-if="row.note" class="detail-table-note">※ {{ row.note }}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div v-if="section.downloads" class="detail-form-links">
+                <a v-for="(doc, i) in section.downloads" :key="i" class="btn btn-outline detail-form-link"
+                  :href="doc.file" :download="doc.filename">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>{{ doc.label }}</span>
+                </a>
+              </div>
+
               <div v-if="section.note" class="detail-note">
                 <p v-for="(line, i) in section.note.lines" :key="i" class="detail-note-line">
                   <span class="detail-note-mark">※</span>{{ line }}
@@ -238,6 +227,17 @@
                 </p>
               </div>
             </section>
+
+            <a v-if="activeDetail.download" class="btn btn-primary detail-download-btn"
+              :href="activeDetail.download.file" :download="activeDetail.download.filename">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>{{ activeDetail.download.label }}</span>
+            </a>
           </div>
 
           <div class="detail-modal-footer">
@@ -250,7 +250,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import news46thCeremony from '../assets/news_46th_ceremony.jpg';
 import news47thCeremony from '../assets/news_47th_ceremony.jpg';
 import newsRuralScholarship from '../assets/news_rural_scholarship.jpg';
@@ -298,16 +298,6 @@ const setActiveTab = (tabId: string) => {
   window.location.hash = `#resources-sub/${tabId}`;
 };
 
-// Form & Calculator State
-const form = reactive({
-  education: '',
-  category: '',
-  location: ''
-});
-
-const resultTitle = ref('');
-const resultText = ref('');
-
 // Detail Modal
 // 카드 3개의 "자세히 보기" 상세 내용. 재단 확정 문구가 나오면 sections 안의 items만 교체하면 된다.
 interface DetailItem {
@@ -322,11 +312,30 @@ interface DetailNote {
   email?: string;
 }
 
+// 두 가지 경우를 나란히 비교하는 내용은 표로 보여준다.
+interface DetailTableRow {
+  label: string;      // 맨 왼쪽 구분 칸
+  cells: string[][];  // 칸마다 여러 줄. 칸이 하나면 가로로 병합된다.
+  note?: string;      // 칸 아래 ※ 안내
+  email?: string;     // 메일 주소가 들어가는 칸
+}
+
+interface DetailTable {
+  headers: string[];  // 머리글. 첫 칸은 구분 열이다.
+  rows: DetailTableRow[];
+}
+
 interface DetailSection {
   heading: string;
   items: DetailItem[];
   note?: DetailNote;
   numbered?: boolean; // 1) 2) 3) 번호를 붙일지. 지정하지 않으면 하위 항목 유무로 판단한다.
+  table?: DetailTable; // 항목 대신 표로 보여줄 때 쓴다.
+  downloads?: {        // 표 바로 아래에 붙는 서식 파일들
+    file: string;      // public/ 기준 경로
+    filename: string;  // 내려받을 때 저장될 이름
+    label: string;     // 버튼에 보이는 글자
+  }[];
 }
 
 interface DetailContent {
@@ -335,6 +344,11 @@ interface DetailContent {
   target: string;
   points: string[];        // 카드에 보이는 요약 항목
   sections: DetailSection[]; // "자세히 보기" 모달에 보이는 상세 내용
+  download?: {             // 모달 아래에 붙는 서식 파일. 없으면 표시되지 않는다.
+    file: string;          // public/ 기준 경로
+    filename: string;      // 내려받을 때 저장될 이름
+    label: string;         // 버튼에 보이는 글자
+  };
 }
 
 // ① ② ③ ... 하위 항목 기호. 9개를 넘으면 숫자로 대체된다.
@@ -379,7 +393,7 @@ const details: Record<string, DetailContent> = {
   heritage: {
     badge: '02',
     title: '장학금 지급 및 등록',
-    target: '대상: 국악·전통공예·무형문화재 전수자',
+    target: '대상: 장학생으로 선발된 대학교 재학생',
     points: [
       '1학기 장학금 지급',
       '2학기 장학금 지급',
@@ -432,73 +446,261 @@ const details: Record<string, DetailContent> = {
   },
   global: {
     badge: '03',
-    title: '글로벌 아티스트 장학금',
-    target: '대상: 해외 예술대학(원) 진학/재학생',
+    title: '장학금 계속 지급 신청',
+    target: '대상: 다음 학기 등록 예정인 재학생 및 복학 예정자',
     points: [
-      '연간 최대 2,000만 원 체재비 및 학비 후원',
-      '세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원',
-      '글로벌 갤러리 및 매니지먼트 소개 네트워킹'
+      '다음 학기 등록을 위한 계속 지급 신청',
+      '계속 지급 신청서 및 성적증명서 제출',
+      '1학기 2월 초~중순 / 2학기 8월 초~중순 접수'
     ],
     sections: [
       {
-        heading: '지원 내용',
+        heading: '장학금 계속 지급 신청이란?',
+        numbered: true,
         items: [
-          { text: '연간 최대 2,000만 원 체재비 및 학비 후원' },
-          { text: '세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원' },
-          { text: '글로벌 갤러리 및 매니지먼트 소개 네트워킹' }
+          { text: '신라문화장학재단의 장학생 자격 조건을 유지하며, 다음 학기에도 학교에 등록을 하기 위하여 장학금의 지급을 신청하는 것' }
         ]
       },
       {
-        heading: '신청 방법 및 제출 서류',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '신청 대상자',
+        numbered: true,
+        items: [{ text: '다음 학기 등록 예정인 재학생 및 복학 예정자' }]
+      },
+      {
+        heading: '필요 서류',
+        numbered: true,
+        items: [
+          { text: '계속 지급 신청서 (재단 양식)' },
+          { text: '성적증명서 (소속 대학의 직인이 날인된 직전학기까지 나온 성적증명서)' }
+        ]
+      },
+      {
+        heading: '제출처',
+        numbered: true,
+        items: [{ text: '각 소속 대학교 장학과 담당 직원' }]
+      },
+      {
+        heading: '제출 시기',
+        numbered: true,
+        items: [
+          { text: '1학기 : 2월 초 ~ 중순' },
+          { text: '2학기 : 8월 초 ~ 중순' }
+        ],
+        note: {
+          lines: ['학교측 연락을 받으면, 학교 안내에 따라 필요 서류를 제출하면 됩니다.']
+        }
       }
-    ]
+    ],
+    download: {
+      file: '/docs/scholarship-continuation-form.hwp',
+      filename: '장학금계속지급신청서.hwp',
+      label: '장학금계속지급신청서.hwp'
+    }
   },
   program04: {
     badge: '04',
-    title: '※ 제목 준비 중',
-    target: '대상: 준비 중',
-    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    title: '휴학 및 복학 신청',
+    target: '대상: 휴학 또는 복학을 신청하는 장학생',
+    points: [
+      '일반 휴학·복학과 군 휴학·복학',
+      '휴학·복학 신청서 등 필요 서류 제출',
+      '1학기 1월 15일 / 2학기 7월 15일까지 접수'
+    ],
     sections: [
       {
-        heading: '상세 내용',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '휴학 및 복학 신청 안내',
+        items: [],
+        table: {
+          headers: ['구분', '일반 휴학 / 복학', '군 휴학 / 복학'],
+          rows: [
+            {
+              label: '기간',
+              cells: [['최대 1년까지 가능'], ['군 복무 기간']]
+            },
+            {
+              label: '필요 서류',
+              cells: [
+                ['휴학 신청서', '복학 신청서'],
+                ['휴학 신청서, 입영통지서', '복학 신청서, 전역증 사본']
+              ]
+            },
+            {
+              label: '제출 기한',
+              cells: [['1학기 - 1월 15일까지', '2학기 - 7월 15일까지']],
+              note: '기한 내에 제출이 어려울 경우, 재단으로 꼭 연락 주시기 바랍니다'
+            },
+            {
+              label: '제출처',
+              cells: [['장학담당자 메일']],
+              email: 'silla_yujin@naver.com'
+            }
+          ]
+        },
+        downloads: [
+          {
+            file: '/docs/leave-of-absence-form.hwp',
+            filename: '휴학신청서.hwp',
+            label: '휴학신청서.hwp'
+          },
+          {
+            file: '/docs/return-to-school-form.hwp',
+            filename: '복학신청서.hwp',
+            label: '복학신청서.hwp'
+          }
+        ],
+        note: {
+          lines: [
+            '소속 대학교에 하는 휴학 및 복학 신청과는 별도의, 재단에 대한 휴·복학 신청입니다.',
+            '제출 기한까지 서류가 미제출될 경우에 장학금 수혜에 피해가 발생할 수 있으므로, 정해진 기한을 엄수하여 필요서류를 제출하시기 바랍니다.'
+          ]
+        }
       }
     ]
   },
   program05: {
     badge: '05',
-    title: '※ 제목 준비 중',
-    target: '대상: 준비 중',
-    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    title: '편입학 및 전과 신고',
+    target: '대상: 편입학 또는 전과를 한 장학생',
+    points: [
+      '편입학과 전과',
+      '편입 신청서·합격증 또는 전과 신고서 제출',
+      '1학기 1월 15일 / 2학기 7월 15일까지 접수'
+    ],
     sections: [
       {
-        heading: '상세 내용',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '편입학 및 전과 신고 안내',
+        items: [],
+        table: {
+          headers: ['구분', '편입학', '전과'],
+          rows: [
+            {
+              label: '장학금 지급',
+              cells: [['장학금 수혜 기간(6학기) 중 잔여 학기에 대하여 장학금 지급']]
+            },
+            {
+              label: '필요 서류',
+              cells: [['편입 신청서, 편입 합격증'], ['전과 신고서']]
+            },
+            {
+              label: '제출 기한',
+              cells: [['1학기 - 1월 15일까지', '2학기 - 7월 15일까지']],
+              note: '기한 내에 제출이 어려울 경우, 재단으로 꼭 연락 주시기 바랍니다'
+            },
+            {
+              label: '제출처',
+              cells: [['장학담당자 이메일']],
+              email: 'silla_yujin@naver.com'
+            }
+          ]
+        },
+        downloads: [
+          {
+            file: '/docs/transfer-admission-form.hwp',
+            filename: '편입신고서.hwp',
+            label: '편입신고서.hwp'
+          },
+          {
+            file: '/docs/major-change-form.hwp',
+            filename: '전과신고서.hwp',
+            label: '전과신고서.hwp'
+          }
+        ]
       }
     ]
   },
   program06: {
     badge: '06',
-    title: '※ 제목 준비 중',
-    target: '대상: 준비 중',
-    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    title: '교환학생 신고',
+    target: '대상: 교환학생으로 파견되는 장학생',
+    points: [
+      '교환학생 파견 신청서 제출',
+      '국내 대학 등록금액을 한도로 장학금 지급',
+      '1학기 1월 15일 / 2학기 7월 15일까지 접수'
+    ],
     sections: [
       {
-        heading: '상세 내용',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '교환학생 신고 안내',
+        items: [],
+        table: {
+          headers: ['구분', '내용'],
+          rows: [
+            {
+              label: '필요 서류',
+              cells: [['교환학생 파견 신청서']]
+            },
+            {
+              label: '제출 기한',
+              cells: [['1학기 - 1월 15일까지', '2학기 - 7월 15일까지']],
+              note: '기한 내에 제출이 어려울 경우, 재단으로 꼭 연락 주시기 바랍니다'
+            },
+            {
+              label: '제출처',
+              cells: [['장학담당자 메일']],
+              email: 'silla_yujin@naver.com'
+            },
+            {
+              label: '장학금 지급 방식',
+              cells: [[
+                '지급액 : 국내 대학의 등록금액을 한도액으로 지급',
+                '지급 방식 : 국내 대학에 재학중일 때와 동일한 방식으로 지급'
+              ]]
+            },
+            {
+              label: '성적 기준',
+              cells: [[
+                'PASS 학점을 장학생 자격 유지 성적으로 인정',
+                '소속 대학에서 파견학교 성적 처리가 늦어지는 경우, 반드시 파견학교 성적증명서를 재단 장학담당자에게 제출해야 함'
+              ]]
+            }
+          ]
+        },
+        downloads: [
+          {
+            file: '/docs/exchange-student-form.hwp',
+            filename: '교환학생 파견신고서.hwp',
+            label: '교환학생 파견신고서.hwp'
+          }
+        ]
       }
     ]
   },
   program07: {
     badge: '07',
-    title: '※ 제목 준비 중',
-    target: '대상: 준비 중',
-    points: ['※ 내용 준비 중', '※ 내용 준비 중', '※ 내용 준비 중'],
+    title: '장학금 이중 수혜',
+    target: '대상: 타 장학금을 함께 받는 장학생',
+    points: [
+      '등록금 전액 지원 장학금',
+      '등록금성 장학금은 이중 수혜 불가',
+      '생활비(지원성) 장학금은 수령 가능'
+    ],
     sections: [
       {
-        heading: '상세 내용',
-        items: [{ text: '※ 내용 준비 중 — 재단 확정 문구로 교체 예정' }]
+        heading: '신라문화장학재단의 장학금은?',
+        numbered: true,
+        items: [{ text: '등록금 전액 지원 장학금' }]
+      },
+      {
+        heading: '이중 수혜 금지',
+        items: [
+          {
+            text: '신라문화장학재단 장학생은 다음의 장학금들을 이중으로 수령할 수 없음',
+            sub: [
+              '타 재단이나 기관의 등록금성 장학금',
+              '소속 대학교의 등록금 전액 성적 장학금',
+              '기타 등록금 성격의 장학금'
+            ]
+          }
+        ],
+        note: {
+          lines: [
+            '등록금성 장학금으로 등록금 전액이 아닌 일부를 받는 경우, 그 차액을 재단 장학금으로 받을 수 있음'
+          ]
+        }
+      },
+      {
+        heading: '이중 수혜 가능 장학금',
+        numbered: true,
+        items: [{ text: '타 생활비(지원성) 장학금은 수령할 수 있음' }]
       }
     ]
   }
@@ -526,31 +728,6 @@ const closeDetail = () => {
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Escape' && detailKey.value) closeDetail();
 };
-
-watch(
-  () => ({ ...form }),
-  (newVal) => {
-    if (!newVal.education || !newVal.category || !newVal.location) {
-      resultTitle.value = '';
-      resultText.value = '';
-      return;
-    }
-
-    if (newVal.location === 'overseas') {
-      resultTitle.value = '★ 글로벌 아티스트 장학금 대상';
-      resultText.value = '해외 예술대학(원) 재학/진학 예정자로서 세계 무대에 도전하기에 아주 적합합니다. 연간 최대 2,000만 원 및 콩쿠르 여비가 지원됩니다.';
-    } else if (newVal.category === 'traditional') {
-      resultTitle.value = '★ 전통문화 계승 장학금 대상';
-      resultText.value = '전통문화 전수자 및 국악 전공 대학(원)생 조건에 적합합니다. 무형문화재 전수 교육비 및 매 학기 등록금 지원이 가능합니다.';
-    } else if (newVal.education === 'school') {
-      resultTitle.value = '★ 문화예술 꿈나무 장학금 대상';
-      resultText.value = '초·중·고교 재학생 예능 인재 조건에 부합합니다. 매월 50만 원의 창작활동 보조비와 1:1 명사 멘토링이 연계됩니다.';
-    } else {
-      resultTitle.value = '★ 일반 창작 육성 및 멘토링 프로그램 지원 대상';
-      resultText.value = '신라문화장학재단의 일반 공모 프로그램(전시 지원 및 멘토링 사업)에 적합합니다. 추후 공지사항을 참조해 포트폴리오를 제출해주세요.';
-    }
-  }
-);
 
 // News & Resources Sample Data
 // image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 색상 배경만 표시된다.
@@ -928,91 +1105,6 @@ onUnmounted(() => {
   padding: 10px 0;
 }
 
-/* Calculator Style */
-.calculator-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px;
-  border-radius: 16px;
-  text-align: center;
-}
-
-.calc-title {
-  font-size: 1.6rem;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.calc-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
-  font-weight: 300;
-}
-
-.calc-form {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--primary-color);
-}
-
-.form-group select {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-.result-box {
-  background: rgba(6, 91, 137, 0.04);
-  border: 1px solid rgba(6, 91, 137, 0.15);
-  border-radius: 8px;
-  padding: 30px;
-  text-align: center;
-}
-
-.result-badge {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: #ffffff;
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-}
-
-.result-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--secondary-color);
-  margin-bottom: 12px;
-}
-
-.result-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 24px;
-}
-
 /* ===== 소식 상세 ===== */
 .news-card {
   cursor: pointer;
@@ -1350,7 +1442,6 @@ onUnmounted(() => {
 
 @media (max-width: 1024px) {
   .programs-grid, .news-grid { grid-template-columns: 1fr; }
-  .calc-form { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -1591,6 +1682,92 @@ onUnmounted(() => {
 .detail-modal-footer .btn {
   padding: 9px 20px;
   font-size: 0.875rem;
+}
+
+.detail-table-wrap {
+  overflow-x: auto;   /* 좁은 화면에서 표가 삐져나오지 않도록 */
+}
+
+.detail-table {
+  width: 100%;
+  min-width: 440px;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.detail-table th,
+.detail-table td {
+  border: 1px solid var(--border-color);
+  padding: 12px 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.detail-table thead th {
+  background: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.detail-table tbody th {
+  width: 110px;
+  background: rgba(6, 91, 137, 0.07);
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.detail-table td {
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.detail-table-line {
+  display: block;
+}
+
+.detail-table-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.86rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.detail-form-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.detail-form-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.detail-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 24px auto 4px;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--white);
 }
 
 .detail-modal-footer {
