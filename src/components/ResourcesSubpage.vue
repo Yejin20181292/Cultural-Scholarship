@@ -91,8 +91,9 @@
 
         <!-- 2. 소식 Tab -->
         <div v-if="activeTab === 'news'" class="tab-pane reveal active">
-          <div class="news-grid">
-            <div v-for="item in news" :key="item.id" class="news-card glass-card">
+          <!-- 목록 -->
+          <div v-if="!selectedNews" class="news-grid">
+            <div v-for="item in news" :key="item.id" class="news-card glass-card" @click="openNews(item.id)">
               <div class="news-img-placeholder">
                 <div class="news-img-overlay">
                   <span v-if="item.category" class="news-badge">{{ item.category }}</span>
@@ -102,9 +103,55 @@
               </div>
               <div class="news-info">
                 <span class="news-date">{{ item.date }}</span>
-                <h4 class="news-title"><a href="#">{{ item.title }}</a></h4>
+                <h4 class="news-title">
+                  <a :href="`#resources-sub/news/${item.id}`" @click.prevent>{{ item.title }}</a>
+                </h4>
                 <p class="news-summary">{{ item.summary }}</p>
               </div>
+            </div>
+          </div>
+
+          <!-- 상세 -->
+          <div v-else class="news-detail glass-card">
+            <div class="news-detail-header">
+              <div class="news-detail-heading">
+                <span class="news-detail-date">{{ selectedNews.date }}</span>
+                <h2 class="news-detail-title">{{ selectedNews.title }}</h2>
+              </div>
+              <button class="btn btn-outline news-detail-back" @click="closeNews">목록으로</button>
+            </div>
+
+            <img v-if="selectedNews.image" :src="selectedNews.image" :alt="selectedNews.title"
+              class="news-detail-img" />
+
+            <div class="news-detail-body">
+              <p v-for="(para, i) in newsBody" :key="i" class="news-detail-para">{{ para }}</p>
+
+              <div v-if="selectedNews.images" class="news-detail-gallery">
+                <img v-for="(src, i) in selectedNews.images" :key="i" :src="src"
+                  :alt="`${selectedNews.title} 사진 ${i + 1}`" class="news-detail-img" />
+              </div>
+
+              <div v-if="selectedNews.contentAfter" class="news-detail-after">
+                <p v-for="(para, i) in selectedNews.contentAfter" :key="i" class="news-detail-para">
+                  {{ para }}
+                </p>
+              </div>
+            </div>
+
+            <div class="news-detail-nav">
+              <button v-if="prevNews" class="news-nav-btn" @click="openNews(prevNews.id)">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">{{ prevNews.title }}</span>
+              </button>
+              <button v-if="nextNews" class="news-nav-btn" @click="openNews(nextNews.id)">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">{{ nextNews.title }}</span>
+              </button>
+            </div>
+
+            <div class="news-detail-actions">
+              <button class="btn btn-outline" @click="closeNews">목록으로</button>
             </div>
           </div>
         </div>
@@ -207,6 +254,17 @@ import news46thCeremony from '../assets/news_46th_ceremony.jpg';
 import news47thCeremony from '../assets/news_47th_ceremony.jpg';
 import newsRuralScholarship from '../assets/news_rural_scholarship.jpg';
 import newsRuralScholarship2026 from '../assets/news_rural_scholarship_2026.jpg';
+import news46thPhoto1 from '../assets/news_46th_photo1.jpg';
+import news46thPhoto2 from '../assets/news_46th_photo2.jpg';
+import news46thPhoto3 from '../assets/news_46th_photo3.jpg';
+import news46thPhoto4 from '../assets/news_46th_photo4.jpg';
+import news47thPhoto1 from '../assets/news_47th_photo1.jpg';
+import news47thPhoto2 from '../assets/news_47th_photo2.jpg';
+import news47thPhoto3 from '../assets/news_47th_photo3.jpg';
+import news47thPhoto4 from '../assets/news_47th_photo4.jpg';
+import newsRuralPhoto1 from '../assets/news_rural_photo1.jpg';
+import newsRural2026Photo1 from '../assets/news_rural2026_photo1.jpg';
+import newsRural2026Photo2 from '../assets/news_rural2026_photo2.jpg';
 
 defineEmits(['back']);
 
@@ -231,6 +289,7 @@ const activeTab = ref(getTabFromHash());
 
 const updateTabFromHash = () => {
   activeTab.value = getTabFromHash();
+  selectedNewsId.value = getNewsIdFromHash();
 };
 
 const setActiveTab = (tabId: string) => {
@@ -471,6 +530,9 @@ interface NewsItem {
   summary: string;
   gradient: string;
   image?: string;
+  content?: string[]; // 본문이 따로 있을 때만 쓴다. 없으면 summary 를 보여준다.
+  images?: string[]; // 상세 화면 본문 아래에 함께 보여줄 사진들
+  contentAfter?: string[]; // 사진 아래에 이어지는 본문
 }
 
 const news: NewsItem[] = [
@@ -480,7 +542,12 @@ const news: NewsItem[] = [
     title: '2026년 농촌지역 청소년 장학금 전달식 개최',
     summary: '2026년 6월 18일, 당진시농협, 고창농협, 광활농협 대회의실에서 2026년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
     gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)',
-    image: newsRuralScholarship2026
+    image: newsRuralScholarship2026,
+    images: [newsRural2026Photo1, newsRural2026Photo2],
+    contentAfter: [
+      '2026년 6월 18일, 당진시농협, 고창농협, 광활농협 대회의실에서 2026년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
+      '이번 장학금은 총 96,000,000원으로, 대한민국의 미래 농업을 이끌어 갈 지역 인재 양성에 작은 힘을 더하고자 하는 취지에서 전국 각 지역에서 선발된 중·고등학생들 117명에게 전달되었습니다.'
+    ]
   },
   {
     id: 2,
@@ -488,7 +555,12 @@ const news: NewsItem[] = [
     title: '2025년 농촌지역 청소년 장학금 전달식 개최',
     summary: '2025년 9월 8일, 전라북도 김제시에 위치한 광활농협 대회의실에서 2025년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
     gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)',
-    image: newsRuralScholarship
+    image: newsRuralScholarship,
+    images: [newsRuralPhoto1],
+    contentAfter: [
+      '2025년 9월 8일, 전라북도 김제시에 위치한 광활농협 대회의실에서 2025년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
+      '이번 장학금은 대한민국의 미래 농업을 이끌어 갈 지역 인재 양성에 작은 힘을 더하고자 하는 취지에서 전국 각 지역에서 선발된 중·고등학생들에게 전달되었습니다.'
+    ]
   },
   {
     id: 3,
@@ -496,7 +568,16 @@ const news: NewsItem[] = [
     title: '제47기 장학증서 수여식',
     summary: '2025년 8월 30일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제47기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
     gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
-    image: news47thCeremony
+    image: news47thCeremony,
+    images: [news47thPhoto1, news47thPhoto2, news47thPhoto3, news47thPhoto4],
+    contentAfter: [
+      '2025년 8월 30일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제47기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
+      '이번 장학증서 수여식에는 신라그룹의 박성진 부회장님께서 참석하시어 축하해 주셨으며, 재단 관계자 및 신라문화장학재단 학생회 "청아회"의 운영진들이 함께하였습니다.',
+      '행사는 1부 장학증서 수여식과 2부 오리엔테이션으로 나누어 진행되었으며, 오리엔테이션 후에는 재단에서 마련한 뷔페식을 함께 한 뒤 아쉬움 속에 마무리되었습니다.',
+      '행사가 진행되는 과정에서 처음의 어색함을 덜어내고, 조금은 가까워진 얼굴로 서로를 대하는 모습을 볼 수 있었습니다.',
+      '이번 만남이 제47기 장학생들과 신라문화장학재단, 그리고 장학생들 서로에게 더 큰 인연으로 나아갈 수 있는 계기가 되었기를 바랍니다.',
+      '우리 장학생들이 캠퍼스와 일상에서 행복과 웃음을 만들어 가기를 기원합니다.'
+    ]
   },
   {
     id: 4,
@@ -504,7 +585,14 @@ const news: NewsItem[] = [
     title: '제46기 장학증서 수여식',
     summary: '2024년 8월 31일 ~ 9월 1일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제46기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
     gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
-    image: news46thCeremony
+    image: news46thCeremony,
+    images: [news46thPhoto1, news46thPhoto2, news46thPhoto3, news46thPhoto4],
+    contentAfter: [
+      '2024년 8월 31일 ~ 9월 1일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제46기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
+      '장학증서 수여식에는 신라그룹의 박성진 부회장님, 그리고 본 재단의 장학생 출신인 동국대 이경철 일본학과 교수님께서 참석하시어 제46기 장학증서 수여식을 축하해주시고 장학생들에게 좋은 말씀과 격려를 해주셨습니다.',
+      '행사는 1부 장학증서 수여식과 2부 오리엔테이션으로 진행이 되었으며, 준비된 프로그램을 함께 하며 장학생들 서로간에 가까워질 수 있는 시간을 가졌습니다.',
+      '이번 행사가 신라문화장학재단 장학생이라는 좋은 인연을 만드는 기회가 되었기를 바라며, 오늘의 작은 출발이 제46기 장학생 여러분들에게 행복과 행운을 가져다 주는 불씨가 되기를 기원합니다.'
+    ]
   }
 ];
 
@@ -521,6 +609,46 @@ interface ResourceItem {
   file?: string;
   filename?: string;
 }
+
+// 소식 상세 보기 — 주소는 #resources-sub/news/<번호> 형태를 쓴다.
+const getNewsIdFromHash = (): number | null => {
+  const parts = window.location.hash.split('/');
+  if (parts[1] === 'news' && parts[2]) {
+    const id = Number(parts[2]);
+    return Number.isFinite(id) ? id : null;
+  }
+  return null;
+};
+
+const selectedNewsId = ref<number | null>(getNewsIdFromHash());
+const selectedNews = computed(() => news.find(n => n.id === selectedNewsId.value) ?? null);
+
+const newsBody = computed(() => {
+  const item = selectedNews.value;
+  if (!item) return [];
+  if (item.content) return item.content;
+  // 사진 아래에 본문이 따로 있으면 요약문을 위에 또 보여주지 않는다.
+  if (item.contentAfter) return [];
+  // 본문이 전혀 없을 때만 요약문 한 문단을 대신 쓴다.
+  return [item.summary];
+});
+
+// 목록이 최신순이라 배열 뒤로 갈수록 오래된 글이다.
+const newsIndex = computed(() => news.findIndex(n => n.id === selectedNewsId.value));
+const prevNews = computed(() =>
+  newsIndex.value >= 0 && newsIndex.value < news.length - 1 ? news[newsIndex.value + 1] : null
+);
+const nextNews = computed(() => (newsIndex.value > 0 ? news[newsIndex.value - 1] : null));
+
+const openNews = (id: number) => {
+  window.location.hash = `#resources-sub/news/${id}`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const closeNews = () => {
+  window.location.hash = '#resources-sub/news';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 const resources: ResourceItem[] = [
   {
@@ -851,6 +979,160 @@ onUnmounted(() => {
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 24px;
+}
+
+/* ===== 소식 상세 ===== */
+.news-card {
+  cursor: pointer;
+}
+
+.news-detail {
+  padding: 40px 44px;
+  text-align: left;
+}
+
+.news-detail-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.news-detail-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;   /* 제목이 길어도 버튼을 밀어내지 않도록 */
+}
+
+.news-detail-back {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.news-detail-date {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.news-detail-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.news-detail-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 28px;
+}
+
+.news-detail-after {
+  margin-top: 32px;
+}
+
+.news-detail-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+/* 본문 아래 사진들은 아래 여백이 필요 없다. */
+.news-detail-gallery .news-detail-img {
+  margin-bottom: 0;
+}
+
+.news-detail-body {
+  min-height: 120px;
+  margin-bottom: 36px;
+}
+
+.news-detail-para {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+  word-break: keep-all;
+}
+
+.news-detail-para + .news-detail-para {
+  margin-top: 16px;
+}
+
+.news-detail-nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-color);
+}
+
+.news-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 4px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background var(--transition-fast);
+}
+
+.news-nav-btn:hover {
+  background: rgba(6, 91, 137, 0.04);
+}
+
+.news-detail-nav .nav-label {
+  flex-shrink: 0;
+  width: 56px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.news-detail-nav .nav-title {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.news-detail-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .news-detail {
+    padding: 28px 20px;
+  }
+
+  .news-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .news-detail-title {
+    font-size: 1.25rem;
+  }
 }
 
 /* News Grid */
