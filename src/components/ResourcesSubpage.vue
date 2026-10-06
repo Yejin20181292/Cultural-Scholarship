@@ -204,6 +204,9 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
 import news46thCeremony from '../assets/news_46th_ceremony.jpg';
+import news47thCeremony from '../assets/news_47th_ceremony.jpg';
+import newsRuralScholarship from '../assets/news_rural_scholarship.jpg';
+import newsRuralScholarship2026 from '../assets/news_rural_scholarship_2026.jpg';
 
 defineEmits(['back']);
 
@@ -473,24 +476,27 @@ interface NewsItem {
 const news: NewsItem[] = [
   {
     id: 1,
-    date: '2026.07.18',
-    title: '제10기 글로벌 아티스트 파리 연수 지원사업 마무리',
-    summary: '프랑스 파리 국립 예술대학교에서 진행된 3주간의 하계 심화 연수 프로그램에 참여한 12명의 장학생들이 성공적으로 창작 연구 워크숍을 마쳤습니다.',
-    gradient: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)'
+    date: '2026.06.23',
+    title: '2026년 농촌지역 청소년 장학금 전달식 개최',
+    summary: '2026년 6월 18일, 당진시농협, 고창농협, 광활농협 대회의실에서 2026년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
+    gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)',
+    image: newsRuralScholarship2026
   },
   {
     id: 2,
-    date: '2026.07.05',
-    title: '전통문화 장학생 이지윤 양, 국가무형문화재 최연소 이수',
-    summary: '신라문화장학재단으로부터 3년간 전통문화 계승 장학금을 수여 받은 이지윤(가야금 병창 전공) 학생이 문화재청 주관 심사를 통해 역대 최연소 무형문화재 이수자로 선정되었습니다.',
-    gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)'
+    date: '2025.09.16',
+    title: '2025년 농촌지역 청소년 장학금 전달식 개최',
+    summary: '2025년 9월 8일, 전라북도 김제시에 위치한 광활농협 대회의실에서 2025년 농촌지역 청소년 장학금 전달식을 개최하였습니다.',
+    gradient: 'linear-gradient(135deg, #4f3b32 0%, #8c6d4f 100%)',
+    image: newsRuralScholarship
   },
   {
     id: 3,
-    date: '2026.06.12',
-    title: '미래를 여는 미디어 아티스트, 장학생 송민우 군 전시 성황',
-    summary: '가상 공간과 현실을 넘나드는 디지털 캔버스로 화제를 모은 미디어 아티스트 송민우 군이 인사동 갤러리에서 개최한 첫 단독 초대전이 많은 호평 속에 마쳤습니다.',
-    gradient: 'linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)'
+    date: '2025.09.11',
+    title: '제47기 장학증서 수여식',
+    summary: '2025년 8월 30일, 송파구 방이동에 위치한 서울올림픽파크텔에서 제47기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
+    gradient: 'linear-gradient(135deg, #065B89 0%, #1a82b8 100%)',
+    image: news47thCeremony
   },
   {
     id: 4,
