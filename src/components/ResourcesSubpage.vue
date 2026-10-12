@@ -870,11 +870,13 @@ const resources: ResourceItem[] = [
   },
   {
     id: 2,
-    title: '개인정보 수집·이용 및 제3자 제공 동의서 (장학생용)',
-    desc: '장학생 선발 심사 및 장학금 지급 처리를 위한 필수 제출 동의서 양식',
+    title: '2024사업연도 공익법인 결산서류 등의 공시',
+    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '450 KB',
-    date: '2026.07.15'
+    size: '375 KB',
+    date: '2025.04.29',
+    file: '/docs/2024-settlement-disclosure.pdf',
+    filename: '2024사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   },
   {
     id: 3,
