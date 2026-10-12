@@ -862,11 +862,13 @@ const closeNews = () => {
 const resources: ResourceItem[] = [
   {
     id: 1,
-    title: '2026년도 하반기 장학금 지원 신청서 및 지도교수 추천서 양식',
-    desc: '신라문화장학재단 장학금 신청을 위한 공통 제출 서식 팩 (신청서, 자기소개서, 추천서 합본)',
+    title: '2025사업연도 공익법인 결산서류 등의 공시',
+    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '1.2 MB',
-    date: '2026.07.20'
+    size: '378 KB',
+    date: '2026.04.28',
+    file: '/docs/2025-settlement-disclosure.pdf',
+    filename: '2025사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   },
   {
     id: 2,
