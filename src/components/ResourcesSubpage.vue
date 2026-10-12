@@ -881,15 +881,17 @@ const resources: ResourceItem[] = [
     title: '2023사업연도 공익법인 결산서류 등의 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '2.8 MB',
-    date: '2024.04.25'
+    size: '2.4 MB',
+    date: '2024.04.25',
+    file: '/docs/2023-settlement-disclosure.pdf',
+    filename: '2023사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   },
   {
     id: 4,
     title: '2022사업연도 공익법인 결산서류 등의 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '12.7 MB',
+    size: '3.2 MB',
     date: '2023.04.28',
     file: '/docs/2022-settlement-disclosure.pdf',
     filename: '2022사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
@@ -899,9 +901,10 @@ const resources: ResourceItem[] = [
     title: '2021사업연도 공익법인 결산서류 등의 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '6.9 MB',
+    size: '3.3 MB',
     date: '2022.04.27',
-    file: '/docs/2021-settlement-disclosure.pdf'
+    file: '/docs/2021-settlement-disclosure.pdf',
+    filename: '2021사업연도 공익법인 결산서류 등의 공시_신라문화장학재단.pdf'
   }
 ];
 

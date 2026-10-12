@@ -192,7 +192,7 @@ const settlementReports = [
     title: '2022사업연도 공익법인 결산서류 등의 공시',
     desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
     format: 'PDF',
-    size: '4.1 MB',
+    size: '3.2 MB',
     date: '2023.04.28'
   },
   {
