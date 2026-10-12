@@ -33,8 +33,9 @@
           미래를 이끄는 리더로 성장할 수 있도록 든든한 날개가 되어 줍니다.
         </p>
         <div class="hero-actions">
-          <a href="#programs" class="btn btn-primary">
-            장학금 지원 안내
+          <a href="#resources-sub/apply" class="btn btn-primary"
+            @click.prevent="$emit('navigate', 'resources-sub', 'apply')">
+            장학금 신청 안내
             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
           <a href="#" class="btn btn-outline" @click.prevent="$emit('navigate', 'about-sub')">재단 소개</a>
