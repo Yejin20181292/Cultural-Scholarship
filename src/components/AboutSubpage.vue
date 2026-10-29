@@ -57,8 +57,8 @@
               </div>
             </div>
             <div class="greetings-portrait-wrapper">
-              <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 설립자" class="founder-portrait-img" />
-              <div class="portrait-caption">재단 설립자</div>
+              <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 이사장" class="founder-portrait-img" />
+              <div class="portrait-caption">이사장</div>
             </div>
           </div>
         </div>
