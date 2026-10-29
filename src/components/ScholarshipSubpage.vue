@@ -242,10 +242,10 @@ onUnmounted(() => {
 
 .sub-banner {
   position: relative;
-  background-image: url('../assets/scholarship_banner.jpg');
+  background-image: url('../assets/about_banner_ceremony.jpg');
   background-size: cover;
-  /* 학사모가 사진 가운데에 있어 그 부분이 보이도록 맞춘다. */
-  background-position: center 50%;
+  /* 인물들이 사진 중앙 아래쪽에 모여 있어 그 부분이 보이도록 맞춘다. */
+  background-position: center 35%;
   /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
   min-height: 420px;
   display: flex;
