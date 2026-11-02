@@ -128,7 +128,35 @@
           </div>
         </div>
 
-        <!-- 4. 출연사 (Donors & Contributors) -->
+        <!-- 4. 자산현황 -->
+        <div v-if="activeTab === 'assets'" class="tab-pane reveal active">
+          <div class="people-wrapper glass-card">
+            <div class="people-header">
+              <span class="people-subtitle">FOUNDATION ASSETS</span>
+              <h2 class="people-title title-serif">자산현황</h2>
+              <p class="people-desc">{{ assetBaseDate }} 기준 재단의 자산 현황입니다.</p>
+            </div>
+
+            <div class="perf-simple-table-wrapper">
+              <table class="perf-simple-table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-type">구분</th>
+                    <th scope="col" class="col-amount">금액</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="row in assetRows" :key="row.type" :class="{ 'row-total': row.isTotal }">
+                    <td class="cell-type">{{ row.type }}</td>
+                    <td class="cell-amount">{{ row.amount || '—' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 출연사 (Donors & Contributors) -->
         <div v-if="activeTab === 'donors'" class="tab-pane reveal active">
           <div class="donors-wrapper glass-card">
             <div class="donors-header">
@@ -198,7 +226,7 @@
           </div>
         </div>
 
-        <!-- 5. 함께하는 사람들 (People) -->
+        <!-- 6. 함께하는 사람들 (People) -->
         <div v-if="activeTab === 'people'" class="tab-pane reveal active">
           <div class="people-wrapper glass-card">
             <div class="people-header">
@@ -233,7 +261,7 @@
           </div>
         </div>
 
-        <!-- 6. 찾아오시는 길 -->
+        <!-- 7. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -360,6 +388,7 @@ const tabs = [
   { id: 'greetings', name: '이사장 인사말' },
   { id: 'founding', name: '설립취지' },
   { id: 'history', name: '회사연혁' },
+  { id: 'assets', name: '자산현황' },
   { id: 'donors', name: '출연사' },
   { id: 'people', name: '함께하는 사람들' },
   { id: 'contact', name: '찾아오시는 길' }
@@ -493,6 +522,15 @@ const boardGroups: BoardGroup[] = [
   }
 ];
 
+
+// amount: 실제 금액이 들어가기 전까지는 빈 문자열로 두면 표에 '—'로 표시된다.
+const assetBaseDate = '2025년 12월 31일';
+
+const assetRows = [
+  { type: '기본재산', amount: '', isTotal: false },
+  { type: '보통재산', amount: '', isTotal: false },
+  { type: '합계', amount: '', isTotal: true }
+];
 
 const getTabFromHash = (): string => {
   const hash = window.location.hash;
