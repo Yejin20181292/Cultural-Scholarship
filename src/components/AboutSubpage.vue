@@ -389,7 +389,7 @@ const tabs = [
   { id: 'assets', name: '자산현황' },
   { id: 'donors', name: '출연사' },
   { id: 'people', name: '함께하는 사람들' },
-  { id: 'contact', name: '찾아오시는 길' }
+  { id: 'contact', name: '오시는 길' }
 ];
 
 // logo: 실제 로고 이미지가 있을 때만 지정한다. 없으면 logoText 글자가 파란 사각형에 표시된다.

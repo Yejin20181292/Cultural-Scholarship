@@ -66,11 +66,13 @@
             <div class="mega-menu-col">
               <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
               <ul class="mega-sub-list">
-                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 인사말</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 이사장 인사말</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'founding')">· 설립취지</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'history')">· 회사연혁</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'assets')">· 자산현황</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'donors')">· 출연사</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">· 찾아오시는 길</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'people')">· 함께하는 사람들</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">· 오시는 길</a></li>
               </ul>
             </div>
 
@@ -187,7 +189,7 @@
             <ul class="mobile-sub-menu" v-show="isMobileAboutSubOpen">
               <li>
                 <a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">
-                  · 인사말
+                  · 이사장 인사말
                 </a>
               </li>
               <li>
@@ -201,13 +203,23 @@
                 </a>
               </li>
               <li>
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'assets')">
+                  · 자산현황
+                </a>
+              </li>
+              <li>
                 <a href="#" @click.prevent="handleNavClick('about-sub', 'donors')">
                   · 출연사
                 </a>
               </li>
               <li>
+                <a href="#" @click.prevent="handleNavClick('about-sub', 'people')">
+                  · 함께하는 사람들
+                </a>
+              </li>
+              <li>
                 <a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">
-                  · 찾아오시는 길
+                  · 오시는 길
                 </a>
               </li>
             </ul>

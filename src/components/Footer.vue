@@ -16,11 +16,13 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">재단소개</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">인사말</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">이사장 인사말</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'founding')">설립취지</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'history')">회사연혁</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'assets')">자산현황</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'donors')">출연사</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">찾아오시는 길</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'people')">함께하는 사람들</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('about-sub', 'contact')">오시는 길</a></li>
             </ul>
           </div>
           
