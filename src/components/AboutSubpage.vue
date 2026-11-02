@@ -137,21 +137,19 @@
               <p class="people-desc">{{ assetBaseDate }} 기준 재단의 자산 현황입니다.</p>
             </div>
 
-            <div class="perf-simple-table-wrapper">
-              <table class="perf-simple-table">
-                <thead>
-                  <tr>
-                    <th scope="col" class="col-type">구분</th>
-                    <th scope="col" class="col-amount">금액</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="row in assetRows" :key="row.type" :class="{ 'row-total': row.isTotal }">
-                    <td class="cell-type">{{ row.type }}</td>
-                    <td class="cell-amount">{{ row.amount || '—' }}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="assets-total">
+              <span class="assets-total-label">총 자산</span>
+              <span class="assets-total-value title-serif">{{ assetTotal }}</span>
+            </div>
+
+            <div class="donors-stats-grid">
+              <div v-for="row in assetRows" :key="row.type" class="donor-stat-card">
+                <div class="stat-icon">{{ row.icon }}</div>
+                <div class="stat-info">
+                  <span class="stat-num">{{ row.amount || '—' }}</span>
+                  <span class="stat-label">{{ row.type }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -523,13 +521,14 @@ const boardGroups: BoardGroup[] = [
 ];
 
 
-// amount: 실제 금액이 들어가기 전까지는 빈 문자열로 두면 표에 '—'로 표시된다.
+// amount: 실제 금액이 들어가기 전까지는 빈 문자열로 두면 카드에 '—'로 표시된다.
 const assetBaseDate = '2025년 12월 31일';
+const assetTotal = '500억원';
 
 const assetRows = [
-  { type: '기본재산', amount: '', isTotal: false },
-  { type: '보통재산', amount: '', isTotal: false },
-  { type: '합계', amount: '', isTotal: true }
+  { type: '예금', amount: '', icon: '🏦' },
+  { type: '부동산', amount: '', icon: '🏢' },
+  { type: '유가증권', amount: '', icon: '📈' }
 ];
 
 const getTabFromHash = (): string => {
@@ -1194,6 +1193,33 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
 }
 
+/* 자산현황 — 총액 강조 블록 */
+.assets-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 40px 24px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(6, 91, 137, 0.04);
+}
+
+.assets-total-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+.assets-total-value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--primary-color, #065b89);
+}
+
 .board-group-header {
   display: flex;
   align-items: baseline;
@@ -1631,6 +1657,14 @@ watch(activeTab, (newTab) => {
 
   .donors-grid {
     grid-template-columns: 1fr;
+  }
+
+  .assets-total {
+    padding: 28px 16px;
+  }
+
+  .assets-total-value {
+    font-size: 2.2rem;
   }
 }
 
