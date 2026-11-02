@@ -357,7 +357,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 };
 
 const tabs = [
-  { id: 'greetings', name: '인사말' },
+  { id: 'greetings', name: '이사장 인사말' },
   { id: 'founding', name: '설립취지' },
   { id: 'history', name: '회사연혁' },
   { id: 'donors', name: '출연사' },
