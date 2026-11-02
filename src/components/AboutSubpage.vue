@@ -26,6 +26,43 @@
         <div v-if="activeTab === 'greetings'" class="tab-pane reveal active">
           <div class="greetings-layout glass-card">
             <div class="greetings-text">
+              <span class="greet-badge">GREETINGS</span>
+              <h2 class="greet-title title-serif">“신라문화장학재단을 찾아주신 여러분을 환영합니다”</h2>
+              <p class="greet-paragraph">
+                안녕하십니까. 재단법인 신라문화장학재단 이사장 박준형입니다.
+              </p>
+              <p class="greet-paragraph">
+                저희 재단 홈페이지를 찾아주신 여러분께 깊이 감사드립니다.
+              </p>
+              <p class="greet-paragraph">
+                신라문화장학재단은 경제적 어려움으로 배움의 기회를 충분히 누리지 못하는 학생들에게
+                장학금을 지원해 왔습니다. 그동안 재단의 장학생들은 각자의 자리에서 성실히 학업을 이어갔고,
+                지금은 우리 사회 곳곳에서 제 몫을 다하고 있습니다.
+              </p>
+              <p class="greet-paragraph">
+                앞으로도 재단은 설립 당시의 뜻을 그대로 이어가겠습니다.
+                학생들이 가정 형편 때문에 꿈을 접는 일이 없도록, 그리고 그 꿈이 다시 우리 사회로 돌아올 수 있도록
+                변함없이 함께하겠습니다.
+              </p>
+              <p class="greet-paragraph">
+                여러분의 따뜻한 관심과 격려를 부탁드립니다. 감사합니다.
+              </p>
+              <div class="signature">
+                <span class="sig-label">재단법인 신라문화장학재단 이사장</span>
+                <span class="sig-name title-serif">박 준 형</span>
+              </div>
+            </div>
+            <div class="greetings-portrait-wrapper">
+              <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 이사장" class="founder-portrait-img" />
+              <div class="portrait-caption">이사장</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 설립취지 -->
+        <div v-if="activeTab === 'founding'" class="tab-pane reveal active">
+          <div class="greetings-layout glass-card">
+            <div class="greetings-text">
               <span class="greet-badge">OUR MISSION & MESSAGE</span>
               <h2 class="greet-title title-serif">“꿈을 꾸는 학생들의 모든 순간에 함께하겠습니다”</h2>
               <p class="greet-paragraph">
@@ -63,7 +100,7 @@
           </div>
         </div>
 
-        <!-- 2. 연혁 (History) -->
+        <!-- 3. 연혁 (History) -->
         <div v-if="activeTab === 'history'" class="tab-pane reveal active">
           <div class="history-timeline-wrapper glass-card">
             <div class="timeline-header">
@@ -91,7 +128,7 @@
           </div>
         </div>
 
-        <!-- 3. 출연사 (Donors & Contributors) -->
+        <!-- 4. 출연사 (Donors & Contributors) -->
         <div v-if="activeTab === 'donors'" class="tab-pane reveal active">
           <div class="donors-wrapper glass-card">
             <div class="donors-header">
@@ -161,7 +198,7 @@
           </div>
         </div>
 
-        <!-- 4. 함께하는 사람들 (People) -->
+        <!-- 5. 함께하는 사람들 (People) -->
         <div v-if="activeTab === 'people'" class="tab-pane reveal active">
           <div class="people-wrapper glass-card">
             <div class="people-header">
@@ -196,7 +233,7 @@
           </div>
         </div>
 
-        <!-- 5. 찾아오시는 길 -->
+        <!-- 6. 찾아오시는 길 -->
         <div v-if="activeTab === 'contact'" class="tab-pane reveal active">
           <div class="contact-grid">
             <div class="glass-card contact-info-card">
@@ -320,7 +357,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
 };
 
 const tabs = [
-  { id: 'greetings', name: '설립취지 & 인사말' },
+  { id: 'greetings', name: '인사말' },
+  { id: 'founding', name: '설립취지' },
   { id: 'history', name: '회사연혁' },
   { id: 'donors', name: '출연사' },
   { id: 'people', name: '함께하는 사람들' },
