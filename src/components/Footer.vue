@@ -58,6 +58,15 @@
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
             </ul>
           </div>
+
+          <div class="footer-links-col">
+            <h4 class="col-title title-serif">관련 사이트</h4>
+            <ul>
+              <li>
+                <a href="https://www.sen.go.kr/sen/index.do" target="_blank" rel="noopener noreferrer">서울시교육청</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
