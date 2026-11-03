@@ -27,51 +27,7 @@
 
       <!-- Tab Content Area -->
       <div class="tab-view-content">
-        <!-- 1. 장학 프로그램 Tab -->
-        <div v-if="activeTab === 'programs'" class="tab-pane reveal active">
-          <div class="programs-grid">
-            <!-- Program 1 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">01</div>
-              <h3 class="program-title">문화예술 꿈나무 장학금</h3>
-              <p class="program-target">대상: 초·중·고교 재능 보유 학생</p>
-              <div class="program-divider"></div>
-              <ul class="program-details">
-                <li>월 50만 원 학업/창작 장려금 지원</li>
-                <li>분야별 예술계 거장과의 1:1 멘토링 매칭</li>
-                <li>매년 연말 재단 장학생 성과 전시/발표 기회</li>
-              </ul>
-            </div>
-
-            <!-- Program 2 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">02</div>
-              <h3 class="program-title">전통문화 계승 장학금</h3>
-              <p class="program-target">대상: 국악·전통공예·무형문화재 전수자</p>
-              <div class="program-divider"></div>
-              <ul class="program-details">
-                <li>학기당 등록금 최대 500만 원 지원</li>
-                <li>무형문화재 전수 교육 및 이수 활동비 지원</li>
-                <li>해외 전통예술 문화교류 쇼케이스 기회 제공</li>
-              </ul>
-            </div>
-
-            <!-- Program 3 -->
-            <div class="glass-card program-card">
-              <div class="program-badge title-serif">03</div>
-              <h3 class="program-title">글로벌 아티스트 장학금</h3>
-              <p class="program-target">대상: 해외 예술대학(원) 진학/재학생</p>
-              <div class="program-divider"></div>
-              <ul class="program-details">
-                <li>연간 최대 2,000만 원 체재비 및 학비 후원</li>
-                <li>세계 최고 권위 콩쿠르/글로벌 전시 참가 경비 지원</li>
-                <li>글로벌 갤러리 및 매니지먼트 소개 네트워킹</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. 사업실적 Tab -->
+        <!-- 1. 사업실적 Tab -->
         <div v-if="activeTab === 'performance'" class="tab-pane reveal active">
           <div class="performance-simple-wrapper">
             <div class="glass-card perf-main-card">
@@ -146,7 +102,7 @@
           </div>
         </div>
 
-        <!-- 3. 선발인원 및 지급 현황 Tab -->
+        <!-- 2. 선발인원 및 지급 현황 Tab -->
         <div v-if="activeTab === 'awards'" class="tab-pane reveal active">
           <div class="glass-card awards-card">
             <h2 class="awards-title">장학생선발인원 및 장학금지급현황 &lt;년도별&gt;</h2>
@@ -179,7 +135,7 @@
           </div>
         </div>
 
-        <!-- 4. 장학생 준수사항 Tab -->
+        <!-- 3. 장학생 준수사항 Tab -->
         <div v-if="activeTab === 'rules'" class="tab-pane reveal active">
           <div class="programs-grid">
             <div v-for="program in detailPrograms" :key="program.key" class="glass-card program-card">
@@ -322,7 +278,6 @@ import historyPhoto2 from '../assets/history_photo2.jpg';
 defineEmits(['back']);
 
 const tabs = [
-  { id: 'programs', name: '장학 프로그램' },
   { id: 'performance', name: '사업실적' },
   { id: 'awards', name: '선발인원 및 지급 현황' },
   { id: 'rules', name: '장학생 준수사항' }
@@ -797,7 +752,7 @@ const getTabFromHash = (): string => {
       return parts[1];
     }
   }
-  return 'programs';
+  return 'performance';
 };
 
 const activeTab = ref(getTabFromHash());

@@ -20,7 +20,7 @@
 
           <!-- 2. 재단사업 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'programs')" class="nav-main-link">
+            <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'performance')" class="nav-main-link">
               <span>재단사업</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -78,9 +78,8 @@
 
             <!-- Col 2: 재단사업 -->
             <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('scholarship-sub', 'programs')">재단사업</h4>
+              <h4 class="mega-col-title" @click="handleNavClick('scholarship-sub', 'performance')">재단사업</h4>
               <ul class="mega-sub-list">
-                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">· 장학 프로그램</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">· 사업실적</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'awards')">· 선발인원 및 지급 현황</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'rules')">· 장학생 준수사항</a></li>
@@ -118,7 +117,7 @@
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="!user">
@@ -229,7 +228,7 @@
           <!-- Mobile 2. 재단사업 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'programs')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'scholarship-sub' }" @click.prevent="handleNavClick('scholarship-sub', 'performance')" class="mobile-main-link">
                 재단사업
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileScholarshipSubOpen = !isMobileScholarshipSubOpen" aria-label="서브메뉴 토글">
@@ -239,11 +238,6 @@
               </button>
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileScholarshipSubOpen">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">
-                  · 장학 프로그램
-                </a>
-              </li>
               <li>
                 <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">
                   · 사업실적
@@ -336,7 +330,7 @@
           </li>
 
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학금 신청</a>
           </li>
         </ul>
 

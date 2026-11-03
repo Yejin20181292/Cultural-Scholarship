@@ -37,7 +37,7 @@ const navigateTo = (view: ViewType, subTab?: string) => {
   if (view === 'about-sub') {
     window.location.hash = subTab ? `#about-sub/${subTab}` : '#about-sub/greetings';
   } else if (view === 'scholarship-sub') {
-    window.location.hash = subTab ? `#scholarship-sub/${subTab}` : '#scholarship-sub/programs';
+    window.location.hash = subTab ? `#scholarship-sub/${subTab}` : '#scholarship-sub/performance';
   } else if (view === 'community-sub') {
     window.location.hash = subTab ? `#community-sub/${subTab}` : '#community-sub/board';
   } else if (view === 'notice-sub') {

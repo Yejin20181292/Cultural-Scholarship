@@ -29,7 +29,6 @@
           <div class="footer-links-col">
             <h4 class="col-title title-serif">재단사업</h4>
             <ul>
-              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학 프로그램</a></li>
               <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">사업실적</a></li>
               <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'awards')">선발인원 및 지급 현황</a></li>
               <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학생 준수사항</a></li>
@@ -48,7 +47,7 @@
             <h4 class="col-title title-serif">공지사항</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">공지사항</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">온라인 장학 신청</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'rules')">온라인 장학 신청</a></li>
             </ul>
           </div>
 
