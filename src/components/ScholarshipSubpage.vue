@@ -148,7 +148,7 @@
 
         <!-- 3. 선발인원 및 지급 현황 Tab -->
         <div v-if="activeTab === 'awards'" class="tab-pane reveal active">
-          <div class="glass-card perf-main-card">
+          <div class="glass-card awards-card">
             <h2 class="awards-title">장학생선발인원 및 장학금지급현황 &lt;년도별&gt;</h2>
             <p class="awards-unit">(단위 : 명, 원)</p>
 
@@ -1211,6 +1211,14 @@ onUnmounted(() => {
 }
 
 /* ===== 선발인원 및 지급 현황 ===== */
+/* 표가 6열이라 perf-main-card(800px)로는 좁다. 가로 스크롤이 생기지 않도록 넓게 잡고 가운데 둔다. */
+.awards-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 45px 40px;
+}
+
 /* 제목 위의 짧은 빨간 선까지 원본 표 서식을 그대로 따른다. */
 .awards-title {
   position: relative;
@@ -1246,7 +1254,6 @@ onUnmounted(() => {
 
 .awards-table {
   width: 100%;
-  min-width: 760px;
   border-collapse: collapse;
 }
 
@@ -1550,6 +1557,7 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
+  .awards-card { padding: 28px 18px; }
   .programs-grid { grid-template-columns: 1fr; }
   .calc-form { grid-template-columns: 1fr; }
   .process-steps { flex-direction: column; }
