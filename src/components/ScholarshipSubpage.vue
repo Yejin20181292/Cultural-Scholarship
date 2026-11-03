@@ -1219,7 +1219,7 @@ onUnmounted(() => {
   padding: 45px 40px;
 }
 
-/* 제목 위의 짧은 빨간 선까지 원본 표 서식을 그대로 따른다. */
+/* 제목 위의 짧은 선은 원본 표 서식을 따르되 색만 브랜드 색으로 맞춘다. */
 .awards-title {
   position: relative;
   padding-top: 14px;
@@ -1235,7 +1235,7 @@ onUnmounted(() => {
   left: 0;
   width: 46px;
   height: 3px;
-  background: #c0392b;
+  background: var(--primary-color, #065b89);
 }
 
 .awards-unit {
