@@ -1268,11 +1268,12 @@ onUnmounted(() => {
   white-space: nowrap;
 }
 
+/* 장학생 준수사항 상세 본문(.detail-section-list)과 같은 글자색을 쓴다. */
 .awards-table td {
   padding: 14px 10px;
   font-size: 0.95rem;
   font-weight: 400;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-align: center;
   white-space: nowrap;
 }
