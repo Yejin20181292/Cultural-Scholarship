@@ -146,6 +146,29 @@
           </div>
         </div>
 
+        <!-- 3. 장학생 준수사항 Tab -->
+        <div v-if="activeTab === 'rules'" class="tab-pane reveal active">
+          <div class="glass-card rules-card">
+            <div class="rules-header">
+              <span class="rules-subtitle">SCHOLARSHIP GUIDELINES</span>
+              <h2 class="rules-title title-serif">장학생 준수사항</h2>
+              <p class="rules-desc">재단 장학생으로 선발된 학생이 장학금을 받는 동안 지켜야 할 사항입니다.</p>
+            </div>
+
+            <ol class="rules-list">
+              <li v-for="(rule, idx) in scholarRules" :key="rule.title" class="rule-item">
+                <span class="rule-num title-serif">{{ String(idx + 1).padStart(2, '0') }}</span>
+                <div class="rule-body">
+                  <h3 class="rule-heading">{{ rule.title }}</h3>
+                  <p class="rule-text">{{ rule.desc }}</p>
+                </div>
+              </li>
+            </ol>
+
+            <p class="rules-note">※ 준수사항을 위반한 경우 재단 이사회의 심의를 거쳐 장학금 지급이 중단될 수 있습니다.</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -179,7 +202,18 @@ defineEmits(['back']);
 
 const tabs = [
   { id: 'programs', name: '장학 프로그램' },
-  { id: 'performance', name: '사업실적' }
+  { id: 'performance', name: '사업실적' },
+  { id: 'rules', name: '장학생 준수사항' }
+];
+
+const scholarRules = [
+  { title: '학업 성실', desc: '매 학기 소정의 학점을 이수하고 학업에 성실히 임해야 합니다.' },
+  { title: '성적 유지', desc: '직전 학기 성적이 재단이 정한 기준에 미달하지 않도록 유지해야 합니다.' },
+  { title: '증빙 서류 제출', desc: '매 학기 재학증명서와 성적증명서를 정해진 기간 안에 재단으로 제출해야 합니다.' },
+  { title: '학적 변동 신고', desc: '휴학·복학·전과·자퇴 등 학적에 변동이 생긴 경우 지체 없이 재단에 알려야 합니다.' },
+  { title: '중복 수혜 신고', desc: '다른 기관에서 장학금을 받게 된 경우 그 사실을 재단에 알려야 합니다.' },
+  { title: '재단 행사 참석', desc: '장학증서 수여식 등 재단이 주관하는 행사에는 가능한 한 참석해 주시기 바랍니다.' },
+  { title: '품위 유지', desc: '장학생으로서 품위를 지키고, 재단의 명예를 손상하는 행위를 하여서는 안 됩니다.' }
 ];
 
 const previewImage = ref<{ src: string; title: string } | null>(null);
@@ -886,7 +920,89 @@ onUnmounted(() => {
   line-height: 1.6;
 }
 
+/* ===== 장학생 준수사항 ===== */
+.rules-card {
+  padding: 50px;
+}
+
+.rules-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rules-subtitle {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.rules-title {
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.rules-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 22px 26px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.rule-num {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--primary-color);
+}
+
+.rule-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.rule-text {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.rules-note {
+  margin-top: 28px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 1024px) {
+  .rules-card { padding: 28px 18px; }
+  .rule-item { gap: 14px; padding: 18px 16px; }
   .programs-grid { grid-template-columns: 1fr; }
   .calc-form { grid-template-columns: 1fr; }
   .process-steps { flex-direction: column; }

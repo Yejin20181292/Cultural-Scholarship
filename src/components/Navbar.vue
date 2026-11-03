@@ -82,6 +82,7 @@
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">· 장학 프로그램</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">· 사업실적</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'rules')">· 장학생 준수사항</a></li>
               </ul>
             </div>
 
@@ -246,6 +247,11 @@
               <li>
                 <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">
                   · 사업실적
+                </a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleNavClick('scholarship-sub', 'rules')">
+                  · 장학생 준수사항
                 </a>
               </li>
             </ul>
