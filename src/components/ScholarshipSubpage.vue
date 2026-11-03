@@ -4,7 +4,7 @@
     <div class="sub-banner">
       <div class="container banner-container">
         <span class="banner-subtitle">SCHOLARSHIP PROGRAMS</span>
-        <h1 class="banner-title title-serif">장학사업</h1>
+        <h1 class="banner-title title-serif">재단사업</h1>
         <p class="banner-desc">신라문화장학재단이 지원하는 분야별 장학 프로그램과 사업실적을 안내해드립니다.</p>
       </div>
     </div>

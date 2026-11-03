@@ -27,7 +27,7 @@
           </div>
           
           <div class="footer-links-col">
-            <h4 class="col-title title-serif">장학사업</h4>
+            <h4 class="col-title title-serif">재단사업</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'programs')">장학 프로그램</a></li>
               <li><a href="#" @click.prevent="handleNavClick('scholarship-sub', 'performance')">사업실적</a></li>
