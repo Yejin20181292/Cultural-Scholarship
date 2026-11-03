@@ -146,7 +146,47 @@
           </div>
         </div>
 
-        <!-- 3. 장학생 준수사항 Tab -->
+        <!-- 3. 선발인원 및 지급 현황 Tab -->
+        <div v-if="activeTab === 'awards'" class="tab-pane reveal active">
+          <div class="glass-card perf-main-card">
+            <h2 class="perf-summary-title title-serif">
+              <u>선발인원 및 지급 현황</u><span class="year-range">(1979년 ~ 2025년)</span>
+            </h2>
+
+            <div class="awards-summary">
+              <div class="awards-summary-item">
+                <span class="awards-summary-num title-serif">5,390명</span>
+                <span class="awards-summary-label">누적 선발인원</span>
+              </div>
+              <div class="awards-summary-item">
+                <span class="awards-summary-num title-serif">39,046,757,858원</span>
+                <span class="awards-summary-label">누적 장학금 지급액</span>
+              </div>
+            </div>
+
+            <div v-if="awardRows.length" class="perf-simple-table-wrapper">
+              <table class="perf-simple-table awards-table">
+                <thead>
+                  <tr>
+                    <th scope="col">기수 / 연도</th>
+                    <th scope="col">선발인원</th>
+                    <th scope="col">지급액</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="row in awardRows" :key="row.term">
+                    <td class="cell-type">{{ row.term }}</td>
+                    <td class="cell-count">{{ row.count }}</td>
+                    <td class="cell-amount">{{ row.amount }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p v-else class="awards-empty">연도별 선발인원과 지급액 자료는 준비 중입니다.</p>
+          </div>
+        </div>
+
+        <!-- 4. 장학생 준수사항 Tab -->
         <div v-if="activeTab === 'rules'" class="tab-pane reveal active">
           <div class="programs-grid">
             <div v-for="program in detailPrograms" :key="program.key" class="glass-card program-card">
@@ -291,8 +331,13 @@ defineEmits(['back']);
 const tabs = [
   { id: 'programs', name: '장학 프로그램' },
   { id: 'performance', name: '사업실적' },
+  { id: 'awards', name: '선발인원 및 지급 현황' },
   { id: 'rules', name: '장학생 준수사항' }
 ];
+
+// term: 기수 또는 연도. 연도별 자료가 들어오면 여기에 채운다.
+// 비어 있으면 표 대신 준비 중 안내가 나온다.
+const awardRows: { term: string; count: string; amount: string }[] = [];
 
 // Detail Modal
 // 카드 3개의 "자세히 보기" 상세 내용. 재단 확정 문구가 나오면 sections 안의 items만 교체하면 된다.
@@ -1163,6 +1208,62 @@ onUnmounted(() => {
   margin-bottom: 35px;
 }
 
+/* ===== 선발인원 및 지급 현황 ===== */
+.awards-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.awards-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(6, 91, 137, 0.04);
+}
+
+.awards-summary-num {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--primary-color, #065b89);
+}
+
+.awards-summary-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* 3열이므로 perf-simple-table의 2열 너비 설정을 덮어쓴다. */
+.awards-table th,
+.awards-table td {
+  text-align: center;
+  width: auto;
+}
+
+.awards-table .cell-count,
+.awards-table .cell-amount {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+  padding-right: 28px;
+}
+
+.awards-empty {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
 .perf-summary-title {
   font-size: 1.75rem;
   font-weight: 700;
@@ -1429,6 +1530,8 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
+  .awards-summary { grid-template-columns: 1fr; }
+  .awards-summary-num { font-size: 1.6rem; }
   .programs-grid { grid-template-columns: 1fr; }
   .calc-form { grid-template-columns: 1fr; }
   .process-steps { flex-direction: column; }
