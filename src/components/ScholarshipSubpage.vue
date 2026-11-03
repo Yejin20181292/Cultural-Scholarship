@@ -1259,6 +1259,7 @@ onUnmounted(() => {
 
 .awards-table thead th {
   padding: 14px 10px;
+  background: #f3f6fa;
   border-top: 2px solid var(--primary-color, #065b89);
   border-bottom: 1px solid var(--primary-color, #065b89);
   font-size: 0.95rem;
