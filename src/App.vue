@@ -43,7 +43,7 @@ const navigateTo = (view: ViewType, subTab?: string) => {
   } else if (view === 'notice-sub') {
     window.location.hash = subTab ? `#notice-sub/${subTab}` : '#notice-sub/notice';
   } else if (view === 'resources-sub') {
-    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/apply';
+    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/news';
   } else {
     window.history.pushState("", document.title, window.location.pathname + window.location.search);
   }
