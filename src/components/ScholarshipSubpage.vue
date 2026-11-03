@@ -149,40 +149,33 @@
         <!-- 3. 선발인원 및 지급 현황 Tab -->
         <div v-if="activeTab === 'awards'" class="tab-pane reveal active">
           <div class="glass-card perf-main-card">
-            <h2 class="perf-summary-title title-serif">
-              <u>선발인원 및 지급 현황</u><span class="year-range">(1979년 ~ 2025년)</span>
-            </h2>
+            <h2 class="awards-title">장학생선발인원 및 장학금지급현황 &lt;년도별&gt;</h2>
+            <p class="awards-unit">(단위 : 명, 원)</p>
 
-            <div class="awards-summary">
-              <div class="awards-summary-item">
-                <span class="awards-summary-num title-serif">5,390명</span>
-                <span class="awards-summary-label">누적 선발인원</span>
-              </div>
-              <div class="awards-summary-item">
-                <span class="awards-summary-num title-serif">39,046,757,858원</span>
-                <span class="awards-summary-label">누적 장학금 지급액</span>
-              </div>
-            </div>
-
-            <div v-if="awardRows.length" class="perf-simple-table-wrapper">
-              <table class="perf-simple-table awards-table">
+            <div class="awards-table-wrapper">
+              <table class="awards-table">
                 <thead>
                   <tr>
-                    <th scope="col">기수 / 연도</th>
+                    <th scope="col">년월일</th>
                     <th scope="col">선발인원</th>
-                    <th scope="col">지급액</th>
+                    <th scope="col">누계</th>
+                    <th scope="col">지급금액</th>
+                    <th scope="col">누계</th>
+                    <th scope="col">비고</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="row in awardRows" :key="row.term">
-                    <td class="cell-type">{{ row.term }}</td>
+                  <tr v-for="(row, i) in awardRows" :key="i">
+                    <td class="cell-date">{{ row.date }}</td>
                     <td class="cell-count">{{ row.count }}</td>
-                    <td class="cell-amount">{{ row.amount }}</td>
+                    <td class="cell-count">{{ row.countTotal }}</td>
+                    <td class="cell-money">{{ row.amount }}</td>
+                    <td class="cell-money">{{ row.amountTotal }}</td>
+                    <td class="cell-note">{{ row.note }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p v-else class="awards-empty">연도별 선발인원과 지급액 자료는 준비 중입니다.</p>
           </div>
         </div>
 
@@ -335,9 +328,18 @@ const tabs = [
   { id: 'rules', name: '장학생 준수사항' }
 ];
 
-// term: 기수 또는 연도. 연도별 자료가 들어오면 여기에 채운다.
-// 비어 있으면 표 대신 준비 중 안내가 나온다.
-const awardRows: { term: string; count: string; amount: string }[] = [];
+// 대괄호가 붙은 선발인원([39] 등)은 기존 장학생에게 이어서 지급한 인원이라 누계에 더하지 않는다.
+const awardRows = [
+  { date: '2014. 02. 26 <제1기>', count: '39', countTotal: '39', amount: '117,000,000', amountTotal: '117,000,000', note: '고등학생' },
+  { date: '2014. 02. 26 <제1기>', count: '40', countTotal: '79', amount: '160,000,000', amountTotal: '277,000,000', note: '대학생' },
+  { date: '2014. 08. 26 <제1기>', count: '[39]', countTotal: '79', amount: '156,000,000', amountTotal: '433,000,000', note: '대학생' },
+  { date: '2015. 02. 25 <제2기>', count: '69', countTotal: '148', amount: '276,000,000', amountTotal: '709,000,000', note: '대학생' },
+  { date: '2015. 08. 26 <제2기>', count: '[68]', countTotal: '148', amount: '272,000,000', amountTotal: '981,000,000', note: '대학생' },
+  { date: '2016. 02. 25 <제3기>', count: '60', countTotal: '208', amount: '240,000,000', amountTotal: '1,221,000,000', note: '대학생' },
+  { date: '2016. 08. 24 <제3기>', count: '[55]', countTotal: '208', amount: '220,000,000', amountTotal: '1,441,000,000', note: '대학생' },
+  { date: '2017. 02. 23 <제4기>', count: '50', countTotal: '258', amount: '200,000,000', amountTotal: '1,641,000,000', note: '대학생' },
+  { date: '2017. 08. 23 <제4기>', count: '[49]', countTotal: '258', amount: '196,000,000', amountTotal: '1,837,000,000', note: '대학생' }
+];
 
 // Detail Modal
 // 카드 3개의 "자세히 보기" 상세 내용. 재단 확정 문구가 나오면 sections 안의 items만 교체하면 된다.
@@ -1209,59 +1211,77 @@ onUnmounted(() => {
 }
 
 /* ===== 선발인원 및 지급 현황 ===== */
-.awards-summary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 35px;
-}
-
-.awards-summary-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 32px 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  background: rgba(6, 91, 137, 0.04);
-}
-
-.awards-summary-num {
-  font-size: 2rem;
+/* 제목 위의 짧은 빨간 선까지 원본 표 서식을 그대로 따른다. */
+.awards-title {
+  position: relative;
+  padding-top: 14px;
+  font-size: 1.25rem;
   font-weight: 700;
-  line-height: 1.2;
-  color: var(--primary-color, #065b89);
+  color: var(--text-primary);
 }
 
-.awards-summary-label {
-  font-size: 0.95rem;
-  font-weight: 500;
+.awards-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 3px;
+  background: #c0392b;
+}
+
+.awards-unit {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 300;
   color: var(--text-secondary);
 }
 
-/* 3열이므로 perf-simple-table의 2열 너비 설정을 덮어쓴다. */
-.awards-table th,
-.awards-table td {
+.awards-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.awards-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.awards-table thead th {
+  padding: 14px 10px;
+  border-top: 2px solid var(--primary-color, #065b89);
+  border-bottom: 1px solid var(--primary-color, #065b89);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
   text-align: center;
-  width: auto;
+  white-space: nowrap;
+}
+
+.awards-table td {
+  padding: 14px 10px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.awards-table tbody tr:last-child td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.awards-table .cell-date,
+.awards-table .cell-note {
+  font-weight: 500;
 }
 
 .awards-table .cell-count,
-.awards-table .cell-amount {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  text-align: right;
-  padding-right: 28px;
-}
-
-.awards-empty {
-  padding: 40px 0;
-  text-align: center;
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--text-secondary);
+.awards-table .cell-money {
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .perf-summary-title {
@@ -1530,8 +1550,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
-  .awards-summary { grid-template-columns: 1fr; }
-  .awards-summary-num { font-size: 1.6rem; }
   .programs-grid { grid-template-columns: 1fr; }
   .calc-form { grid-template-columns: 1fr; }
   .process-steps { flex-direction: column; }
