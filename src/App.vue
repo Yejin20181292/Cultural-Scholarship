@@ -7,7 +7,6 @@ import AboutSubpage from './components/AboutSubpage.vue';
 import ScholarshipSubpage from './components/ScholarshipSubpage.vue';
 import CommunitySubpage from './components/CommunitySubpage.vue';
 import ResourcesSubpage from './components/ResourcesSubpage.vue';
-import NoticeSubpage from './components/NoticeSubpage.vue';
 import ScholarshipPrograms from './components/ScholarshipPrograms.vue';
 import NoticeSection from './components/NoticeSection.vue';
 import Footer from './components/Footer.vue';
@@ -15,15 +14,25 @@ import AuthModal from './components/AuthModal.vue';
 import MyPageModal from './components/MyPageModal.vue';
 import HomePopup from './components/HomePopup.vue';
 
-export type ViewType = 'home' | 'about-sub' | 'scholarship-sub' | 'community-sub' | 'notice-sub' | 'resources-sub';
+export type ViewType = 'home' | 'about-sub' | 'scholarship-sub' | 'community-sub' | 'resources-sub';
+
+// 공지사항이 자료실 아래로 들어가기 전에 쓰던 주소를 새 주소로 바꿔준다.
+// #notice-sub/notice → #resources-sub/notice, #notice-sub/detail/3 → #resources-sub/notice/3
+const normalizeLegacyHash = () => {
+  const hash = window.location.hash;
+  if (!hash.startsWith('#notice-sub')) return;
+  const detailId = hash.split('/')[2];
+  window.location.replace(
+    `${window.location.pathname}${window.location.search}#resources-sub/notice${detailId ? `/${detailId}` : ''}`
+  );
+};
 
 const getViewFromHash = (): ViewType => {
   const hash = window.location.hash;
   if (hash.startsWith('#about-sub')) return 'about-sub';
   if (hash.startsWith('#scholarship-sub')) return 'scholarship-sub';
   if (hash.startsWith('#community-sub')) return 'community-sub';
-  if (hash.startsWith('#notice-sub')) return 'notice-sub';
-  if (hash.startsWith('#resources-sub')) return 'resources-sub';
+  if (hash.startsWith('#resources-sub') || hash.startsWith('#notice-sub')) return 'resources-sub';
   return 'home';
 };
 
@@ -41,10 +50,8 @@ const navigateTo = (view: ViewType, subTab?: string) => {
     window.location.hash = subTab ? `#scholarship-sub/${subTab}` : '#scholarship-sub/performance';
   } else if (view === 'community-sub') {
     window.location.hash = subTab ? `#community-sub/${subTab}` : '#community-sub/board';
-  } else if (view === 'notice-sub') {
-    window.location.hash = subTab ? `#notice-sub/${subTab}` : '#notice-sub/notice';
   } else if (view === 'resources-sub') {
-    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/news';
+    window.location.hash = subTab ? `#resources-sub/${subTab}` : '#resources-sub/notice';
   } else {
     window.history.pushState("", document.title, window.location.pathname + window.location.search);
   }
@@ -52,6 +59,7 @@ const navigateTo = (view: ViewType, subTab?: string) => {
 };
 
 onMounted(() => {
+  normalizeLegacyHash();
   updateViewFromHash();
   window.addEventListener('hashchange', updateViewFromHash);
 });
@@ -80,9 +88,6 @@ onUnmounted(() => {
       </template>
       <template v-else-if="currentView === 'community-sub'">
         <CommunitySubpage @back="navigateTo('home')" />
-      </template>
-      <template v-else-if="currentView === 'notice-sub'">
-        <NoticeSubpage @back="navigateTo('home')" />
       </template>
       <template v-else-if="currentView === 'resources-sub'">
         <ResourcesSubpage @back="navigateTo('home')" />

@@ -27,7 +27,78 @@
 
       <!-- Tab Content Area -->
       <div class="tab-view-content">
-        <!-- 1. 소식 Tab -->
+        <!-- 1. 공지사항 Tab -->
+        <div v-if="activeTab === 'notice'" class="tab-pane reveal active">
+          <div class="notice-container">
+            <!-- 목록 -->
+            <template v-if="!selectedNotice">
+              <div class="notice-search-bar glass-card">
+                <div class="search-input-wrapper">
+                  <input type="text" v-model="searchQuery" placeholder="공지사항 제목/내용 검색..." class="notice-search-input" />
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+              </div>
+
+              <div class="notice-list glass-card">
+                <div v-for="item in filteredNotices" :key="item.id" class="notice-item" @click="openNotice(item.id)">
+                  <span class="item-tag" :class="item.type">{{ item.tagText }}</span>
+                  <div class="item-main">
+                    <a :href="`#resources-sub/notice/${item.id}`" class="item-title" @click.prevent>{{ item.title }}</a>
+                    <span class="item-date">{{ item.date }}</span>
+                  </div>
+                  <svg class="item-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </template>
+
+            <!-- 상세 -->
+            <div v-else class="notice-detail glass-card">
+              <div class="detail-header">
+                <span class="item-tag" :class="selectedNotice.type">{{ selectedNotice.tagText }}</span>
+                <h2 class="detail-title">{{ selectedNotice.title }}</h2>
+                <span class="detail-date">{{ selectedNotice.date }}</span>
+              </div>
+
+              <div class="detail-body">
+                <p v-for="(para, i) in selectedNotice.content" :key="i" class="detail-para">{{ para }}</p>
+                <div v-if="selectedNotice.images" class="detail-images">
+                  <img v-for="(src, i) in selectedNotice.images" :key="i" :src="src"
+                    :alt="`${selectedNotice.title} ${i + 1}쪽`" class="detail-image" />
+                </div>
+
+                <a v-if="selectedNotice.file" class="btn btn-primary detail-download-btn"
+                  :href="selectedNotice.file" :download="selectedNotice.filename">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>{{ selectedNotice.filename }}</span>
+                </a>
+              </div>
+
+              <div class="detail-nav">
+                <button v-if="prevNotice" class="detail-nav-btn" @click="openNotice(prevNotice.id)">
+                  <span class="nav-label">이전 글</span>
+                  <span class="nav-title">{{ prevNotice.title }}</span>
+                </button>
+                <button v-if="nextNotice" class="detail-nav-btn" @click="openNotice(nextNotice.id)">
+                  <span class="nav-label">다음 글</span>
+                  <span class="nav-title">{{ nextNotice.title }}</span>
+                </button>
+              </div>
+
+              <div class="detail-actions">
+                <button class="btn btn-outline" @click="closeNotice">목록으로</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 재단소식 Tab -->
         <div v-if="activeTab === 'news'" class="tab-pane reveal active">
           <!-- 목록 -->
           <div v-if="!selectedNews" class="news-grid">
@@ -94,7 +165,7 @@
           </div>
         </div>
 
-        <!-- 2. 공시사항 Tab -->
+        <!-- 3. 공시사항 Tab -->
         <div v-if="activeTab === 'archive'" class="tab-pane reveal active">
           <p class="archive-notice">국세청 홈택스 홈페이지 내 [국세청 홈택스 &gt; 공익법인결산서류공시 &gt; 공익법인 결산서류등 공시]에서도 열람하실 수 있습니다.</p>
           <div class="resources-grid">
@@ -153,10 +224,18 @@ import news47thPhoto4 from '../assets/news_47th_photo4.jpg';
 import newsRuralPhoto1 from '../assets/news_rural_photo1.jpg';
 import newsRural2026Photo1 from '../assets/news_rural2026_photo1.jpg';
 import newsRural2026Photo2 from '../assets/news_rural2026_photo2.jpg';
+import noticeLetter01 from '../assets/notice_letter01.jpeg';
+import noticeLetter02 from '../assets/notice_letter02.jpeg';
+import notice2021Recruit from '../assets/notice_2021_recruit.jpeg';
+import notice2022Recruit from '../assets/notice_2022_recruit.jpeg';
+import notice2023Recruit from '../assets/notice_2023_recruit.jpeg';
+import notice2025Recruit from '../assets/notice_2025_recruit.jpeg';
+import notice2026Recruit from '../assets/notice_2026_recruit.jpeg';
 
 defineEmits(['back']);
 
 const tabs = [
+  { id: 'notice', name: '공지사항' },
   { id: 'news', name: '재단소식' },
   { id: 'archive', name: '공시사항' }
 ];
@@ -169,7 +248,7 @@ const getTabFromHash = (): string => {
       return parts[1];
     }
   }
-  return 'news';
+  return 'notice';
 };
 
 const activeTab = ref(getTabFromHash());
@@ -177,12 +256,152 @@ const activeTab = ref(getTabFromHash());
 const updateTabFromHash = () => {
   activeTab.value = getTabFromHash();
   selectedNewsId.value = getNewsIdFromHash();
+  selectedNoticeId.value = getNoticeIdFromHash();
 };
 
 const setActiveTab = (tabId: string) => {
   activeTab.value = tabId;
   window.location.hash = `#resources-sub/${tabId}`;
 };
+
+const searchQuery = ref('');
+
+interface Notice {
+  id: number;
+  type: string;
+  tagText: string;
+  title: string;
+  date: string;
+  content: string[];
+  images?: string[]; // 본문이 이미지로 된 공지에만 사용한다.
+  file?: string; // public/ 기준 첨부파일 경로
+  filename?: string; // 내려받을 때 저장될 이름
+}
+
+const notices: Notice[] = [
+  {
+    id: 6,
+    type: 'event',
+    tagText: '안내',
+    title: '2026 신라문화장학재단 장학생 공개선발',
+    date: '2026.01.16',
+    content: [
+      '2026년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2026Recruit],
+    file: '/docs/2026-scholarship-recruitment.pdf',
+    filename: '2026공개선발요강.pdf'
+  },
+  {
+    id: 1,
+    type: 'event',
+    tagText: '안내',
+    title: '2025 신라문화장학재단 장학생 공개선발',
+    date: '2025.01.21',
+    content: [
+      '2025년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2025Recruit],
+    file: '/docs/2025-scholarship-recruitment.pdf',
+    filename: '2025공개선발요강.pdf'
+  },
+  {
+    id: 2,
+    type: 'event',
+    tagText: '안내',
+    title: '2023 신라문화장학재단 장학생 공개선발',
+    date: '2023.02.02',
+    content: [
+      '2023년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2023Recruit],
+    file: '/docs/2023-scholarship-recruitment.pdf',
+    filename: '2023공개선발요강.pdf'
+  },
+  {
+    id: 3,
+    type: 'event',
+    tagText: '안내',
+    title: '2022 신라문화장학재단 장학생 공개선발',
+    date: '2022.01.27',
+    content: [
+      '2022년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2022Recruit],
+    file: '/docs/2022-scholarship-recruitment.pdf',
+    filename: '2022공개선발요강.pdf'
+  },
+  {
+    id: 4,
+    type: 'event',
+    tagText: '안내',
+    title: '2021 신라문화장학재단 장학생 공개선발',
+    date: '2021.01.27',
+    content: [
+      '2021년 신라문화장학재단 장학생 공개선발',
+      '선발 대상 학교 홈페이지에 지원서와 함께 공지되었습니다.',
+      '각 학교 홈페이지에서 공고 및 지원서류를 확인하시고 많은 지원 부탁드립니다.'
+    ],
+    images: [notice2021Recruit],
+    file: '/docs/2021-scholarship-recruitment.pdf',
+    filename: '2021공개선발요강.pdf'
+  },
+  {
+    id: 5,
+    type: 'normal',
+    tagText: '일반',
+    title: '장학생 여러분께',
+    date: '2020.12.03',
+    content: [],
+    images: [noticeLetter01, noticeLetter02]
+  }
+];
+
+const filteredNotices = computed(() => {
+  if (!searchQuery.value) return notices;
+  return notices.filter(n => n.title.toLowerCase().includes(searchQuery.value.toLowerCase()));
+});
+
+// 공지사항 상세 보기 — 주소는 #resources-sub/notice/<번호> 형태를 쓴다.
+const getNoticeIdFromHash = (): number | null => {
+  const parts = window.location.hash.split('/');
+  if (parts[1] === 'notice' && parts[2]) {
+    const id = Number(parts[2]);
+    return Number.isFinite(id) ? id : null;
+  }
+  return null;
+};
+
+const selectedNoticeId = ref<number | null>(getNoticeIdFromHash());
+
+const selectedNotice = computed(() => notices.find(n => n.id === selectedNoticeId.value) ?? null);
+
+const noticeIndex = computed(() => notices.findIndex(n => n.id === selectedNoticeId.value));
+// 목록이 최신순이라 배열 뒤로 갈수록 오래된 글이다.
+// 따라서 이전 글 = 배열의 다음 항목(더 오래된 글), 다음 글 = 배열의 앞 항목(더 최근 글)이다.
+const prevNotice = computed(() =>
+  noticeIndex.value >= 0 && noticeIndex.value < notices.length - 1 ? notices[noticeIndex.value + 1] : null
+);
+const nextNotice = computed(() => (noticeIndex.value > 0 ? notices[noticeIndex.value - 1] : null));
+
+const openNotice = (id: number) => {
+  window.location.hash = `#resources-sub/notice/${id}`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const closeNotice = () => {
+  window.location.hash = '#resources-sub/notice';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
 // News & Resources Sample Data
 // image: 실제 사진이 있을 때만 지정한다. 없으면 gradient 색상 배경만 표시된다.
 interface NewsItem {
@@ -824,5 +1043,272 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .banner-desc { white-space: normal; }
+}
+
+/* ===== 공지사항 ===== */
+.notice-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.notice-search-bar {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.notice-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.notice-item {
+  display: flex;
+  align-items: center;
+  padding: 22px 30px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-fast);
+}
+
+.notice-item:last-child {
+  border-bottom: none;
+}
+
+.notice-item:hover {
+  background-color: rgba(6, 91, 137, 0.03);
+}
+
+.item-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 20px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.item-tag.important {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.item-tag.normal {
+  background-color: rgba(6, 91, 137, 0.15);
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+}
+
+.item-tag.event {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.item-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  gap: 20px;
+}
+
+.item-title {
+  color: var(--text-primary);
+  font-size: 0.98rem;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.5;
+  transition: color var(--transition-fast);
+}
+
+.notice-item:hover .item-title {
+  color: var(--secondary-color);
+}
+
+.item-date {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.item-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  margin-left: 20px;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.notice-item:hover .item-arrow {
+  color: var(--primary-color);
+  transform: translateX(3px);
+}
+
+/* ===== 공지 상세 ===== */
+.notice-item {
+  cursor: pointer;
+}
+
+.notice-detail {
+  padding: 40px 44px;
+  text-align: left;
+}
+
+.detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.detail-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.detail-date {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.detail-body {
+  min-height: 180px;
+  margin-bottom: 36px;
+}
+
+.detail-para {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+  word-break: keep-all;
+}
+
+.detail-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 46px;
+}
+
+.detail-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.detail-para + .detail-para {
+  margin-top: 16px;
+}
+
+.detail-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 24px auto 0;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.detail-nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-color);
+}
+
+.detail-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 4px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background var(--transition-fast);
+}
+
+.detail-nav-btn:hover {
+  background: rgba(6, 91, 137, 0.04);
+}
+
+.detail-nav .nav-label {
+  flex-shrink: 0;
+  width: 56px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.detail-nav .nav-title {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .notice-detail {
+    padding: 28px 20px;
+  }
+
+  .detail-title {
+    font-size: 1.25rem;
+  }
 }
 </style>

@@ -38,19 +38,9 @@
             </a>
           </li>
 
-          <!-- 4. 공지사항 -->
+          <!-- 4. 자료실 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="nav-main-link">
-              <span>공지사항</span>
-              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </a>
-          </li>
-
-          <!-- 5. 자료실 -->
-          <li>
-            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'news')" class="nav-main-link">
+            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="nav-main-link">
               <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -95,18 +85,11 @@
               </ul>
             </div>
 
-            <!-- Col 4: 공지사항 -->
+            <!-- Col 4: 자료실 -->
             <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('notice-sub', 'notice')">공지사항</h4>
+              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'notice')">자료실</h4>
               <ul class="mega-sub-list">
-                <li><a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">· 공지사항</a></li>
-              </ul>
-            </div>
-
-            <!-- Col 5: 자료실 -->
-            <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'news')">자료실</h4>
-              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">· 공지사항</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 재단소식</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 공시사항</a></li>
               </ul>
@@ -282,31 +265,10 @@
             </ul>
           </li>
 
-          <!-- Mobile 4. 공지사항 -->
+          <!-- Mobile 4. 자료실 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'notice-sub' }" @click.prevent="handleNavClick('notice-sub', 'notice')" class="mobile-main-link">
-                공지사항
-              </a>
-              <button class="mobile-sub-toggle" @click.stop="isMobileNoticeSubOpen = !isMobileNoticeSubOpen" aria-label="서브메뉴 토글">
-                <svg class="chevron-icon" :class="{ 'rotate': isMobileNoticeSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-            </div>
-            <ul class="mobile-sub-menu" v-show="isMobileNoticeSubOpen">
-              <li>
-                <a href="#" @click.prevent="handleNavClick('notice-sub', 'notice')">
-                  · 공지사항
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Mobile 5. 자료실 -->
-          <li class="mobile-dropdown-group">
-            <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'news')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="mobile-main-link">
                 자료실
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
@@ -316,6 +278,11 @@
               </button>
             </div>
             <ul class="mobile-sub-menu" v-show="isMobileResourceSubOpen">
+              <li>
+                <a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">
+                  · 공지사항
+                </a>
+              </li>
               <li>
                 <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
                   · 재단소식
@@ -386,7 +353,6 @@ const dropdownRef = ref<HTMLElement | null>(null);
 const isMobileAboutSubOpen = ref(true);
 const isMobileScholarshipSubOpen = ref(false);
 const isMobileCommunitySubOpen = ref(false);
-const isMobileNoticeSubOpen = ref(false);
 const isMobileResourceSubOpen = ref(false);
 
 const toggleMobileMenu = () => {
