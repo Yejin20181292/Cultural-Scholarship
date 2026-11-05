@@ -139,7 +139,10 @@
                   class="tl-free-photo"
                   :style="{ '--top': p.top, '--right': p.right, '--size': p.size }"
                 >
-                  <img :src="p.src" :alt="p.alt" />
+                  <span v-if="p.blob" class="tl-photo-blob" aria-hidden="true"></span>
+                  <span class="tl-photo-circle">
+                    <img :src="p.src" :alt="p.alt" />
+                  </span>
                 </figure>
               </div>
 
@@ -501,17 +504,19 @@ const historyData: HistoryEntry[] = [
 // 연표 오른쪽 여백에 자유롭게 띄우는 사진들.
 // top은 연표 전체 높이에 대한 비율이라 연도를 늘리거나 줄여도 위치가 같이 따라간다.
 // right와 size는 px로 직접 조절한다. 좁은 화면에서는 이 값들이 무시되고 아래에 가로로 늘어선다.
+// blob: true로 두면 사진 오른쪽 위에 브랜드 색 원이 겹쳐 깔린다.
 interface HistoryPhoto {
   src: string;
   alt: string;
   top: string;
   right: string;
   size: string;
+  blob?: boolean;
 }
 
 const historyPhotos: HistoryPhoto[] = [
   { src: historyPhoto2, alt: '제1기 장학증서 수여식 (1979. 3. 17)', top: '2%', right: '24px', size: '215px' },
-  { src: news46thPhoto2, alt: '제46기 장학증서 수여식 (2024. 8. 31)', top: '38%', right: '118px', size: '165px' },
+  { src: news46thPhoto2, alt: '제46기 장학증서 수여식 (2024. 8. 31)', top: '36%', right: '120px', size: '165px', blob: true },
   { src: news47thPhoto4, alt: '제47기 장학생 오리엔테이션 (2025. 8. 30)', top: '63%', right: '16px', size: '235px' }
 ];
 interface BoardMember {
@@ -1036,9 +1041,30 @@ watch(activeTab, (newTab) => {
   width: var(--size);
   height: var(--size);
   margin: 0;
+  pointer-events: auto;
+}
+
+/* 사진을 둥글게 잘라내는 틀. 뒤에 깔리는 원이 잘리지 않도록 figure가 아니라 여기서 자른다. */
+.tl-photo-circle {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  pointer-events: auto;
+}
+
+/* 사진 오른쪽 위로 비켜 깔리는 브랜드 색 원 */
+.tl-photo-blob {
+  position: absolute;
+  z-index: 0;
+  top: -30%;
+  right: -34%;
+  width: 136%;
+  height: 136%;
+  border-radius: 50%;
+  background: var(--primary-color, #065b89);
 }
 
 .tl-free-photo img {
