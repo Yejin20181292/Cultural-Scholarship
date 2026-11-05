@@ -2,7 +2,19 @@
   <Teleport to="body">
     <Transition name="popup-fade">
       <div v-if="isOpen" class="popup-overlay">
-        <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="home-popup-title">
+        <div
+          ref="cardRef"
+          class="popup-card"
+          :class="{ 'is-dragging': isDragging }"
+          :style="dragStyle"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="home-popup-title"
+          @pointerdown="startDrag"
+          @pointermove="onDrag"
+          @pointerup="endDrag"
+          @pointercancel="endDrag"
+        >
           <button class="popup-x" @click="close" aria-label="닫기">&times;</button>
 
           <div class="popup-head">
@@ -45,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { awardTotalAmount, awardTotalCount } from '../data/awards';
 
 const emit = defineEmits<{ (e: 'navigate', view: 'scholarship-sub', subTab: string): void }>();
@@ -63,6 +75,63 @@ const todayKey = (): string => {
 
 const isOpen = ref(false);
 const hideToday = ref(false);
+
+// ----- 드래그로 위치 옮기기 -----
+// 버튼·체크박스를 누른 경우는 드래그로 보지 않는다. 그 외 테두리·여백·글자 영역을 잡으면 움직인다.
+const DRAG_IGNORE = 'button, input, label, a, select, textarea';
+const EDGE_GAP = 8; // 화면 밖으로 완전히 빠져나가지 않도록 남겨두는 여백
+
+const cardRef = ref<HTMLElement | null>(null);
+const dragPos = ref<{ left: number; top: number } | null>(null);
+const isDragging = ref(false);
+let grabOffset = { x: 0, y: 0 };
+
+// 드래그를 시작하기 전에는 overlay의 flex 배치(좌측 상단)를 그대로 따른다.
+const dragStyle = computed(() =>
+  dragPos.value
+    ? { position: 'fixed' as const, left: `${dragPos.value.left}px`, top: `${dragPos.value.top}px`, margin: '0' }
+    : undefined
+);
+
+const clamp = (left: number, top: number) => {
+  const el = cardRef.value;
+  if (!el) return { left, top };
+  const maxLeft = window.innerWidth - el.offsetWidth - EDGE_GAP;
+  const maxTop = window.innerHeight - el.offsetHeight - EDGE_GAP;
+  return {
+    left: Math.min(Math.max(left, EDGE_GAP), Math.max(maxLeft, EDGE_GAP)),
+    top: Math.min(Math.max(top, EDGE_GAP), Math.max(maxTop, EDGE_GAP))
+  };
+};
+
+const startDrag = (e: PointerEvent) => {
+  const el = cardRef.value;
+  if (!el) return;
+  if ((e.target as HTMLElement).closest(DRAG_IGNORE)) return;
+
+  const rect = el.getBoundingClientRect();
+  grabOffset = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  dragPos.value = { left: rect.left, top: rect.top };
+  isDragging.value = true;
+  el.setPointerCapture(e.pointerId);
+  e.preventDefault();
+};
+
+const onDrag = (e: PointerEvent) => {
+  if (!isDragging.value) return;
+  dragPos.value = clamp(e.clientX - grabOffset.x, e.clientY - grabOffset.y);
+};
+
+const endDrag = (e: PointerEvent) => {
+  if (!isDragging.value) return;
+  isDragging.value = false;
+  cardRef.value?.releasePointerCapture(e.pointerId);
+};
+
+// 창 크기가 줄어 팝업이 화면 밖으로 밀리면 다시 안쪽으로 당긴다.
+const onResize = () => {
+  if (dragPos.value) dragPos.value = clamp(dragPos.value.left, dragPos.value.top);
+};
 
 const close = () => {
   if (hideToday.value) {
@@ -97,10 +166,12 @@ onMounted(() => {
   }
 
   window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('resize', onResize);
 });
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('resize', onResize);
 });
 </script>
 
@@ -123,6 +194,8 @@ onUnmounted(() => {
 
 .popup-card {
   pointer-events: auto;
+  /* 테두리·여백·글자 영역을 잡아 끌면 위치가 바뀐다. */
+  cursor: move;
   position: relative;
   width: 100%;
   max-width: 420px;
@@ -132,6 +205,13 @@ onUnmounted(() => {
   border-radius: 16px;
   box-shadow: 0 18px 50px rgba(12, 21, 36, 0.22);
   overflow: hidden;
+}
+
+/* 끌고 있는 동안에는 글자가 선택되거나 전환 효과가 따라붙지 않게 한다. */
+.popup-card.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+  transition: none;
 }
 
 .popup-x {
