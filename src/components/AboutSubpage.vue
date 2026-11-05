@@ -1211,7 +1211,7 @@ watch(activeTab, (newTab) => {
   height: 340px;
   z-index: 0;
   /* 왼쪽 위 모서리만 둥글게 깎아 점 무늬가 부드럽게 시작하도록 한다. */
-  border-top-left-radius: 70px;
+  border-top-left-radius: 150px;
   overflow: hidden;
   /* --border-color(투명도 0.08)는 너무 옅어 화면에서 거의 안 보여서 직접 지정한다. */
   background-image: radial-gradient(rgba(6, 91, 137, 0.14) 2.4px, transparent 2.4px);
