@@ -385,7 +385,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 const tabs = [
   { id: 'greetings', name: '이사장 인사말' },
   { id: 'founding', name: '설립취지' },
-  { id: 'history', name: '회사연혁' },
+  { id: 'history', name: '연혁' },
   { id: 'assets', name: '자산현황' },
   { id: 'donors', name: '출연사' },
   { id: 'people', name: '함께하는 사람들' },
