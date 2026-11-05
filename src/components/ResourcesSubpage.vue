@@ -158,7 +158,7 @@ defineEmits(['back']);
 
 const tabs = [
   { id: 'news', name: '재단소식' },
-  { id: 'archive', name: '결산자료' }
+  { id: 'archive', name: '공시사항' }
 ];
 
 const getTabFromHash = (): string => {

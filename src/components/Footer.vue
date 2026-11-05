@@ -55,7 +55,7 @@
             <h4 class="col-title title-serif">자료실</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">재단소식</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">결산자료</a></li>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">공시사항</a></li>
             </ul>
           </div>
 
