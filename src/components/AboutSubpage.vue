@@ -4,7 +4,7 @@
     <div class="sub-banner">
       <div class="container banner-container">
         <span class="banner-subtitle">ABOUT US</span>
-        <h1 class="banner-title title-serif">재단 소개</h1>
+        <h1 class="banner-title title-serif">재단안내</h1>
         <p class="banner-desc">신라문화장학재단은 인재들의 꿈을 키우고, 미래의 가치를 함께 창조합니다.</p>
       </div>
     </div>
@@ -109,21 +109,32 @@
               <p class="timeline-desc">1978년 설립 이래 인재 육성과 학생들의 발전을 위해 걸어온 40년간의 역사입니다.</p>
             </div>
 
-            <div class="timeline-container">
-              <div v-for="item in historyData" :key="item.era" class="timeline-era-block">
-                <div class="era-badge-column">
-                  <span class="era-badge title-serif">{{ item.era }}</span>
+            <div class="timeline-rail">
+              <div v-for="item in historyData" :key="item.year" class="tl-row" :class="{ 'is-milestone': item.milestone }">
+                <!-- 세로선 왼쪽: 주요 연도만 큰 원 안에 표시한다 -->
+                <div class="tl-gutter">
+                  <template v-if="item.milestone">
+                    <span class="tl-blob" aria-hidden="true"></span>
+                    <span class="tl-big-year title-serif">{{ item.year }}</span>
+                    <span class="tl-big-note">{{ item.milestone }}</span>
+                  </template>
                 </div>
-                <div class="timeline-content-column">
-                  <div v-for="event in item.events" :key="event.year" class="timeline-event-card">
-                    <div class="event-year-tag">{{ event.year }}</div>
-                    <div class="event-body">
-                      <h4 class="event-title">{{ event.title }}</h4>
-                      <p v-if="event.desc" class="event-desc">{{ event.desc }}</p>
-                    </div>
-                  </div>
+
+                <span class="tl-dot" aria-hidden="true"></span>
+
+                <!-- 세로선 오른쪽: 모든 연도의 내용 -->
+                <div class="tl-body">
+                  <span class="tl-year">{{ item.year }}</span>
+                  <h4 class="tl-title">{{ item.title }}</h4>
+                  <p v-if="item.desc" class="tl-desc">{{ item.desc }}</p>
+                </div>
+
+                <div v-if="item.photo" class="tl-photo">
+                  <img :src="item.photo" :alt="`${item.year} ${item.title}`" />
                 </div>
               </div>
+
+              <span class="tl-dots-deco" aria-hidden="true"></span>
             </div>
           </div>
         </div>
@@ -451,32 +462,28 @@ const donorCompanies: DonorCompany[] = [
   }
 ];
 
-const historyData = [
-  {
-    era: '2010s',
-    events: [
-      { year: '2018', title: '총자산 600억원 달성, 출연재산 500억원 달성', desc: '' },
-      { year: '2015', title: '총자산 500억원 달성, 출연재산 400억원 달성', desc: '' },
-      { year: '2013', title: '총자산 400억원 달성', desc: '' },
-      { year: '2011', title: '총자산 300억원 달성, 출연재산 300억원 달성', desc: '' }
-    ]
-  },
-  {
-    era: '2000s',
-    events: [
-      { year: '2008', title: '출연재산 200억원 달성', desc: '' },
-      { year: '2007', title: '총자산 200억원 달성', desc: '' }
-    ]
-  },
-  {
-    era: '1978 ~ 1990s',
-    events: [
-      { year: '1997', title: '총자산 100억원 달성, 출연재산 100억원 달성', desc: '' },
-      { year: '1994', title: '출연재산 50억원 달성', desc: '' },
-      { year: '1988', title: '총자산 50억원 달성', desc: '' },
-      { year: '1978.03.11', title: '(재)신라문화장학재단 설립', desc: '' }
-    ]
-  }
+// 오래된 연도부터 위에서 아래로 내려간다.
+// milestone: 값을 넣은 연도만 세로선 왼쪽에 큰 원으로 강조된다. 그 글자가 원 안의 설명이 된다.
+// photo: 넣으면 오른쪽에 원형 사진이 함께 나온다. (예: photo: historyPhoto2)
+interface HistoryEntry {
+  year: string;
+  title: string;
+  desc?: string;
+  milestone?: string;
+  photo?: string;
+}
+
+const historyData: HistoryEntry[] = [
+  { year: '1978', title: '(재)신라문화장학재단 설립', desc: '1978. 03. 11', milestone: '재단 설립' },
+  { year: '1988', title: '총자산 50억원 달성' },
+  { year: '1994', title: '출연재산 50억원 달성' },
+  { year: '1997', title: '총자산 100억원 달성, 출연재산 100억원 달성', milestone: '자산 100억원' },
+  { year: '2007', title: '총자산 200억원 달성' },
+  { year: '2008', title: '출연재산 200억원 달성' },
+  { year: '2011', title: '총자산 300억원 달성, 출연재산 300억원 달성' },
+  { year: '2013', title: '총자산 400억원 달성' },
+  { year: '2015', title: '총자산 500억원 달성, 출연재산 400억원 달성' },
+  { year: '2018', title: '총자산 600억원 달성, 출연재산 500억원 달성', milestone: '자산 600억원' }
 ];
 interface BoardMember {
   role: string;
@@ -858,95 +865,209 @@ watch(activeTab, (newTab) => {
   font-weight: 300;
 }
 
-.timeline-container {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+/* 세로선 한 줄을 따라 내려가는 연표.
+   선 왼쪽은 주요 연도(큰 원), 오른쪽은 모든 연도의 내용이 들어간다. */
+.timeline-rail {
   position: relative;
+  padding-bottom: 20px;
 }
 
-.timeline-era-block {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 30px;
-  align-items: flex-start;
-  position: relative;
-}
-
-.era-badge-column {
-  position: sticky;
-  top: 100px;
-}
-
-.era-badge {
-  display: inline-block;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #ffffff;
-  background: var(--primary-color);
-  padding: 8px 16px;
-  border-radius: 20px;
-  box-shadow: 0 4px 14px var(--primary-glow);
-}
-
-.timeline-content-column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-left: 2px dashed rgba(6, 91, 137, 0.2);
-  padding-left: 28px;
-}
-
-.timeline-event-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px 24px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-}
-
-.timeline-event-card::before {
+/* 연표를 관통하는 세로선. 왼쪽 칸(tl-gutter) 바로 오른쪽에 선다. */
+.timeline-rail::before {
   content: '';
   position: absolute;
-  /* 점선(2px)의 중앙에 원의 중심을 맞춘다. */
-  left: -30px;
+  left: 180px;
+  top: 10px;
+  bottom: 30px;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.tl-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  column-gap: 30px;
+  align-items: start;
+  padding-bottom: 46px;
+}
+
+.tl-row:last-of-type {
+  padding-bottom: 0;
+}
+
+/* ----- 세로선 위의 점 ----- */
+.tl-dot {
+  position: absolute;
+  left: 181px;
+  top: 7px;
+  width: 13px;
+  height: 13px;
   transform: translateX(-50%);
-  top: 24px;
-  width: 12px;
-  height: 12px;
+  border: 2px solid var(--primary-color, #065b89);
   border-radius: 50%;
-  background: var(--primary-color);
-  border: 3px solid #ffffff;
-  box-shadow: 0 0 0 2px var(--primary-color);
+  background: #ffffff;
+  z-index: 2;
 }
 
-.timeline-event-card:hover {
-  transform: translateX(4px);
-  border-color: var(--primary-color);
-  box-shadow: 0 6px 20px rgba(6, 91, 137, 0.08);
+.tl-row.is-milestone .tl-dot {
+  width: 17px;
+  height: 17px;
+  top: 14px;
+  background: var(--primary-color, #065b89);
 }
 
-.event-year-tag {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 6px;
-  letter-spacing: 0.05em;
+/* ----- 세로선 왼쪽: 주요 연도 ----- */
+.tl-gutter {
+  position: relative;
+  min-height: 1px;
+  text-align: right;
+  padding-right: 4px;
 }
 
-.event-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+.tl-blob {
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  width: 170px;
+  height: 170px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--primary-color, #065b89);
+  z-index: 0;
+}
+
+.tl-big-year {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #ffffff;
+  padding-top: 2px;
+}
+
+.tl-big-note {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ----- 세로선 오른쪽: 내용 ----- */
+.tl-body {
+  padding-top: 0;
+}
+
+.tl-year {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 
-.event-desc {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
+.tl-row.is-milestone .tl-year {
+  font-size: 1.3rem;
+  color: var(--primary-color, #065b89);
+}
+
+.tl-title {
+  font-size: 0.95rem;
+  font-weight: 400;
   line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.tl-desc {
+  margin-top: 5px;
+  font-size: 0.85rem;
   font-weight: 300;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* ----- 오른쪽 원형 사진 (photo 값이 있을 때만) ----- */
+.tl-photo {
+  width: 150px;
+  height: 150px;
+  margin-top: -36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.tl-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 참고 디자인처럼 흑백으로 두고, 마우스를 올리면 원래 색으로 돌아온다. */
+  filter: grayscale(100%);
+  transition: filter var(--transition-normal);
+}
+
+.tl-photo:hover img {
+  filter: grayscale(0);
+}
+
+/* ----- 오른쪽 아래 점 장식 ----- */
+.tl-dots-deco {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  width: 110px;
+  height: 90px;
+  background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
+  background-size: 11px 11px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  /* 좌우 여백 50px를 그대로 두면 좁은 화면에서 글이 넘친다. */
+  .history-timeline-wrapper {
+    padding: 28px 18px;
+  }
+
+  .timeline-rail::before {
+    left: 7px;
+  }
+
+  .tl-row {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding-left: 32px;
+    padding-bottom: 34px;
+  }
+
+  .tl-dot,
+  .tl-row.is-milestone .tl-dot {
+    left: 8px;
+    top: 6px;
+  }
+
+  /* 좁은 화면에서는 큰 원을 접고 오른쪽 내용만 남긴다. */
+  .tl-gutter {
+    display: none;
+  }
+
+  .tl-row.is-milestone .tl-year {
+    font-size: 1.2rem;
+  }
+
+  .tl-photo {
+    width: 120px;
+    height: 120px;
+    margin: 14px 0 0;
+  }
+
+  .tl-dots-deco {
+    display: none;
+  }
 }
 
 /* 2. Mission & Vision */

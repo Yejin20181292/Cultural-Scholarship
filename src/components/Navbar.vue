@@ -8,10 +8,10 @@
       <!-- Desktop Navigation -->
       <nav class="nav-desktop">
         <ul class="nav-links">
-          <!-- 1. 재단소개 -->
+          <!-- 1. 재단안내 -->
           <li>
             <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="nav-main-link">
-              <span>재단소개</span>
+              <span>재단안내</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
@@ -52,9 +52,9 @@
         <!-- Desktop Full-Width Mega Menu Dropdown Panel -->
         <div class="mega-menu-panel">
           <div class="container mega-menu-container">
-            <!-- Col 1: 재단소개 -->
+            <!-- Col 1: 재단안내 -->
             <div class="mega-menu-col">
-              <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단소개</h4>
+              <h4 class="mega-col-title" @click="handleNavClick('about-sub', 'greetings')">재단안내</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">· 이사장 인사말</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('about-sub', 'founding')">· 설립취지</a></li>
@@ -157,11 +157,11 @@
     <div class="mobile-menu" :class="{ 'open': isMobileMenuOpen }">
       <nav class="mobile-nav">
         <ul>
-          <!-- Mobile 1. 재단소개 -->
+          <!-- Mobile 1. 재단안내 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
               <a href="#" :class="{ 'active': currentView === 'about-sub' }" @click.prevent="handleNavClick('about-sub', 'greetings')" class="mobile-main-link">
-                재단소개
+                재단안내
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileAboutSubOpen = !isMobileAboutSubOpen" aria-label="서브메뉴 토글">
                 <svg class="chevron-icon" :class="{ 'rotate': isMobileAboutSubOpen }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
