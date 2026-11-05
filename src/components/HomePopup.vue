@@ -1,0 +1,298 @@
+<template>
+  <Teleport to="body">
+    <Transition name="popup-fade">
+      <div v-if="isOpen" class="popup-overlay" @click.self="close">
+        <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="home-popup-title">
+          <button class="popup-x" @click="close" aria-label="닫기">&times;</button>
+
+          <div class="popup-head">
+            <span class="popup-eyebrow">SCHOLARSHIP TO DATE</span>
+            <h2 id="home-popup-title" class="popup-title title-serif">장학금 지급 현황</h2>
+            <p class="popup-desc">신라문화장학재단이 지금까지 지원해 온 기록입니다.</p>
+          </div>
+
+          <div class="popup-figures">
+            <div class="popup-figure">
+              <span class="popup-figure-num title-serif">{{ awardTotalAmount }}<span class="popup-unit">원</span></span>
+              <span class="popup-figure-label">누적 지급액</span>
+            </div>
+            <div class="popup-figure">
+              <span class="popup-figure-num title-serif">{{ awardTotalCount }}<span class="popup-unit">명</span></span>
+              <span class="popup-figure-label">누적 선발인원</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary popup-more" @click="goToAwards">
+            <span>연도별 상세 보기</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <div class="popup-foot">
+            <label class="popup-check">
+              <input type="checkbox" v-model="hideToday" />
+              <span>오늘 하루 열지 않기</span>
+            </label>
+            <button class="popup-foot-btn" @click="close">닫기</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { awardTotalAmount, awardTotalCount } from '../data/awards';
+
+const emit = defineEmits<{ (e: 'navigate', view: 'scholarship-sub', subTab: string): void }>();
+
+const STORAGE_KEY = 'cultural_scholarship_popup_hidden';
+
+// 저장값은 '열지 않기'를 누른 날짜(YYYY-MM-DD). 날짜가 바뀌면 다시 뜬다.
+// 방문자의 현지 시간 기준이며, 자정이 지나면 자동으로 풀린다.
+const todayKey = (): string => {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd}`;
+};
+
+const isOpen = ref(false);
+const hideToday = ref(false);
+
+const close = () => {
+  if (hideToday.value) {
+    try {
+      localStorage.setItem(STORAGE_KEY, todayKey());
+    } catch (e) {
+      // 시크릿 모드 등 저장이 막힌 환경에서는 이번만 닫힌다.
+    }
+  }
+  isOpen.value = false;
+  document.body.style.overflow = '';
+};
+
+const goToAwards = () => {
+  close();
+  emit('navigate', 'scholarship-sub', 'awards');
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && isOpen.value) close();
+};
+
+onMounted(() => {
+  let hidden: string | null = null;
+  try {
+    hidden = localStorage.getItem(STORAGE_KEY);
+  } catch (e) {
+    hidden = null;
+  }
+
+  if (hidden !== todayKey()) {
+    isOpen.value = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
+});
+</script>
+
+<style scoped>
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(12, 21, 36, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 3000;
+}
+
+.popup-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(12, 21, 36, 0.3);
+  overflow: hidden;
+}
+
+.popup-x {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.popup-x:hover { color: var(--text-primary); }
+
+.popup-head {
+  padding: 40px 32px 0;
+  text-align: center;
+}
+
+.popup-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.popup-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.popup-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.popup-figures {
+  padding: 26px 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popup-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: #f3f6fa;
+}
+
+.popup-figure-num {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--primary-color);
+}
+
+.popup-unit {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 3px;
+}
+
+.popup-figure-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.popup-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: calc(100% - 64px);
+  margin: 22px 32px 26px;
+  padding: 13px 0;
+  font-size: 0.92rem;
+}
+
+.popup-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 10px 0 16px;
+  border-top: 1px solid var(--border-color);
+  background: #fafbfd;
+}
+
+.popup-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.popup-check input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.popup-check:hover { color: var(--text-primary); }
+
+.popup-foot-btn {
+  padding: 14px 18px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.popup-foot-btn:hover {
+  color: var(--text-primary);
+}
+
+.popup-fade-enter-active,
+.popup-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.popup-fade-enter-active .popup-card,
+.popup-fade-leave-active .popup-card {
+  transition: transform 0.25s ease;
+}
+
+.popup-fade-enter-from,
+.popup-fade-leave-to {
+  opacity: 0;
+}
+
+.popup-fade-enter-from .popup-card,
+.popup-fade-leave-to .popup-card {
+  transform: translateY(14px) scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .popup-head { padding: 34px 22px 0; }
+  .popup-figures { padding: 20px 22px 0; }
+  .popup-more { width: calc(100% - 44px); margin: 18px 22px 22px; }
+  .popup-figure-num { font-size: 1.45rem; }
+}
+</style>

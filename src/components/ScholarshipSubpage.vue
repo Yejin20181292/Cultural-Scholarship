@@ -274,6 +274,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
+import { awardRows } from '../data/awards';
 
 defineEmits(['back']);
 
@@ -281,19 +282,6 @@ const tabs = [
   { id: 'performance', name: '사업실적' },
   { id: 'awards', name: '선발인원 및 지급 현황' },
   { id: 'rules', name: '장학생 준수사항' }
-];
-
-// 대괄호가 붙은 선발인원([39] 등)은 기존 장학생에게 이어서 지급한 인원이라 누계에 더하지 않는다.
-const awardRows = [
-  { date: '2014. 02. 26 <제1기>', count: '39', countTotal: '39', amount: '117,000,000', amountTotal: '117,000,000', note: '고등학생' },
-  { date: '2014. 02. 26 <제1기>', count: '40', countTotal: '79', amount: '160,000,000', amountTotal: '277,000,000', note: '대학생' },
-  { date: '2014. 08. 26 <제1기>', count: '[39]', countTotal: '79', amount: '156,000,000', amountTotal: '433,000,000', note: '대학생' },
-  { date: '2015. 02. 25 <제2기>', count: '69', countTotal: '148', amount: '276,000,000', amountTotal: '709,000,000', note: '대학생' },
-  { date: '2015. 08. 26 <제2기>', count: '[68]', countTotal: '148', amount: '272,000,000', amountTotal: '981,000,000', note: '대학생' },
-  { date: '2016. 02. 25 <제3기>', count: '60', countTotal: '208', amount: '240,000,000', amountTotal: '1,221,000,000', note: '대학생' },
-  { date: '2016. 08. 24 <제3기>', count: '[55]', countTotal: '208', amount: '220,000,000', amountTotal: '1,441,000,000', note: '대학생' },
-  { date: '2017. 02. 23 <제4기>', count: '50', countTotal: '258', amount: '200,000,000', amountTotal: '1,641,000,000', note: '대학생' },
-  { date: '2017. 08. 23 <제4기>', count: '[49]', countTotal: '258', amount: '196,000,000', amountTotal: '1,837,000,000', note: '대학생' }
 ];
 
 // Detail Modal

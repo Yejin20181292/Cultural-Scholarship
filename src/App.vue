@@ -13,6 +13,7 @@ import NoticeSection from './components/NoticeSection.vue';
 import Footer from './components/Footer.vue';
 import AuthModal from './components/AuthModal.vue';
 import MyPageModal from './components/MyPageModal.vue';
+import HomePopup from './components/HomePopup.vue';
 
 export type ViewType = 'home' | 'about-sub' | 'scholarship-sub' | 'community-sub' | 'notice-sub' | 'resources-sub';
 
@@ -65,6 +66,7 @@ onUnmounted(() => {
     <Navbar :current-view="currentView" @navigate="navigateTo" />
     <main>
       <template v-if="currentView === 'home'">
+        <HomePopup @navigate="navigateTo" />
         <HeroSection @navigate="navigateTo" />
         <AboutSection @read-more="navigateTo('about-sub')" />
         <ScholarshipPrograms />
