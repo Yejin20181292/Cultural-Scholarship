@@ -110,11 +110,16 @@
             </div>
 
             <div class="timeline-rail">
-              <div v-for="item in historyData" :key="item.year" class="tl-row" :class="{ 'is-milestone': item.milestone }">
-                <!-- 세로선 왼쪽: 주요 연도만 큰 원 안에 표시한다 -->
+              <div
+                v-for="item in historyData"
+                :key="item.year"
+                class="tl-row"
+                :class="{ 'is-milestone': item.milestone, 'has-circle': item.circle }"
+              >
+                <!-- 세로선 왼쪽: 주요 연도. circle이 있는 연도만 파란 원 안에 넣는다 -->
                 <div class="tl-gutter">
                   <template v-if="item.milestone">
-                    <span class="tl-blob" aria-hidden="true"></span>
+                    <span v-if="item.circle" class="tl-blob" aria-hidden="true"></span>
                     <span class="tl-big-year title-serif">{{ item.year }}</span>
                     <span class="tl-big-note">{{ item.milestone }}</span>
                   </template>
@@ -477,17 +482,18 @@ const donorCompanies: DonorCompany[] = [
 ];
 
 // 오래된 연도부터 위에서 아래로 내려간다.
-// milestone: 값을 넣은 연도만 세로선 왼쪽에 큰 원으로 강조된다. 그 글자가 원 안의 설명이 된다.
-// photo: 넣으면 오른쪽에 원형 사진이 함께 나온다. (예: photo: historyPhoto2)
+// milestone: 값을 넣으면 세로선 왼쪽에 연도가 크게 나온다. 그 글자가 연도 밑의 설명이 된다.
+// circle: 거기에 파란 원까지 두르고 싶을 때만 true로 둔다.
 interface HistoryEntry {
   year: string;
   title: string;
   desc?: string;
   milestone?: string;
+  circle?: boolean;
 }
 
 const historyData: HistoryEntry[] = [
-  { year: '1978', title: '(재)신라문화장학재단 설립', desc: '1978. 03. 11', milestone: '재단 설립' },
+  { year: '1978', title: '(재)신라문화장학재단 설립', desc: '1978. 03. 11', milestone: '재단 설립', circle: true },
   { year: '1988', title: '총자산 50억원 달성' },
   { year: '1994', title: '출연재산 50억원 달성' },
   { year: '1997', title: '총자산 100억원 달성, 출연재산 100억원 달성', milestone: '자산 100억원' },
@@ -972,6 +978,12 @@ watch(activeTab, (newTab) => {
   z-index: 0;
 }
 
+/* 원이 없으면 글자가 세로선의 점에 바로 붙으므로 오른쪽 여백을 더 준다. */
+.tl-row.is-milestone:not(.has-circle) .tl-gutter {
+  padding-right: 24px;
+}
+
+/* 원이 없는 주요 연도는 파란 글씨로만 강조한다. */
 .tl-big-year {
   position: relative;
   z-index: 1;
@@ -979,7 +991,7 @@ watch(activeTab, (newTab) => {
   font-size: 2.3rem;
   font-weight: 700;
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--primary-color, #065b89);
   padding-top: 2px;
 }
 
@@ -990,6 +1002,15 @@ watch(activeTab, (newTab) => {
   margin-top: 4px;
   font-size: 0.82rem;
   font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* 파란 원을 두른 연도만 글씨를 흰색으로 뒤집는다. */
+.tl-row.has-circle .tl-big-year {
+  color: #ffffff;
+}
+
+.tl-row.has-circle .tl-big-note {
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -1060,7 +1081,7 @@ watch(activeTab, (newTab) => {
   position: absolute;
   z-index: 0;
   top: -30%;
-  right: -34%;
+  right: -58%;
   width: 136%;
   height: 136%;
   border-radius: 50%;
