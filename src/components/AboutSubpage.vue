@@ -1207,11 +1207,11 @@ watch(activeTab, (newTab) => {
   position: absolute;
   right: 10px;
   bottom: 70px;
-  width: 70%;
+  width: 47%;
   height: 340px;
   z-index: 0;
   /* --border-color(투명도 0.08)는 너무 옅어 화면에서 거의 안 보여서 직접 지정한다. */
-  background-image: radial-gradient(rgba(6, 91, 137, 0.2) 2.4px, transparent 2.4px);
+  background-image: radial-gradient(rgba(6, 91, 137, 0.14) 2.4px, transparent 2.4px);
   background-size: 16px 16px;
   pointer-events: none;
 }
