@@ -210,7 +210,8 @@ onUnmounted(() => {
   justify-content: flex-start;
   /* 위쪽 여백은 고정 헤더(--header-height: 80px) 아래로 내리기 위한 값이다. */
   padding: calc(var(--header-height, 80px) + 24px) 24px 24px 40px;
-  z-index: 3000;
+  /* 상단 메뉴바(.header 1000, 모바일 메뉴 999)보다 아래. 본문보다는 위. */
+  z-index: 900;
 }
 
 .popup-card {
