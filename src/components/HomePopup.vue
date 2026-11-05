@@ -114,9 +114,10 @@ onUnmounted(() => {
   height: 100vh;
   pointer-events: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* 위쪽 여백은 고정 헤더(--header-height: 80px) 아래로 내리기 위한 값이다. */
+  padding: calc(var(--header-height, 80px) + 24px) 24px 24px 40px;
   z-index: 3000;
 }
 
@@ -286,10 +287,13 @@ onUnmounted(() => {
 
 .popup-fade-enter-from .popup-card,
 .popup-fade-leave-to .popup-card {
-  transform: translateY(14px) scale(0.97);
+  transform: translateY(-10px) scale(0.97);
 }
 
 @media (max-width: 480px) {
+  .popup-overlay {
+    padding: calc(var(--header-height, 80px) + 14px) 16px 16px 16px;
+  }
   .popup-head { padding: 34px 22px 0; }
   .popup-figures { padding: 20px 22px 0; }
   .popup-more { width: calc(100% - 44px); margin: 18px 22px 22px; }
