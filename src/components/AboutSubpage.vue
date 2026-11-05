@@ -1205,8 +1205,9 @@ watch(activeTab, (newTab) => {
   position: absolute;
   right: 10px;
   bottom: 0;
-  width: 110px;
-  height: 90px;
+  /* 연표 가로 폭의 3분의 1 정도를 덮는다. */
+  width: 33%;
+  height: 150px;
   background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
   background-size: 11px 11px;
   pointer-events: none;
