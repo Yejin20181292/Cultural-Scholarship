@@ -1205,11 +1205,12 @@ watch(activeTab, (newTab) => {
   position: absolute;
   right: 10px;
   bottom: 0;
-  /* 연표 가로 폭의 3분의 1 정도를 덮는다. */
-  width: 33%;
-  height: 150px;
-  background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
-  background-size: 11px 11px;
+  /* 연표 가로 폭의 3분의 1 남짓을 덮는다. */
+  width: 38%;
+  height: 185px;
+  /* --border-color(투명도 0.08)는 너무 옅어 화면에서 거의 안 보여서 직접 지정한다. */
+  background-image: radial-gradient(rgba(6, 91, 137, 0.3) 2.4px, transparent 2.4px);
+  background-size: 16px 16px;
   pointer-events: none;
 }
 
