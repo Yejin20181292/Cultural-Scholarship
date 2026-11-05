@@ -130,7 +130,7 @@
                 </div>
 
                 <div v-if="item.photo" class="tl-photo">
-                  <img :src="item.photo" :alt="`${item.year} ${item.title}`" />
+                  <img :src="item.photo" :alt="item.photoAlt ?? `${item.year} ${item.title}`" />
                 </div>
               </div>
 
@@ -471,10 +471,18 @@ interface HistoryEntry {
   desc?: string;
   milestone?: string;
   photo?: string;
+  photoAlt?: string; // 사진이 찍힌 때가 연표의 연도와 다를 수 있어 따로 적는다.
 }
 
 const historyData: HistoryEntry[] = [
-  { year: '1978', title: '(재)신라문화장학재단 설립', desc: '1978. 03. 11', milestone: '재단 설립' },
+  {
+    year: '1978',
+    title: '(재)신라문화장학재단 설립',
+    desc: '1978. 03. 11',
+    milestone: '재단 설립',
+    photo: historyPhoto2,
+    photoAlt: '제1기 장학증서 수여식 (1979. 3. 17)'
+  },
   { year: '1988', title: '총자산 50억원 달성' },
   { year: '1994', title: '출연재산 50억원 달성' },
   { year: '1997', title: '총자산 100억원 달성, 출연재산 100억원 달성', milestone: '자산 100억원' },
