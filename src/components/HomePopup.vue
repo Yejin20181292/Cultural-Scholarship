@@ -15,6 +15,9 @@
           @pointerup="endDrag"
           @pointercancel="endDrag"
         >
+          <!-- 끌 수 있는 영역(상단 70px). 커서 모양을 보여주기 위한 것이고 실제 판정은 startDrag에서 한다. -->
+          <div class="popup-drag-zone" aria-hidden="true"></div>
+
           <button class="popup-x" @click="close" aria-label="닫기">&times;</button>
 
           <div class="popup-head">
@@ -79,6 +82,7 @@ const hideToday = ref(false);
 // ----- 드래그로 위치 옮기기 -----
 // 버튼·체크박스를 누른 경우는 드래그로 보지 않는다. 그 외 테두리·여백·글자 영역을 잡으면 움직인다.
 const DRAG_IGNORE = 'button, input, label, a, select, textarea';
+const DRAG_HANDLE_HEIGHT = 70; // 팝업 위쪽 이 높이까지만 잡아 끌 수 있다
 const EDGE_GAP = 8; // 화면 밖으로 완전히 빠져나가지 않도록 남겨두는 여백
 
 const cardRef = ref<HTMLElement | null>(null);
@@ -110,6 +114,8 @@ const startDrag = (e: PointerEvent) => {
   if ((e.target as HTMLElement).closest(DRAG_IGNORE)) return;
 
   const rect = el.getBoundingClientRect();
+  if (e.clientY - rect.top > DRAG_HANDLE_HEIGHT) return;
+
   grabOffset = { x: e.clientX - rect.left, y: e.clientY - rect.top };
   dragPos.value = { left: rect.left, top: rect.top };
   isDragging.value = true;
@@ -194,8 +200,6 @@ onUnmounted(() => {
 
 .popup-card {
   pointer-events: auto;
-  /* 테두리·여백·글자 영역을 잡아 끌면 위치가 바뀐다. */
-  cursor: move;
   position: relative;
   width: 100%;
   max-width: 420px;
@@ -207,6 +211,17 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
+/* 상단 70px만 잡아 끌 수 있다. 닫기(×) 버튼은 이 위에 떠 있어 그대로 눌린다. */
+.popup-drag-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  cursor: move;
+  z-index: 1;
+}
+
 /* 끌고 있는 동안에는 글자가 선택되거나 전환 효과가 따라붙지 않게 한다. */
 .popup-card.is-dragging {
   cursor: grabbing;
@@ -214,8 +229,13 @@ onUnmounted(() => {
   transition: none;
 }
 
+.popup-card.is-dragging .popup-drag-zone {
+  cursor: grabbing;
+}
+
 .popup-x {
   position: absolute;
+  z-index: 2;
   top: 12px;
   right: 14px;
   width: 32px;
