@@ -14,11 +14,11 @@
           <button class="tab-btn" :class="{ 'active': activeTab === 'notice' }" @click="activeTab = 'notice'">
             공지사항
           </button>
-          <button class="tab-btn" :class="{ 'active': activeTab === 'archive' }" @click="activeTab = 'archive'">
+          <button class="tab-btn" :class="{ 'active': activeTab === 'resources' }" @click="activeTab = 'resources'">
             자료실
           </button>
-          <button class="tab-btn" :class="{ 'active': activeTab === 'news' }" @click="activeTab = 'news'">
-            결산자료
+          <button class="tab-btn" :class="{ 'active': activeTab === 'disclosure' }" @click="activeTab = 'disclosure'">
+            공시사항
           </button>
         </div>
 
@@ -38,7 +38,7 @@
           </div>
 
           <!-- Archive / Resources Downloads -->
-          <div v-if="activeTab === 'archive'" class="resources-grid">
+          <div v-if="activeTab === 'resources'" class="resources-grid">
             <div v-for="item in resources" :key="item.id" class="resource-card">
               <div class="resource-info">
                 <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
@@ -53,20 +53,21 @@
               </div>
               <div class="resource-download">
                 <span class="file-size">{{ item.size }}</span>
-                <button class="btn btn-outline download-btn" @click.prevent>
+                <button class="btn btn-outline download-btn"
+                  @click="emit('navigate', 'resources-sub', 'archive')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span>다운로드</span>
+                  <span>자료실에서 받기</span>
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Settlement Reports / 결산자료 Grid -->
-          <div v-if="activeTab === 'news'" class="resources-grid">
+          <!-- 공시사항 Grid -->
+          <div v-if="activeTab === 'disclosure'" class="resources-grid">
             <div v-for="item in settlementReports" :key="item.id" class="resource-card">
               <div class="resource-info">
                 <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
