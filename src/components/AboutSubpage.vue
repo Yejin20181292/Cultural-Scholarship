@@ -1026,6 +1026,8 @@ watch(activeTab, (newTab) => {
   width: 2px;
   background: var(--primary-color, #065b89);
   z-index: 1;
+  /* 스크롤 위치를 곧바로 따라가지 않고 한 박자 늦게 따라붙어, 천천히 칠해지는 느낌을 준다. */
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ----- 세로선 위의 점 ----- */
@@ -1040,7 +1042,7 @@ watch(activeTab, (newTab) => {
   border-radius: 50%;
   background: #ffffff;
   z-index: 2;
-  transition: background-color 0.35s ease, transform 0.35s ease;
+  transition: background-color 0.55s ease, transform 0.55s ease;
 }
 
 .tl-row.is-milestone .tl-dot {
