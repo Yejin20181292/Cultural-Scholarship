@@ -91,20 +91,24 @@ const isDragging = ref(false);
 let grabOffset = { x: 0, y: 0 };
 
 // 드래그를 시작하기 전에는 overlay의 flex 배치(좌측 상단)를 그대로 따른다.
+// 좌표는 화면이 아니라 문서 기준이라, 옮긴 뒤에도 스크롤을 따라오지 않는다.
 const dragStyle = computed(() =>
   dragPos.value
-    ? { position: 'fixed' as const, left: `${dragPos.value.left}px`, top: `${dragPos.value.top}px`, margin: '0' }
+    ? { position: 'absolute' as const, left: `${dragPos.value.left}px`, top: `${dragPos.value.top}px`, margin: '0' }
     : undefined
 );
 
+// 끄는 동안에는 화면 안에 머물도록 가둔다. 문서 좌표이므로 현재 스크롤 위치를 더해 계산한다.
 const clamp = (left: number, top: number) => {
   const el = cardRef.value;
   if (!el) return { left, top };
-  const maxLeft = window.innerWidth - el.offsetWidth - EDGE_GAP;
-  const maxTop = window.innerHeight - el.offsetHeight - EDGE_GAP;
+  const minLeft = window.scrollX + EDGE_GAP;
+  const minTop = window.scrollY + EDGE_GAP;
+  const maxLeft = window.scrollX + window.innerWidth - el.offsetWidth - EDGE_GAP;
+  const maxTop = window.scrollY + window.innerHeight - el.offsetHeight - EDGE_GAP;
   return {
-    left: Math.min(Math.max(left, EDGE_GAP), Math.max(maxLeft, EDGE_GAP)),
-    top: Math.min(Math.max(top, EDGE_GAP), Math.max(maxTop, EDGE_GAP))
+    left: Math.min(Math.max(left, minLeft), Math.max(maxLeft, minLeft)),
+    top: Math.min(Math.max(top, minTop), Math.max(maxTop, minTop))
   };
 };
 
@@ -117,7 +121,7 @@ const startDrag = (e: PointerEvent) => {
   if (e.clientY - rect.top > DRAG_HANDLE_HEIGHT) return;
 
   grabOffset = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  dragPos.value = { left: rect.left, top: rect.top };
+  dragPos.value = { left: rect.left + window.scrollX, top: rect.top + window.scrollY };
   isDragging.value = true;
   el.setPointerCapture(e.pointerId);
   e.preventDefault();
@@ -125,7 +129,10 @@ const startDrag = (e: PointerEvent) => {
 
 const onDrag = (e: PointerEvent) => {
   if (!isDragging.value) return;
-  dragPos.value = clamp(e.clientX - grabOffset.x, e.clientY - grabOffset.y);
+  dragPos.value = clamp(
+    e.clientX + window.scrollX - grabOffset.x,
+    e.clientY + window.scrollY - grabOffset.y
+  );
 };
 
 const endDrag = (e: PointerEvent) => {
@@ -134,9 +141,16 @@ const endDrag = (e: PointerEvent) => {
   cardRef.value?.releasePointerCapture(e.pointerId);
 };
 
-// 창 크기가 줄어 팝업이 화면 밖으로 밀리면 다시 안쪽으로 당긴다.
+// 창 폭이 줄어 팝업이 오른쪽으로 밀려나면 다시 안쪽으로 당긴다.
+// 세로는 건드리지 않는다. 스크롤을 내린 상태에서 끌어올려 버리면 '따라오는' 것처럼 보이기 때문이다.
 const onResize = () => {
-  if (dragPos.value) dragPos.value = clamp(dragPos.value.left, dragPos.value.top);
+  const el = cardRef.value;
+  if (!dragPos.value || !el) return;
+  const maxLeft = Math.max(document.documentElement.clientWidth - el.offsetWidth - EDGE_GAP, EDGE_GAP);
+  dragPos.value = {
+    left: Math.min(Math.max(dragPos.value.left, EDGE_GAP), maxLeft),
+    top: dragPos.value.top
+  };
 };
 
 const close = () => {
@@ -183,11 +197,12 @@ onUnmounted(() => {
 
 <style scoped>
 /* 뒷배경을 가리지 않는다. 겹친 영역 밖의 클릭·스크롤은 그대로 페이지로 전달된다. */
+/* fixed가 아니라 absolute라서 스크롤을 내리면 팝업은 제자리에 남고 화면 밖으로 지나간다. */
 .popup-overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   pointer-events: none;
   display: flex;
