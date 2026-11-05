@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="popup-fade">
-      <div v-if="isOpen" class="popup-overlay" @click.self="close">
+      <div v-if="isOpen" class="popup-overlay">
         <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="home-popup-title">
           <button class="popup-x" @click="close" aria-label="닫기">&times;</button>
 
@@ -73,7 +73,6 @@ const close = () => {
     }
   }
   isOpen.value = false;
-  document.body.style.overflow = '';
 };
 
 const goToAwards = () => {
@@ -95,7 +94,6 @@ onMounted(() => {
 
   if (hidden !== todayKey()) {
     isOpen.value = true;
-    document.body.style.overflow = 'hidden';
   }
 
   window.addEventListener('keydown', handleKeyDown);
@@ -103,19 +101,18 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown);
-  document.body.style.overflow = '';
 });
 </script>
 
 <style scoped>
+/* 뒷배경을 가리지 않는다. 겹친 영역 밖의 클릭·스크롤은 그대로 페이지로 전달된다. */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(12, 21, 36, 0.7);
-  backdrop-filter: blur(4px);
+  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,12 +121,15 @@ onUnmounted(() => {
 }
 
 .popup-card {
+  pointer-events: auto;
   position: relative;
   width: 100%;
   max-width: 420px;
   background: #ffffff;
+  /* 어두운 배경이 없으므로 테두리와 그림자로 본문과 분리한다. */
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  box-shadow: 0 24px 60px rgba(12, 21, 36, 0.3);
+  box-shadow: 0 18px 50px rgba(12, 21, 36, 0.22);
   overflow: hidden;
 }
 
