@@ -109,12 +109,15 @@
               <p class="timeline-desc">1978년 설립 이래 인재 육성과 학생들의 발전을 위해 걸어온 47년간의 역사입니다.</p>
             </div>
 
-            <div class="timeline-rail">
+            <div class="timeline-rail" ref="railRef">
+              <!-- 스크롤을 내린 만큼 세로선이 파랗게 차오른다 -->
+              <span class="tl-progress" :style="{ height: `${progressPx}px` }" aria-hidden="true"></span>
+
               <div
-                v-for="item in historyData"
+                v-for="(item, i) in historyData"
                 :key="item.year"
                 class="tl-row"
-                :class="{ 'is-milestone': item.milestone, 'has-circle': item.circle }"
+                :class="{ 'is-milestone': item.milestone, 'has-circle': item.circle, 'is-filled': i <= activeIndex }"
               >
                 <!-- 세로선 왼쪽: 주요 연도. circle이 있는 연도만 파란 원 안에 넣는다 -->
                 <div class="tl-gutter">
@@ -610,11 +613,15 @@ onMounted(() => {
   if (activeTab.value === 'contact') {
     initKakaoMap();
   }
+  if (activeTab.value === 'history') {
+    startTimeline();
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', updateTabFromHash);
   window.removeEventListener('keydown', handleKeyDown);
+  stopTimeline();
   document.body.style.overflow = '';
 });
 
@@ -654,9 +661,83 @@ const renderKakaoMap = (retryCount = 0) => {
   });
 };
 
+// ----- 연혁: 스크롤에 따라 세로선이 차오르고 점이 채워진다 -----
+// 화면 위에서 이 비율만큼 내려온 지점을 지나면 그 연도가 채워진 것으로 본다.
+const TIMELINE_TRIGGER = 0.62;
+const RAIL_TOP_GAP = 10; // .timeline-rail::before 의 top 값과 같아야 한다
+const RAIL_BOTTOM_GAP = 30; // .timeline-rail::before 의 bottom 값과 같아야 한다
+
+const railRef = ref<HTMLElement | null>(null);
+const activeIndex = ref(-1);
+const progressPx = ref(0);
+let dotEls: HTMLElement[] = [];
+let timelineRaf = 0;
+
+const measureTimeline = () => {
+  const rail = railRef.value;
+  if (!rail) return;
+
+  const triggerY = window.innerHeight * TIMELINE_TRIGGER;
+  const lineStart = rail.getBoundingClientRect().top + RAIL_TOP_GAP;
+  const lineLength = Math.max(rail.offsetHeight - RAIL_TOP_GAP - RAIL_BOTTOM_GAP, 0);
+
+  progressPx.value = Math.max(0, Math.min(triggerY - lineStart, lineLength));
+
+  let idx = -1;
+  for (let i = 0; i < dotEls.length; i++) {
+    if (dotEls[i].getBoundingClientRect().top <= triggerY) idx = i;
+  }
+  activeIndex.value = idx;
+};
+
+const onTimelineScroll = () => {
+  if (timelineRaf) return;
+  timelineRaf = requestAnimationFrame(() => {
+    timelineRaf = 0;
+    measureTimeline();
+  });
+};
+
+const startTimeline = async () => {
+  await nextTick();
+  const rail = railRef.value;
+  if (!rail) return;
+
+  dotEls = Array.from(rail.querySelectorAll<HTMLElement>('.tl-dot'));
+
+  // 움직임을 줄이도록 설정한 사용자에게는 처음부터 전부 채워서 보여준다.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    activeIndex.value = dotEls.length - 1;
+    progressPx.value = rail.offsetHeight;
+    return;
+  }
+
+  measureTimeline();
+  window.addEventListener('scroll', onTimelineScroll, { passive: true });
+  window.addEventListener('resize', onTimelineScroll);
+};
+
+const stopTimeline = () => {
+  window.removeEventListener('scroll', onTimelineScroll);
+  window.removeEventListener('resize', onTimelineScroll);
+  if (timelineRaf) {
+    cancelAnimationFrame(timelineRaf);
+    timelineRaf = 0;
+  }
+  dotEls = [];
+  activeIndex.value = -1;
+  progressPx.value = 0;
+};
+
 watch(activeTab, (newTab) => {
   if (newTab === 'contact') {
     initKakaoMap();
+  }
+
+  if (newTab === 'history') {
+    startTimeline();
+  } else {
+    stopTimeline();
   }
 });
 </script>
@@ -937,6 +1018,16 @@ watch(activeTab, (newTab) => {
   padding-bottom: 0;
 }
 
+/* 스크롤을 내린 만큼 차오르는 파란 선. 회색 세로선 위에 겹쳐 그린다. */
+.tl-progress {
+  position: absolute;
+  left: 180px;
+  top: 10px;
+  width: 2px;
+  background: var(--primary-color, #065b89);
+  z-index: 1;
+}
+
 /* ----- 세로선 위의 점 ----- */
 .tl-dot {
   position: absolute;
@@ -949,13 +1040,19 @@ watch(activeTab, (newTab) => {
   border-radius: 50%;
   background: #ffffff;
   z-index: 2;
+  transition: background-color 0.35s ease, transform 0.35s ease;
 }
 
 .tl-row.is-milestone .tl-dot {
   width: 17px;
   height: 17px;
   top: 14px;
+}
+
+/* 기준선을 지난 연도의 점이 파랗게 채워진다. */
+.tl-row.is-filled .tl-dot {
   background: var(--primary-color, #065b89);
+  transform: translateX(-50%) scale(1.15);
 }
 
 /* ----- 세로선 왼쪽: 주요 연도 ----- */
@@ -1119,7 +1216,8 @@ watch(activeTab, (newTab) => {
     padding: 28px 18px;
   }
 
-  .timeline-rail::before {
+  .timeline-rail::before,
+  .tl-progress {
     left: 7px;
   }
 
