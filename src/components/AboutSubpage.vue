@@ -894,7 +894,8 @@ watch(activeTab, (newTab) => {
 .tl-row {
   position: relative;
   display: grid;
-  grid-template-columns: 180px 1fr auto;
+  /* 가운데 칸의 너비를 묶어 두면 오른쪽 사진이 카드 끝까지 밀려나지 않는다. */
+  grid-template-columns: 180px minmax(0, 340px) auto;
   column-gap: 30px;
   align-items: start;
   padding-bottom: 46px;
@@ -1002,9 +1003,9 @@ watch(activeTab, (newTab) => {
 
 /* ----- 오른쪽 원형 사진 (photo 값이 있을 때만) ----- */
 .tl-photo {
-  width: 150px;
-  height: 150px;
-  margin-top: -36px;
+  width: 210px;
+  height: 210px;
+  margin-top: -44px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
