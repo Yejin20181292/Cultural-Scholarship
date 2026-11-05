@@ -157,7 +157,7 @@ import newsRural2026Photo2 from '../assets/news_rural2026_photo2.jpg';
 defineEmits(['back']);
 
 const tabs = [
-  { id: 'news', name: '소식' },
+  { id: 'news', name: '재단소식' },
   { id: 'archive', name: '결산자료' }
 ];
 
