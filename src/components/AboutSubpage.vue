@@ -1006,6 +1006,8 @@ watch(activeTab, (newTab) => {
 
 .tl-row {
   position: relative;
+  /* 뒤쪽 점 무늬보다 위에 둬서 글자가 묻히지 않게 한다. */
+  z-index: 1;
   display: grid;
   /* 가운데 칸의 너비를 묶어 두면 오른쪽 사진이 카드 끝까지 밀려나지 않는다. */
   grid-template-columns: 180px minmax(0, 340px) auto;
@@ -1204,12 +1206,12 @@ watch(activeTab, (newTab) => {
 .tl-dots-deco {
   position: absolute;
   right: 10px;
-  bottom: 0;
-  /* 연표 가로 폭의 3분의 1 남짓을 덮는다. */
-  width: 38%;
-  height: 185px;
+  bottom: 70px;
+  width: 70%;
+  height: 340px;
+  z-index: 0;
   /* --border-color(투명도 0.08)는 너무 옅어 화면에서 거의 안 보여서 직접 지정한다. */
-  background-image: radial-gradient(rgba(6, 91, 137, 0.3) 2.4px, transparent 2.4px);
+  background-image: radial-gradient(rgba(6, 91, 137, 0.2) 2.4px, transparent 2.4px);
   background-size: 16px 16px;
   pointer-events: none;
 }
