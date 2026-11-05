@@ -106,7 +106,7 @@
             <div class="timeline-header">
               <span class="timeline-subtitle">FOUNDATION HISTORY</span>
               <h2 class="timeline-title title-serif">신라문화장학재단 발자취</h2>
-              <p class="timeline-desc">1978년 설립 이래 인재 육성과 학생들의 발전을 위해 걸어온 40년간의 역사입니다.</p>
+              <p class="timeline-desc">1978년 설립 이래 인재 육성과 학생들의 발전을 위해 걸어온 46년간의 역사입니다.</p>
             </div>
 
             <div class="timeline-rail">
@@ -367,6 +367,7 @@
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import historyPhoto1 from '../assets/history_photo1.jpg';
 import historyPhoto2 from '../assets/history_photo2.jpg';
+import news46thPhoto2 from '../assets/news_46th_photo2.jpg';
 import logoEmblem from '../assets/logo_emblem.png';
 import logoWonil from '../assets/logo_wonil.png';
 import logoSillaSG from '../assets/logo_sillasg.png';
@@ -491,7 +492,14 @@ const historyData: HistoryEntry[] = [
   { year: '2011', title: '총자산 300억원 달성, 출연재산 300억원 달성' },
   { year: '2013', title: '총자산 400억원 달성' },
   { year: '2015', title: '총자산 500억원 달성, 출연재산 400억원 달성' },
-  { year: '2018', title: '총자산 600억원 달성, 출연재산 500억원 달성', milestone: '자산 600억원' }
+  { year: '2018', title: '총자산 600억원 달성, 출연재산 500억원 달성', milestone: '자산 600억원' },
+  {
+    year: '2024',
+    title: '제46기 장학생 장학증서 수여식',
+    desc: '2024. 08. 31 ~ 09. 01 · 서울올림픽파크텔',
+    photo: news46thPhoto2,
+    photoAlt: '제46기 장학증서 수여식 (2024. 8. 31)'
+  }
 ];
 interface BoardMember {
   role: string;
