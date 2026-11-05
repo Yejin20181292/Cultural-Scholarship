@@ -129,9 +129,18 @@
                   <p v-if="item.desc" class="tl-desc">{{ item.desc }}</p>
                 </div>
 
-                <div v-if="item.photo" class="tl-photo">
-                  <img :src="item.photo" :alt="item.photoAlt ?? `${item.year} ${item.title}`" />
-                </div>
+              </div>
+
+              <!-- 연도에 묶이지 않고 오른쪽 여백에 자유롭게 떠 있는 사진들 -->
+              <div class="tl-photo-layer">
+                <figure
+                  v-for="(p, i) in historyPhotos"
+                  :key="i"
+                  class="tl-free-photo"
+                  :style="{ '--top': p.top, '--right': p.right, '--size': p.size }"
+                >
+                  <img :src="p.src" :alt="p.alt" />
+                </figure>
               </div>
 
               <span class="tl-dots-deco" aria-hidden="true"></span>
@@ -472,19 +481,10 @@ interface HistoryEntry {
   title: string;
   desc?: string;
   milestone?: string;
-  photo?: string;
-  photoAlt?: string; // 사진이 찍힌 때가 연표의 연도와 다를 수 있어 따로 적는다.
 }
 
 const historyData: HistoryEntry[] = [
-  {
-    year: '1978',
-    title: '(재)신라문화장학재단 설립',
-    desc: '1978. 03. 11',
-    milestone: '재단 설립',
-    photo: historyPhoto2,
-    photoAlt: '제1기 장학증서 수여식 (1979. 3. 17)'
-  },
+  { year: '1978', title: '(재)신라문화장학재단 설립', desc: '1978. 03. 11', milestone: '재단 설립' },
   { year: '1988', title: '총자산 50억원 달성' },
   { year: '1994', title: '출연재산 50억원 달성' },
   { year: '1997', title: '총자산 100억원 달성, 출연재산 100억원 달성', milestone: '자산 100억원' },
@@ -494,20 +494,25 @@ const historyData: HistoryEntry[] = [
   { year: '2013', title: '총자산 400억원 달성' },
   { year: '2015', title: '총자산 500억원 달성, 출연재산 400억원 달성' },
   { year: '2018', title: '총자산 600억원 달성, 출연재산 500억원 달성', milestone: '자산 600억원' },
-  {
-    year: '2024',
-    title: '제46기 장학생 장학증서 수여식',
-    desc: '2024. 08. 31 ~ 09. 01 · 서울올림픽파크텔',
-    photo: news46thPhoto2,
-    photoAlt: '제46기 장학증서 수여식 (2024. 8. 31)'
-  },
-  {
-    year: '2025',
-    title: '제47기 장학생 장학증서 수여식',
-    desc: '2025. 08. 30 · 서울올림픽파크텔',
-    photo: news47thPhoto4,
-    photoAlt: '제47기 장학생 오리엔테이션 (2025. 8. 30)'
-  }
+  { year: '2024', title: '제46기 장학생 장학증서 수여식', desc: '2024. 08. 31 ~ 09. 01 · 서울올림픽파크텔' },
+  { year: '2025', title: '제47기 장학생 장학증서 수여식', desc: '2025. 08. 30 · 서울올림픽파크텔' }
+];
+
+// 연표 오른쪽 여백에 자유롭게 띄우는 사진들.
+// top은 연표 전체 높이에 대한 비율이라 연도를 늘리거나 줄여도 위치가 같이 따라간다.
+// right와 size는 px로 직접 조절한다. 좁은 화면에서는 이 값들이 무시되고 아래에 가로로 늘어선다.
+interface HistoryPhoto {
+  src: string;
+  alt: string;
+  top: string;
+  right: string;
+  size: string;
+}
+
+const historyPhotos: HistoryPhoto[] = [
+  { src: historyPhoto2, alt: '제1기 장학증서 수여식 (1979. 3. 17)', top: '2%', right: '24px', size: '215px' },
+  { src: news46thPhoto2, alt: '제46기 장학증서 수여식 (2024. 8. 31)', top: '38%', right: '118px', size: '165px' },
+  { src: news47thPhoto4, alt: '제47기 장학생 오리엔테이션 (2025. 8. 30)', top: '63%', right: '16px', size: '235px' }
 ];
 interface BoardMember {
   role: string;
@@ -1017,17 +1022,26 @@ watch(activeTab, (newTab) => {
   opacity: 0.8;
 }
 
-/* ----- 오른쪽 원형 사진 (photo 값이 있을 때만) ----- */
-.tl-photo {
-  width: 210px;
-  height: 210px;
-  margin-top: -44px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
+/* ----- 오른쪽 여백에 자유롭게 떠 있는 사진들 ----- */
+.tl-photo-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.tl-photo img {
+.tl-free-photo {
+  position: absolute;
+  top: var(--top);
+  right: var(--right);
+  width: var(--size);
+  height: var(--size);
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.tl-free-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1036,7 +1050,7 @@ watch(activeTab, (newTab) => {
   transition: filter var(--transition-normal);
 }
 
-.tl-photo:hover img {
+.tl-free-photo:hover img {
   filter: grayscale(0);
 }
 
@@ -1084,10 +1098,20 @@ watch(activeTab, (newTab) => {
     font-size: 1.2rem;
   }
 
-  .tl-photo {
-    width: 120px;
-    height: 120px;
-    margin: 14px 0 0;
+  /* 좁은 화면에서는 자유 배치를 풀고 연표 아래에 가로로 늘어놓는다. */
+  .tl-photo-layer {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .tl-free-photo {
+    position: static;
+    width: 110px;
+    height: 110px;
   }
 
   .tl-dots-deco {
