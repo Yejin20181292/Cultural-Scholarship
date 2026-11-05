@@ -526,7 +526,7 @@ interface HistoryPhoto {
 const historyPhotos: HistoryPhoto[] = [
   { src: historyPhoto2, alt: '제1기 장학증서 수여식 (1979. 3. 17)', top: '2%', right: '24px', size: '270px' },
   { src: news46thPhoto2, alt: '제46기 장학증서 수여식 (2024. 8. 31)', top: '36%', right: '120px', size: '165px', blob: true },
-  { src: news47thPhoto4, alt: '제47기 장학생 오리엔테이션 (2025. 8. 30)', top: '63%', right: '16px', size: '235px' }
+  { src: news47thPhoto4, alt: '제47기 장학생 오리엔테이션 (2025. 8. 30)', top: '73%', right: '16px', size: '235px' }
 ];
 interface BoardMember {
   role: string;
