@@ -750,10 +750,10 @@ watch(activeTab, (newTab) => {
 /* Banner */
 .sub-banner {
   position: relative;
-  background-image: url('../assets/scholarship_banner.jpg');
+  background-image: url('../assets/news_47th_photo3.jpg');
   background-size: cover;
-  /* 학사모가 사진 가운데에 있어 그 부분이 보이도록 맞춘다. */
-  background-position: center 50%;
+  /* 제47기 수여식 사진. 두 사람의 머리가 잘리지 않도록 위쪽을 살려서 자른다. */
+  background-position: center 20%;
   /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
   min-height: 420px;
   display: flex;
