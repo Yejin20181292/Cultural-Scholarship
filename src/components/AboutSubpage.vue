@@ -1210,12 +1210,11 @@ watch(activeTab, (newTab) => {
   /* 카드 안쪽 여백(좌우 50px, 아래 45px)만큼 밖으로 빼서 카드 모서리에 딱 붙인다. */
   right: -50px;
   bottom: -45px;
-  width: 47%;
-  /* 높이를 늘린 만큼 모서리를 더 깎을 수 있다. 반지름은 높이의 절반까지만 먹는다. */
+  /* 정사각형이라 왼쪽 위 모서리의 50%가 정확히 사분원이 된다. */
+  width: 400px;
   height: 400px;
   z-index: 0;
-  /* 왼쪽 위 모서리만 둥글게 깎은 연한 파란 면. */
-  border-top-left-radius: 200px;
+  border-top-left-radius: 50%;
   background: #dae7ed;
   pointer-events: none;
 }
