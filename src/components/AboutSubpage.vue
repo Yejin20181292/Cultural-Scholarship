@@ -778,12 +778,22 @@ watch(activeTab, (newTab) => {
   z-index: 0;
 }
 
-/* 사진. 고정 메뉴바에 가리는 위쪽 80px을 빼고 남는 영역에
-   현수막 제목부터 증서를 건네는 손까지 들어가도록 배율과 위치를 맞췄다. */
+/* 사진. 아래쪽(증서를 건네는 손)이 더 보이도록 위로 올려 잘랐다.
+   aspect-ratio = 사진 가로세로비(1280/853) × 배율(1.7). 이 값 덕분에 요소 폭이
+   화면에 실제로 보이는 사진 폭과 정확히 같아져, 양옆 끝에서 바로 흐려질 수 있다. */
 .banner-photo {
   position: absolute;
-  inset: 0;
-  background: url('../assets/news_47th_photo3.jpg') center 2% / auto 190% no-repeat;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  aspect-ratio: 2.551;
+  background: url('../assets/news_47th_photo3.jpg') center 8% / auto 170% no-repeat;
+  /* 좌우 끝을 서서히 지워 흐린 배경과 이어 붙인다. 경계선이 보이지 않는다. */
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%, #000 11%, #000 89%, transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%, #000 11%, #000 89%, transparent 100%);
   z-index: 1;
 }
 
@@ -794,16 +804,16 @@ watch(activeTab, (newTab) => {
   left: 0;
   width: 100%;
   height: 100%;
-  /* 가로 방향: 사진과 흐린 배경의 경계가 드러나지 않도록 양옆을 검게 덮는다.
+  /* 가로 방향: 경계는 .banner-photo의 마스크가 지우므로, 여기서는 양 끝만 가볍게 눌러준다.
      세로 방향: 현수막이 밝아 글자가 묻히므로 가운데·위쪽을 조금 더 어둡게 덮는다. */
   background:
     linear-gradient(to right,
-      rgba(0, 0, 0, 0.82) 0%,
-      rgba(0, 0, 0, 0.25) 20%,
-      rgba(0, 0, 0, 0) 32%,
-      rgba(0, 0, 0, 0) 68%,
-      rgba(0, 0, 0, 0.25) 80%,
-      rgba(0, 0, 0, 0.9) 100%),
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.1) 18%,
+      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0) 70%,
+      rgba(0, 0, 0, 0.1) 82%,
+      rgba(0, 0, 0, 0.5) 100%),
     linear-gradient(to top,
       rgba(0, 0, 0, 0.75) 0%,
       rgba(0, 0, 0, 0.55) 50%,
