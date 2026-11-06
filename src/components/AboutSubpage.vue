@@ -673,7 +673,7 @@ const RAIL_TOP_GAP = 10; // .timeline-rail::before 의 top 값과 같아야 한�
 const RAIL_BOTTOM_GAP = 30; // .timeline-rail::before 의 bottom 값과 같아야 한다
 
 const railRef = ref<HTMLElement | null>(null);
-const activeIndex = ref(-1);
+const activeIndex = ref(0);
 const progressPx = ref(0);
 let dotEls: HTMLElement[] = [];
 let timelineRaf = 0;
@@ -692,7 +692,8 @@ const measureTimeline = () => {
   for (let i = 0; i < dotEls.length; i++) {
     if (dotEls[i].getBoundingClientRect().top <= triggerY) idx = i;
   }
-  activeIndex.value = idx;
+  // 1978년(첫 항목)은 스크롤 전에도 채워진 상태로 둔다.
+  activeIndex.value = Math.max(idx, 0);
 };
 
 const onTimelineScroll = () => {
@@ -730,7 +731,7 @@ const stopTimeline = () => {
     timelineRaf = 0;
   }
   dotEls = [];
-  activeIndex.value = -1;
+  activeIndex.value = 0;
   progressPx.value = 0;
 };
 
