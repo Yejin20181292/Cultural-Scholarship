@@ -2,6 +2,11 @@
   <div class="subpage-wrapper">
     <!-- Hero Banner -->
     <div class="sub-banner">
+      <!-- 사진이 닿지 않는 양옆을 채우는 흐린 배경 -->
+      <span class="banner-blur" aria-hidden="true"></span>
+      <!-- 잘리지 않은 원본 사진 -->
+      <span class="banner-photo" aria-hidden="true"></span>
+
       <div class="container banner-container">
         <span class="banner-subtitle">ABOUT US</span>
         <h1 class="banner-title title-serif">재단안내</h1>
@@ -750,10 +755,8 @@ watch(activeTab, (newTab) => {
 /* Banner */
 .sub-banner {
   position: relative;
-  background-image: url('../assets/news_47th_photo3.jpg');
-  background-size: cover;
-  /* 제47기 수여식 사진. 현수막 제목부터 두 사람의 상반신까지 들어오도록 위쪽에 맞춰 자른다. */
-  background-position: center 5%;
+  /* 사진은 .banner-photo가 그린다. 여기는 사진이 닿지 않는 가장자리의 바탕색. */
+  background: #0a121c;
   /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
   min-height: 420px;
   display: flex;
@@ -765,6 +768,25 @@ watch(activeTab, (newTab) => {
   overflow: hidden;
 }
 
+/* 사진을 확대해 흐리게 깐 배경. 사진 양옆 빈자리를 메운다.
+   inset을 음수로 줘서 흐려진 가장자리가 배너 안으로 비치지 않게 한다. */
+.banner-blur {
+  position: absolute;
+  inset: -50px;
+  background: url('../assets/news_47th_photo3.jpg') center / cover no-repeat;
+  filter: blur(34px) brightness(0.5);
+  z-index: 0;
+}
+
+/* 사진. 고정 메뉴바에 가리는 위쪽 80px을 빼고 남는 영역에
+   현수막 제목부터 증서를 건네는 손까지 들어가도록 배율과 위치를 맞췄다. */
+.banner-photo {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/news_47th_photo3.jpg') center 2% / auto 190% no-repeat;
+  z-index: 1;
+}
+
 .sub-banner::before {
   content: '';
   position: absolute;
@@ -772,17 +794,26 @@ watch(activeTab, (newTab) => {
   left: 0;
   width: 100%;
   height: 100%;
-  /* 현수막이 밝아 글자가 묻히므로 가운데·위쪽을 다른 페이지보다 조금 더 어둡게 덮는다. */
-  background: linear-gradient(to top,
+  /* 가로 방향: 사진과 흐린 배경의 경계가 드러나지 않도록 양옆을 검게 덮는다.
+     세로 방향: 현수막이 밝아 글자가 묻히므로 가운데·위쪽을 조금 더 어둡게 덮는다. */
+  background:
+    linear-gradient(to right,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.25) 20%,
+      rgba(0, 0, 0, 0) 32%,
+      rgba(0, 0, 0, 0) 68%,
+      rgba(0, 0, 0, 0.25) 80%,
+      rgba(0, 0, 0, 0.9) 100%),
+    linear-gradient(to top,
       rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.6) 50%,
-      rgba(0, 0, 0, 0.42) 100%);
-  z-index: 1;
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(0, 0, 0, 0.35) 100%);
+  z-index: 2;
 }
 
 .banner-container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .banner-subtitle {
