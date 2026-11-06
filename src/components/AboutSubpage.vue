@@ -752,8 +752,8 @@ watch(activeTab, (newTab) => {
   position: relative;
   background-image: url('../assets/news_47th_photo3.jpg');
   background-size: cover;
-  /* 제47기 수여식 사진. 두 사람의 머리가 잘리지 않도록 위쪽을 살려서 자른다. */
-  background-position: center 20%;
+  /* 제47기 수여식 사진. 현수막 제목부터 두 사람의 상반신까지 들어오도록 위쪽에 맞춰 자른다. */
+  background-position: center 5%;
   /* 설명문이 한 줄이든 두 줄이든 다섯 페이지 배너 높이가 같도록 고정한다. */
   min-height: 420px;
   display: flex;
@@ -772,10 +772,11 @@ watch(activeTab, (newTab) => {
   left: 0;
   width: 100%;
   height: 100%;
+  /* 현수막이 밝아 글자가 묻히므로 가운데·위쪽을 다른 페이지보다 조금 더 어둡게 덮는다. */
   background: linear-gradient(to top,
       rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.5) 50%,
-      rgba(0, 0, 0, 0.2) 100%);
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.42) 100%);
   z-index: 1;
 }
 
