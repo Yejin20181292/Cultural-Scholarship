@@ -958,6 +958,8 @@ watch(activeTab, (newTab) => {
   margin: 0 auto 40px;
   padding: 45px 50px;
   text-align: left;
+  /* 오른쪽 아래 장식이 카드 바깥으로 삐져나가지 않고 둥근 모서리를 따라 잘리게 한다. */
+  overflow: hidden;
 }
 
 .timeline-header {
@@ -1205,8 +1207,9 @@ watch(activeTab, (newTab) => {
 /* ----- 오른쪽 아래 점 장식 ----- */
 .tl-dots-deco {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  /* 카드 안쪽 여백(좌우 50px, 아래 45px)만큼 밖으로 빼서 카드 모서리에 딱 붙인다. */
+  right: -50px;
+  bottom: -45px;
   width: 47%;
   /* 높이를 늘린 만큼 모서리를 더 깎을 수 있다. 반지름은 높이의 절반까지만 먹는다. */
   height: 400px;
