@@ -1210,11 +1210,11 @@ watch(activeTab, (newTab) => {
   /* 카드 안쪽 여백(좌우 50px, 아래 45px)만큼 밖으로 빼서 카드 모서리에 딱 붙인다. */
   right: -50px;
   bottom: -45px;
-  /* 정사각형이라 왼쪽 위 모서리의 50%가 정확히 사분원이 된다. */
   width: 400px;
   height: 400px;
   z-index: 0;
-  border-top-left-radius: 50%;
+  /* 100%면 곡선이 오른쪽 위 꼭짓점에서 왼쪽 아래 꼭짓점까지 이어져, 상자 전체를 가로지르는 사분원이 된다. */
+  border-top-left-radius: 100%;
   background: #dae7ed;
   pointer-events: none;
 }
