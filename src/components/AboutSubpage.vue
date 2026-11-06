@@ -1206,12 +1206,13 @@ watch(activeTab, (newTab) => {
 .tl-dots-deco {
   position: absolute;
   right: 10px;
-  bottom: 70px;
+  bottom: 10px;
   width: 47%;
-  height: 340px;
+  /* 높이를 늘린 만큼 모서리를 더 깎을 수 있다. 반지름은 높이의 절반까지만 먹는다. */
+  height: 400px;
   z-index: 0;
   /* 왼쪽 위 모서리만 둥글게 깎아 점 무늬가 부드럽게 시작하도록 한다. */
-  border-top-left-radius: 170px;
+  border-top-left-radius: 200px;
   overflow: hidden;
   /* --border-color(투명도 0.08)는 너무 옅어 화면에서 거의 안 보여서 직접 지정한다. */
   background-image: radial-gradient(rgba(6, 91, 137, 0.14) 2.4px, transparent 2.4px);
