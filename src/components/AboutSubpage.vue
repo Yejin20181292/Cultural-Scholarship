@@ -964,7 +964,8 @@ watch(activeTab, (newTab) => {
 
 .timeline-header {
   text-align: center;
-  margin-bottom: 50px;
+  /* 첫 연도의 큰 원이 위로 솟아 있어 여백을 넉넉히 둔다. */
+  margin-bottom: 95px;
 }
 
 .timeline-subtitle {
