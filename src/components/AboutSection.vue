@@ -12,42 +12,72 @@
 
       <div class="vision-grid">
         <!-- Vision Item 1 -->
-        <div class="glass-card vision-card reveal" ref="card1Ref">
+        <div
+          class="glass-card vision-card reveal"
+          ref="card1Ref"
+          role="button"
+          tabindex="0"
+          aria-label="설립취지 페이지로 이동"
+          @click="goTab('founding')"
+          @keydown.enter.prevent="goTab('founding')"
+          @keydown.space.prevent="goTab('founding')"
+        >
           <div class="card-icon-wrapper">
             <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
           </div>
-          <h3 class="card-title">가치 보존 (Heritage)</h3>
+          <h3 class="card-title">설립취지 (Mission)</h3>
           <p class="card-desc">
-            우리의 역사와 혼이 담긴 전통 예술 및 고유 문화를 보존하고, 이를 계승해 나가는 전승자들의 소중한 꿈을 지원합니다.
+            경제적 어려움으로 배움의 기회를 놓치는 재능 있는 학생들에게 장학금을 지급하여, 교육받을 권리를 보장하고 그 재능이 국가와 사회에 쓰이도록 돕고자 설립되었습니다.
           </p>
         </div>
 
         <!-- Vision Item 2 -->
-        <div class="glass-card vision-card reveal" ref="card2Ref">
+        <div
+          class="glass-card vision-card reveal"
+          ref="card2Ref"
+          role="button"
+          tabindex="0"
+          aria-label="연혁 페이지로 이동"
+          @click="goTab('history')"
+          @keydown.enter.prevent="goTab('history')"
+          @keydown.space.prevent="goTab('history')"
+        >
           <div class="card-icon-wrapper">
             <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
             </svg>
           </div>
-          <h3 class="card-title">창의성 촉진 (Creativity)</h3>
+          <h3 class="card-title">연혁 (History)</h3>
           <p class="card-desc">
-            기존의 틀을 깨는 혁신적이고 독창적인 문화예술 프로젝트를 후원하며, 장학생들이 자유롭게 시도하고 질문할 기회를 제공합니다.
+            1978년 3월 11일 설립 이후 오늘에 이르기까지, 재단이 걸어온 발자취와 주요 성과를 연도별로 기록하고 있습니다.
           </p>
         </div>
 
         <!-- Vision Item 3 -->
-        <div class="glass-card vision-card reveal" ref="card3Ref">
+        <div
+          class="glass-card vision-card reveal"
+          ref="card3Ref"
+          role="button"
+          tabindex="0"
+          aria-label="자산현황 페이지로 이동"
+          @click="goTab('assets')"
+          @keydown.enter.prevent="goTab('assets')"
+          @keydown.space.prevent="goTab('assets')"
+        >
           <div class="card-icon-wrapper">
             <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
             </svg>
           </div>
-          <h3 class="card-title">세계화 (Global Growth)</h3>
+          <h3 class="card-title">자산현황 (Assets)</h3>
           <p class="card-desc">
-            대한민국의 문화예술이 글로벌 무대에서 빛날 수 있도록, 세계 유수 기관과의 연계 프로그램 및 국제 네트워킹 기회를 지원합니다.
+            총 자산 500억원을 예금·부동산·유가증권으로 나누어 운용하며, 장학사업이 흔들림 없이 이어지도록 기반을 지켜가고 있습니다.
           </p>
         </div>
       </div>
@@ -70,7 +100,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-defineEmits(['read-more']);
+const emit = defineEmits(['read-more', 'navigate']);
+
+// 비전 카드를 누르면 재단안내의 해당 탭으로 이동한다.
+const goTab = (tab: string) => emit('navigate', 'about-sub', tab);
 
 const headerRef = ref<HTMLElement | null>(null);
 const card1Ref = ref<HTMLElement | null>(null);
@@ -112,6 +145,20 @@ onMounted(() => {
 
 .vision-card {
   text-align: left;
+  cursor: pointer;
+}
+
+/* .glass-card:hover 의 살짝 떠오르는 효과는 전역의 .reveal.active 가 덮어쓴다.
+   (둘 다 우선순위가 같고 .reveal.active 가 뒤에 선언되어 있다)
+   카드가 눌리는 요소가 되었으므로 scoped 규칙으로 되살린다. */
+.vision-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 키보드로 이동할 때만 테두리를 보여준다. */
+.vision-card:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
 }
 
 .card-icon-wrapper {
