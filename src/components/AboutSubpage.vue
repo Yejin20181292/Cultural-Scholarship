@@ -9,7 +9,7 @@
 
       <div class="container banner-container">
         <span class="banner-subtitle">ABOUT US</span>
-        <h1 class="banner-title title-serif">재단안내</h1>
+        <h1 class="banner-title title-serif">재단소개</h1>
         <p class="banner-desc">신라문화장학재단은 인재들의 꿈을 키우고, 미래의 가치를 함께 창조합니다.</p>
       </div>
     </div>

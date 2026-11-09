@@ -102,7 +102,7 @@ import { ref, onMounted } from 'vue';
 
 const emit = defineEmits(['read-more', 'navigate']);
 
-// 비전 카드를 누르면 재단안내의 해당 탭으로 이동한다.
+// 비전 카드를 누르면 재단소개의 해당 탭으로 이동한다.
 const goTab = (tab: string) => emit('navigate', 'about-sub', tab);
 
 const headerRef = ref<HTMLElement | null>(null);

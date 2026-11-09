@@ -14,7 +14,7 @@
 
         <div class="footer-links-group">
           <div class="footer-links-col">
-            <h4 class="col-title title-serif">재단안내</h4>
+            <h4 class="col-title title-serif">재단소개</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'greetings')">이사장 인사말</a></li>
               <li><a href="#" @click.prevent="handleNavClick('about-sub', 'founding')">설립취지</a></li>
