@@ -87,10 +87,10 @@
                 <div class="board-search-group">
                   <select v-model="selectedBoardCategory" class="board-select">
                     <option value="all">전체 카테고리</option>
-                    <option value="자유소통">자유소통</option>
                     <option value="Q&A">Q&A</option>
-                    <option value="연수후기">연수후기</option>
-                    <option value="전시공연">전시공연소식</option>
+                    <option value="후기">후기</option>
+                    <option value="소식">소식</option>
+                    <option value="자유소통">자유소통</option>
                   </select>
                   <div class="search-input-wrapper">
                     <input type="text" v-model="boardSearchQuery" placeholder="검색어를 입력하세요..." class="board-input" />
@@ -232,9 +232,9 @@ const boardSearchQuery = ref('');
 
 const boardPosts = ref([
   { id: 1, category: 'Q&A', title: '2026 하반기 글로벌 아티스트 장학금 추천서 작성 양식 문의', author: '김예은', date: '2026.07.21', views: 142, replies: 3 },
-  { id: 2, category: '연수후기', title: '[파리 연수] 3주간의 예술 워크숍 참여 후기 및 팁 공유', author: '이진우 (10기)', date: '2026.07.19', views: 320, replies: 8 },
+  { id: 2, category: '후기', title: '[파리 연수] 3주간의 예술 워크숍 참여 후기 및 팁 공유', author: '이진우 (10기)', date: '2026.07.19', views: 320, replies: 8 },
   { id: 3, category: '자유소통', title: '전통공예 및 국악 전공 장학생분들 네트워킹 모임 제안합니다!', author: '박서연', date: '2026.07.12', views: 98, replies: 5 },
-  { id: 4, category: '전시공연', title: '제12회 장학생 단체전 <미래의 캔버스> 인사갤러리 초대권 나눔', author: '최현수', date: '2026.07.02', views: 215, replies: 12 },
+  { id: 4, category: '소식', title: '제12회 장학생 단체전 <미래의 캔버스> 인사갤러리 초대권 나눔', author: '최현수', date: '2026.07.02', views: 215, replies: 12 },
   { id: 5, category: 'Q&A', title: '포트폴리오 제출 시 파일 용량 제한과 해상도 가이드라인', author: '정민재', date: '2026.06.28', views: 180, replies: 2 }
 ]);
 
@@ -249,8 +249,8 @@ const filteredBoardPosts = computed(() => {
 const getCategoryClass = (category: string) => {
   switch (category) {
     case 'Q&A': return 'tag-qa';
-    case '연수후기': return 'tag-review';
-    case '전시공연': return 'tag-event';
+    case '후기': return 'tag-review';
+    case '소식': return 'tag-event';
     default: return 'tag-free';
   }
 };
