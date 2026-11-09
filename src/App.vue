@@ -13,6 +13,7 @@ import Footer from './components/Footer.vue';
 import AuthModal from './components/AuthModal.vue';
 import MyPageModal from './components/MyPageModal.vue';
 import HomePopup from './components/HomePopup.vue';
+import { isAuthEnabled } from './composables/useAuth';
 
 export type ViewType = 'home' | 'about-sub' | 'scholarship-sub' | 'community-sub' | 'resources-sub';
 
@@ -96,8 +97,8 @@ onUnmounted(() => {
     <Footer @navigate="navigateTo" />
 
     <!-- Auth & MyPage Modals -->
-    <AuthModal />
-    <MyPageModal />
+    <AuthModal v-if="isAuthEnabled" />
+    <MyPageModal v-if="isAuthEnabled" />
   </div>
 </template>
 

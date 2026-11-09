@@ -103,7 +103,7 @@
         <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
-        <template v-if="!user">
+        <template v-if="isAuthEnabled && !user">
           <button class="btn btn-primary auth-btn" @click="openAuthModal('login')">
             <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
@@ -114,7 +114,7 @@
           </button>
         </template>
         
-        <template v-else>
+        <template v-else-if="isAuthEnabled && user">
           <div class="user-profile-dropdown" ref="dropdownRef">
             <button class="user-profile-btn" @click="toggleDropdown">
               <div class="user-avatar">{{ user.name.charAt(0) }}</div>
@@ -302,7 +302,7 @@
         </ul>
 
         <!-- Mobile User State (Below menu items) -->
-        <div class="mobile-user-box" v-if="user">
+        <div class="mobile-user-box" v-if="isAuthEnabled && user">
           <div class="mobile-user-info">
             <div class="user-avatar-mobile">{{ user.name.charAt(0) }}</div>
             <div class="mobile-user-text">
@@ -315,7 +315,7 @@
             <button class="mobile-action-btn danger" @click="handleLogoutMobile">로그아웃</button>
           </div>
         </div>
-        <div class="mobile-user-box" v-else>
+        <div class="mobile-user-box" v-else-if="isAuthEnabled">
           <button class="btn btn-primary w-full mobile-auth-btn" @click="openAuthModalMobile('login')">
             <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
@@ -332,7 +332,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useAuth } from '../composables/useAuth';
+import { useAuth, isAuthEnabled } from '../composables/useAuth';
 import type { ViewType } from '../App.vue';
 
 const props = defineProps<{

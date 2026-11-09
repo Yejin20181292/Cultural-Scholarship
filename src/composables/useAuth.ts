@@ -9,6 +9,11 @@ export interface User {
   createdAt: string;
 }
 
+// 로그인 기능 스위치.
+// 실제 Firebase Auth 를 붙이기 전까지는 false 로 두어 로그인/회원가입 UI 를 숨긴다.
+// 연동이 끝나면 이 값만 true 로 바꾸면 되고, 화면 코드는 손대지 않아도 된다.
+export const isAuthEnabled = false;
+
 const STORAGE_KEY = 'cultural_scholarship_user';
 
 const getStoredUser = (): User | null => {
