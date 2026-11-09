@@ -14,8 +14,8 @@
           <button class="tab-btn" :class="{ 'active': activeTab === 'notice' }" @click="activeTab = 'notice'">
             공지사항
           </button>
-          <button class="tab-btn" :class="{ 'active': activeTab === 'resources' }" @click="activeTab = 'resources'">
-            자료실
+          <button class="tab-btn" :class="{ 'active': activeTab === 'news' }" @click="activeTab = 'news'">
+            재단소식
           </button>
           <button class="tab-btn" :class="{ 'active': activeTab === 'disclosure' }" @click="activeTab = 'disclosure'">
             공시사항
@@ -37,31 +37,36 @@
             </div>
           </div>
 
-          <!-- Archive / Resources Downloads -->
-          <div v-if="activeTab === 'resources'" class="resources-grid">
-            <div v-for="item in resources" :key="item.id" class="resource-card">
+          <!-- 재단소식 -->
+          <div v-if="activeTab === 'news'" class="resources-grid">
+            <div
+              v-for="item in newsItems"
+              :key="item.id"
+              class="resource-card news-row"
+              role="button"
+              tabindex="0"
+              :aria-label="`${item.title} 자세히 보기`"
+              @click="openNews(item.id)"
+              @keydown.enter.prevent="openNews(item.id)"
+              @keydown.space.prevent="openNews(item.id)"
+            >
               <div class="resource-info">
-                <span class="file-format-badge" :class="item.format.toLowerCase()">{{ item.format }}</span>
+                <img :src="item.image" :alt="item.title" class="news-thumb" />
                 <div class="resource-text">
                   <div class="resource-meta">
-                    <span class="resource-category">{{ item.category }}</span>
                     <span class="resource-date">{{ item.date }}</span>
                   </div>
                   <h4 class="resource-title">{{ item.title }}</h4>
-                  <p class="resource-desc">{{ item.desc }}</p>
+                  <p class="resource-desc">{{ item.summary }}</p>
                 </div>
               </div>
               <div class="resource-download">
-                <span class="file-size">{{ item.size }}</span>
-                <button class="btn btn-outline download-btn"
-                  @click="emit('navigate', 'resources-sub', 'archive')">
+                <span class="news-more">
+                  자세히 보기
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                    <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
-                  <span>자료실에서 받기</span>
-                </button>
+                </span>
               </div>
             </div>
           </div>
@@ -102,6 +107,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import newsRuralScholarship2026 from '../assets/news_rural_scholarship_2026.jpg';
+import newsRuralScholarship from '../assets/news_rural_scholarship.jpg';
+import news47thCeremony from '../assets/news_47th_ceremony.jpg';
+import news46thCeremony from '../assets/news_46th_ceremony.jpg';
 
 // 홈 화면에는 파일을 두지 않으므로, 내려받기는 자료실로 보낸다.
 const emit = defineEmits(['navigate']);
@@ -156,35 +165,40 @@ const notices = [
   }
 ];
 
-const resources = [
+// 홈에서는 요약만 보여주고, 본문은 [자료실] > [재단소식]에 있다.
+// id 는 ResourcesSubpage.vue 의 news 배열과 같아야 상세 화면으로 연결된다.
+const newsItems = [
   {
     id: 1,
-    category: '결산 공시',
-    title: '2025사업연도 공익법인 결산서류 등의 공시',
-    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
-    format: 'PDF',
-    size: '378 KB',
-    date: '2026.04.28'
-  },
-  {
-    id: 2,
-    category: '결산 공시',
-    title: '2024사업연도 공익법인 결산서류 등의 공시',
-    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
-    format: 'PDF',
-    size: '375 KB',
-    date: '2025.04.29'
+    date: '2026.06.23',
+    title: '2026년 농촌지역 청소년 장학금 전달식 개최',
+    summary: '2026년 6월 18일, 당진시농협·고창농협·광활농협 대회의실에서 전국에서 선발된 중·고등학생 117명에게 총 96,000,000원의 장학금을 전달하였습니다.',
+    image: newsRuralScholarship2026
   },
   {
     id: 3,
-    category: '결산 공시',
-    title: '2023사업연도 공익법인 결산서류 등의 공시',
-    desc: '공익법인 결산 서류 및 기부금 모금·활용 실적에 관한 공시 보고서',
-    format: 'PDF',
-    size: '2.8 MB',
-    date: '2024.04.25'
+    date: '2025.09.11',
+    title: '제47기 장학증서 수여식',
+    summary: '2025년 8월 30일, 서울올림픽파크텔에서 제47기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
+    image: news47thCeremony
+  },
+  {
+    id: 2,
+    date: '2025.09.16',
+    title: '2025년 농촌지역 청소년 장학금 전달식 개최',
+    summary: '2025년 9월 8일, 전라북도 김제시 광활농협 대회의실에서 미래 농업을 이끌어 갈 지역 인재들에게 장학금을 전달하였습니다.',
+    image: newsRuralScholarship
+  },
+  {
+    id: 4,
+    date: '2025.09.09',
+    title: '제46기 장학증서 수여식',
+    summary: '2024년 8월 31일 ~ 9월 1일, 서울올림픽파크텔에서 제46기 장학생 장학증서 수여식 및 오리엔테이션을 개최하였습니다.',
+    image: news46thCeremony
   }
 ];
+
+const openNews = (id: number) => emit('navigate', 'resources-sub', `news/${id}`);
 
 const settlementReports = [
   {
@@ -515,6 +529,40 @@ onUnmounted(() => {
   gap: 16px;
 }
 
+/* ----- 재단소식 줄 ----- */
+.news-row {
+  cursor: pointer;
+}
+
+.news-row:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+.news-thumb {
+  width: 108px;
+  height: 72px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.news-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.news-row:hover .news-more {
+  gap: 8px;
+  transition: gap var(--transition-fast);
+}
+
 .resource-card {
   display: flex;
   align-items: center;
@@ -660,6 +708,11 @@ onUnmounted(() => {
     align-items: flex-start;
     gap: 16px;
     padding: 18px 20px;
+  }
+
+  .news-thumb {
+    width: 76px;
+    height: 54px;
   }
 
   .resource-download {
