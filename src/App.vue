@@ -77,7 +77,7 @@ onUnmounted(() => {
         <HomePopup @navigate="navigateTo" />
         <HeroSection @navigate="navigateTo" />
         <AboutSection @read-more="navigateTo('about-sub')" @navigate="navigateTo" />
-        <ScholarshipPrograms />
+        <ScholarshipPrograms @navigate="navigateTo" />
         <NoticeSection @navigate="navigateTo" />
       </template>
       <template v-else-if="currentView === 'about-sub'">
