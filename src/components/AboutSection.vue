@@ -86,7 +86,8 @@
         <div class="summary-content">
           <h3 class="summary-title title-serif">“꿈을 꾸는 학생들의 모든 순간에 함께하겠습니다”</h3>
           <p class="summary-text">
-            신라문화장학재단은 설립 이래 다방면에서 성장 가능성이 무궁무진한 학생들을 지속해서 든든히 지탱해왔습니다. 우리는 단순한 재정적 원조를 넘어 사회에 활력을 불어넣는 지속 가능한 동반자가 되겠습니다.
+            신라문화장학재단은 설립 이래 다방면에서 성장 가능성이 무궁무진한 학생들을 지속해서 든든히 지탱해왔습니다.<br />
+            우리는 단순한 재정적 원조를 넘어 사회에 활력을 불어넣는 지속 가능한 동반자가 되겠습니다.
           </p>
           <div class="summary-actions">
             <button class="btn btn-outline" @click="$emit('read-more')">재단소개 자세히 보기 <span class="arrow">→</span></button>
