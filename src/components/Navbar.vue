@@ -100,7 +100,7 @@
 
       <div class="header-actions">
         <!-- Scholarship Application Button -->
-        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학금 신청</a>
+        <a href="#" class="btn btn-outline apply-btn" @click.prevent="handleNavClick('resources-sub', 'notice')">장학금 신청</a>
         
         <!-- Login / Register Button or User Profile (Right side of 장학금 신청) -->
         <template v-if="isAuthEnabled && !user">
@@ -297,7 +297,7 @@
           </li>
 
           <li>
-            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('scholarship-sub', 'rules')">장학금 신청</a>
+            <a href="#" class="btn btn-outline mobile-apply-btn" @click.prevent="handleNavClick('resources-sub', 'notice')">장학금 신청</a>
           </li>
         </ul>
 
