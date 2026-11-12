@@ -207,9 +207,9 @@ onUnmounted(() => {
   pointer-events: none;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: flex-end;
   /* 위쪽 여백은 고정 헤더(--header-height: 80px) 아래로 내리기 위한 값이다. */
-  padding: calc(var(--header-height, 80px) + 24px) 24px 24px 40px;
+  padding: calc(var(--header-height, 80px) + 24px) 40px 24px 24px;
   /* 상단 메뉴바(.header 1000, 모바일 메뉴 999)보다 아래. 본문보다는 위. */
   z-index: 900;
 }
