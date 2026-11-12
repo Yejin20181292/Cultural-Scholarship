@@ -55,11 +55,17 @@
 
           <div class="footer-links-col">
             <h4 class="col-title title-serif">관련 사이트</h4>
-            <ul>
-              <li>
-                <a href="https://www.sen.go.kr/sen/index.do" target="_blank" rel="noopener noreferrer">서울시교육청</a>
-              </li>
-            </ul>
+            <!-- 항목을 고르면 새 탭으로 열고, 같은 항목을 다시 고를 수 있도록 안내 문구로 되돌린다. -->
+            <div class="related-select-wrap">
+              <label for="related-site" class="related-select-label">관련 사이트 선택</label>
+              <select id="related-site" class="related-select" @change="openRelatedSite">
+                <option value="">관련 사이트 선택</option>
+                <option v-for="site in relatedSites" :key="site.url" :value="site.url">
+                  {{ site.name }}
+                </option>
+              </select>
+              <span class="related-caret" aria-hidden="true">▾</span>
+            </div>
           </div>
         </div>
       </div>
@@ -108,6 +114,23 @@ const emit = defineEmits<{
 
 const handleNavClick = (view: ViewType, subTab?: string) => {
   emit('navigate', view, subTab);
+};
+
+// 관련 사이트 목록. 항목을 늘리거나 줄일 때는 여기만 고치면 된다.
+const relatedSites = [
+  { name: '서울시교육청', url: 'https://www.sen.go.kr/sen/index.do' },
+];
+
+// v-model 을 쓰지 않는다. v-model 도 change 에 걸려 있어서,
+// 아래에서 비운 선택값을 v-model 이 곧바로 덮어쓴다.
+// 그러면 같은 항목을 연달아 고를 때 두 번째부터 change 가 발생하지 않는다.
+const openRelatedSite = (event: Event) => {
+  const select = event.target as HTMLSelectElement;
+  const url = select.value;
+  // 같은 항목을 다시 고를 수 있도록 안내 문구로 되돌려 놓는다.
+  select.value = '';
+  if (!url) return;
+  window.open(url, '_blank', 'noopener,noreferrer');
 };
 </script>
 
@@ -190,6 +213,67 @@ const handleNavClick = (view: ViewType, subTab?: string) => {
 
 .footer-links-col a:hover {
   color: var(--primary-color);
+}
+
+/* 관련 사이트 드롭다운 */
+.related-select-wrap {
+  position: relative;
+  max-width: 200px;
+}
+
+/* 화면에는 보이지 않지만 스크린 리더에는 읽히는 이름표 */
+.related-select-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.related-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 34px 10px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.related-select:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.related-select:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* 펼쳐진 목록은 브라우저가 직접 그리므로 밝은 배경에 맞춰 글자색을 따로 지정한다. */
+.related-select option {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+.related-caret {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-divider {
