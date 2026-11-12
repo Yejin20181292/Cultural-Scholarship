@@ -59,7 +59,9 @@
             <div class="related-select-wrap">
               <label for="related-site" class="related-select-label">관련 사이트 선택</label>
               <select id="related-site" class="related-select" @change="openRelatedSite">
-                <option value="">관련 사이트 선택</option>
+                <!-- 접혀 있을 때 보이는 글자. hidden 이라 펼친 목록에는 나오지 않는다.
+                     이 항목이 선택된 상태여야 아래 항목을 골랐을 때 change 가 발생한다. -->
+                <option value="" disabled hidden>서울시교육청</option>
                 <option v-for="site in relatedSites" :key="site.url" :value="site.url">
                   {{ site.name }}
                 </option>
@@ -127,8 +129,9 @@ const relatedSites = [
 const openRelatedSite = (event: Event) => {
   const select = event.target as HTMLSelectElement;
   const url = select.value;
-  // 같은 항목을 다시 고를 수 있도록 안내 문구로 되돌려 놓는다.
-  select.value = '';
+  // 같은 항목을 다시 고를 수 있도록 맨 위 안내 항목으로 되돌려 놓는다.
+  // disabled 항목이라 value 대입 대신 selectedIndex 로 되돌린다.
+  select.selectedIndex = 0;
   if (!url) return;
   window.open(url, '_blank', 'noopener,noreferrer');
 };
