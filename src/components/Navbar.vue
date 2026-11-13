@@ -29,7 +29,7 @@
           </li>
 
           <!-- 3. 커뮤니티 -->
-          <li>
+          <li v-if="isCommunityEnabled">
             <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="nav-main-link">
               <span>커뮤니티</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -77,7 +77,7 @@
             </div>
 
             <!-- Col 3: 커뮤니티 -->
-            <div class="mega-menu-col">
+            <div class="mega-menu-col" v-if="isCommunityEnabled">
               <h4 class="mega-col-title" @click="handleNavClick('community-sub', 'board')">커뮤니티</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">· 게시판</a></li>
@@ -240,7 +240,7 @@
           </li>
 
           <!-- Mobile 3. 커뮤니티 -->
-          <li class="mobile-dropdown-group">
+          <li class="mobile-dropdown-group" v-if="isCommunityEnabled">
             <div class="mobile-nav-row">
               <a href="#" :class="{ 'active': currentView === 'community-sub' }" @click.prevent="handleNavClick('community-sub', 'board')" class="mobile-main-link">
                 커뮤니티
@@ -333,6 +333,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useAuth, isAuthEnabled } from '../composables/useAuth';
+import { isCommunityEnabled } from '../composables/useFeatureFlags';
 import type { ViewType } from '../App.vue';
 
 const props = defineProps<{

@@ -129,7 +129,8 @@
                 </table>
               </div>
 
-              <div class="board-foot">
+              <!-- 감춰 둔 커뮤니티 페이지로 넘어가는 버튼이라 함께 감춘다. -->
+              <div class="board-foot" v-if="isCommunityEnabled">
                 <button class="btn btn-outline"
                   @click="emit('navigate', 'community-sub', 'board')">
                   게시판 전체 보기 <span class="arrow">→</span>
@@ -173,6 +174,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { awardRows, awardTotalCount, awardTotalAmount } from '../data/awards';
+import { isCommunityEnabled } from '../composables/useFeatureFlags';
 
 const emit = defineEmits(['navigate']);
 

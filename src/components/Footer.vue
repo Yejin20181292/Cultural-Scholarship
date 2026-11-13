@@ -36,7 +36,7 @@
             </ul>
           </div>
 
-          <div class="footer-links-col">
+          <div class="footer-links-col" v-if="isCommunityEnabled">
             <h4 class="col-title title-serif">커뮤니티</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('community-sub', 'board')">게시판</a></li>
@@ -109,6 +109,7 @@
 
 <script setup lang="ts">
 import type { ViewType } from '../App.vue';
+import { isCommunityEnabled } from '../composables/useFeatureFlags';
 
 const emit = defineEmits<{
   (e: 'navigate', view: ViewType, subTab?: string): void;
