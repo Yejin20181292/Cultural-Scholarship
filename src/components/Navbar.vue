@@ -91,7 +91,7 @@
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">· 공지사항</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 재단소식</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 공시사항</a></li>
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 공시정보</a></li>
               </ul>
             </div>
           </div>
@@ -290,7 +290,7 @@
               </li>
               <li>
                 <a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">
-                  · 공시사항
+                  · 공시정보
                 </a>
               </li>
             </ul>

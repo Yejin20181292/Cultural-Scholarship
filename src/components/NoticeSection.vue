@@ -18,7 +18,7 @@
             재단소식
           </button>
           <button class="tab-btn" :class="{ 'active': activeTab === 'disclosure' }" @click="activeTab = 'disclosure'">
-            공시사항
+            공시정보
           </button>
         </div>
 
@@ -71,7 +71,7 @@
             </div>
           </div>
 
-          <!-- 공시사항 Grid -->
+          <!-- 공시정보 Grid -->
           <div v-if="activeTab === 'disclosure'" class="resources-grid">
             <div v-for="item in settlementReports" :key="item.id" class="resource-card">
               <div class="resource-info">

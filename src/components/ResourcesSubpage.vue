@@ -165,7 +165,7 @@
           </div>
         </div>
 
-        <!-- 3. 공시사항 Tab -->
+        <!-- 3. 공시정보 Tab -->
         <div v-if="activeTab === 'archive'" class="tab-pane reveal active">
           <p class="archive-notice">국세청 홈택스 홈페이지 내 [국세청 홈택스 &gt; 공익법인결산서류공시 &gt; 공익법인 결산서류등 공시]에서도 열람하실 수 있습니다.</p>
           <div class="resources-grid">
@@ -237,7 +237,7 @@ defineEmits(['back']);
 const tabs = [
   { id: 'notice', name: '공지사항' },
   { id: 'news', name: '재단소식' },
-  { id: 'archive', name: '공시사항' }
+  { id: 'archive', name: '공시정보' }
 ];
 
 const getTabFromHash = (): string => {
