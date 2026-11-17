@@ -2,31 +2,34 @@
   <section id="programs" class="programs-section">
     <div class="container">
       <div class="section-header reveal" ref="headerRef">
-        <span class="section-subtitle">COMMUNITY & SCHOLARSHIP</span>
-        <h2 class="section-title">재단 커뮤니티 & 장학 안내</h2>
+        <!-- 아래 부제와 설명은 지금 보이는 [장학생 준수사항] 탭에 맞춰 쓴 것이다.
+             useFeatureFlags 의 isHomeAwardsEnabled / isHomeBoardEnabled 를 켜서
+             탭을 다시 노출할 때는 이 두 줄도 함께 손봐야 한다. -->
+        <span class="section-subtitle">SCHOLARSHIP GUIDE</span>
+        <h2 class="section-title">장학안내</h2>
         <p class="section-description">
-          지금까지 지원해 온 장학생 선발 인원과 지급 현황부터 장학생이 지켜야 할 사항,
-          장학생들의 소통 게시판까지 한곳에서 확인해보세요.
+          장학금을 받는 동안 지켜야 할 사항을 안내해 드립니다.
+          자격 유지 조건부터 휴학·편입학 등 학적 변동 신고까지 미리 확인해보세요.
         </p>
       </div>
 
       <!-- Main Section Tabs -->
       <div class="tabs-container reveal" ref="tabsRef">
         <div class="main-tabs">
-          <button class="tab-btn" :class="{ 'active': activeProgramTab === 'awards' }" @click="activeProgramTab = 'awards'">
+          <button v-if="isHomeAwardsEnabled" class="tab-btn" :class="{ 'active': activeProgramTab === 'awards' }" @click="activeProgramTab = 'awards'">
             선발인원 및 지급 현황
           </button>
           <button class="tab-btn" :class="{ 'active': activeProgramTab === 'rules' }" @click="activeProgramTab = 'rules'">
             장학생 준수사항
           </button>
-          <button class="tab-btn" :class="{ 'active': activeProgramTab === 'board' }" @click="activeProgramTab = 'board'">
+          <button v-if="isHomeBoardEnabled" class="tab-btn" :class="{ 'active': activeProgramTab === 'board' }" @click="activeProgramTab = 'board'">
             게시판
           </button>
         </div>
 
         <div class="tab-content-area">
           <!-- 1. 선발인원 및 지급 현황 -->
-          <div v-if="activeProgramTab === 'awards'" class="tab-pane-fade">
+          <div v-if="isHomeAwardsEnabled && activeProgramTab === 'awards'" class="tab-pane-fade">
             <div class="awards-summary">
               <div class="glass-card summary-card reveal" ref="card1Ref">
                 <span class="summary-label">누적 선발인원</span>
@@ -81,7 +84,7 @@
             </div>
           </div>
           <!-- 2. 게시판 Tab Content -->
-          <div v-if="activeProgramTab === 'board'" class="tab-pane-fade">
+          <div v-if="isHomeBoardEnabled && activeProgramTab === 'board'" class="tab-pane-fade">
             <div class="board-wrapper glass-card">
               <div class="board-header-bar">
                 <div class="board-search-group">
@@ -174,7 +177,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { awardRows, awardTotalCount, awardTotalAmount } from '../data/awards';
-import { isCommunityEnabled } from '../composables/useFeatureFlags';
+import { isCommunityEnabled, isHomeAwardsEnabled, isHomeBoardEnabled } from '../composables/useFeatureFlags';
 
 const emit = defineEmits(['navigate']);
 
@@ -185,7 +188,16 @@ const card2Ref = ref<HTMLElement | null>(null);
 const card3Ref = ref<HTMLElement | null>(null);
 const calcRef = ref<HTMLElement | null>(null);
 
-const activeProgramTab = ref<'awards' | 'rules' | 'board'>('awards');
+// 감춘 탭이 처음에 열려 있으면 내용 영역이 통째로 비어 보인다.
+// 첫 탭이 감춰져 있으면 [장학생 준수사항]으로 시작한다.
+const activeProgramTab = ref<'awards' | 'rules' | 'board'>(isHomeAwardsEnabled ? 'awards' : 'rules');
+
+// 바깥에서 탭을 지정할 때도 감춘 탭으로는 넘어가지 못하게 막는다.
+const visibleProgramTabs = [
+  ...(isHomeAwardsEnabled ? ['awards'] : []),
+  'rules',
+  ...(isHomeBoardEnabled ? ['board'] : []),
+];
 
 // ----- 선발인원 및 지급 현황 -----
 // 수치는 src/data/awards.ts 한 곳에서 가져오므로 재단사업 탭의 표와 어긋날 일이 없다.
@@ -264,7 +276,7 @@ const openWriteModal = () => {
 const handleProgramTabEvent = (e: Event) => {
   const customEvent = e as CustomEvent;
   if (customEvent.detail) {
-    if (['awards', 'rules', 'board'].includes(customEvent.detail)) {
+    if (visibleProgramTabs.includes(customEvent.detail)) {
       activeProgramTab.value = customEvent.detail;
     }
   }

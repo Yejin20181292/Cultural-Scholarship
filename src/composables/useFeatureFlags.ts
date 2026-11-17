@@ -8,3 +8,9 @@
 // 주의: 메뉴에서만 감추는 것이라 주소(#community-sub)를 직접 입력하면 여전히 들어갈 수 있다.
 // 외부에 완전히 닫아야 한다면 App.vue 의 getViewFromHash()/navigateTo() 분기도 함께 막아야 한다.
 export const isCommunityEnabled = false;
+
+// 홈 화면 [재단 커뮤니티 & 장학 안내] 섹션의 탭.
+// 재단 검수 전까지 내용이 확정되지 않은 두 탭을 감춰 두고 [장학생 준수사항]만 남긴다.
+// 상단 메뉴의 [재단사업 > 선발인원 및 지급 현황]은 그대로 열려 있다. 홈 화면에서만 감춘 것이다.
+export const isHomeAwardsEnabled = false;
+export const isHomeBoardEnabled = false;
