@@ -66,7 +66,7 @@
                 :aria-expanded="isRelatedOpen"
                 @click="isRelatedOpen = !isRelatedOpen"
               >
-                <span>서울시교육청</span>
+                <span>관련 사이트</span>
                 <span class="related-caret" aria-hidden="true">▾</span>
               </button>
               <ul class="related-list" v-show="isRelatedOpen">
@@ -123,6 +123,7 @@ const handleNavClick = (view: ViewType, subTab?: string) => {
 // 관련 사이트 목록. 항목을 늘리거나 줄일 때는 여기만 고치면 된다.
 const relatedSites = [
   { name: '서울시교육청', url: 'https://www.sen.go.kr/sen/index.do' },
+  { name: '국세청', url: 'https://www.nts.go.kr/' },
 ];
 
 const isRelatedOpen = ref(false);
