@@ -54,18 +54,31 @@
 
           <div class="footer-links-col">
             <h4 class="col-title title-serif">관련 사이트</h4>
-            <!-- 항목을 고르면 새 탭으로 열고, 같은 항목을 다시 고를 수 있도록 안내 문구로 되돌린다. -->
-            <div class="related-select-wrap">
-              <label for="related-site" class="related-select-label">관련 사이트 선택</label>
-              <select id="related-site" class="related-select" @change="openRelatedSite">
-                <!-- 접혀 있을 때 보이는 글자. hidden 이라 펼친 목록에는 나오지 않는다.
-                     이 항목이 선택된 상태여야 아래 항목을 골랐을 때 change 가 발생한다. -->
-                <option value="" disabled hidden>서울시교육청</option>
-                <option v-for="site in relatedSites" :key="site.url" :value="site.url">
-                  {{ site.name }}
-                </option>
-              </select>
-              <span class="related-caret" aria-hidden="true">▾</span>
+            <!-- 네이티브 select 를 쓰지 않는다.
+                 select 는 change 이벤트에만 기댈 수 있는데 그 경로가 브라우저마다 불안정하고,
+                 거기서 부르는 window.open 은 팝업 차단에 걸리기도 한다.
+                 목록을 진짜 <a> 로 두면 새 탭 열기·링크 복사·가운데 클릭이 모두 그대로 동작한다. -->
+            <div class="related-select-wrap" ref="relatedWrapRef">
+              <button
+                type="button"
+                class="related-select"
+                aria-haspopup="true"
+                :aria-expanded="isRelatedOpen"
+                @click="isRelatedOpen = !isRelatedOpen"
+              >
+                <span>서울시교육청</span>
+                <span class="related-caret" aria-hidden="true">▾</span>
+              </button>
+              <ul class="related-list" v-show="isRelatedOpen">
+                <li v-for="site in relatedSites" :key="site.url">
+                  <a
+                    :href="site.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    @click="isRelatedOpen = false"
+                  >{{ site.name }}</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -95,6 +108,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import type { ViewType } from '../App.vue';
 import { isCommunityEnabled } from '../composables/useFeatureFlags';
 
@@ -111,18 +125,28 @@ const relatedSites = [
   { name: '서울시교육청', url: 'https://www.sen.go.kr/sen/index.do' },
 ];
 
-// v-model 을 쓰지 않는다. v-model 도 change 에 걸려 있어서,
-// 아래에서 비운 선택값을 v-model 이 곧바로 덮어쓴다.
-// 그러면 같은 항목을 연달아 고를 때 두 번째부터 change 가 발생하지 않는다.
-const openRelatedSite = (event: Event) => {
-  const select = event.target as HTMLSelectElement;
-  const url = select.value;
-  // 같은 항목을 다시 고를 수 있도록 맨 위 안내 항목으로 되돌려 놓는다.
-  // disabled 항목이라 value 대입 대신 selectedIndex 로 되돌린다.
-  select.selectedIndex = 0;
-  if (!url) return;
-  window.open(url, '_blank', 'noopener,noreferrer');
+const isRelatedOpen = ref(false);
+const relatedWrapRef = ref<HTMLElement | null>(null);
+
+// 바깥을 누르거나 Esc 를 누르면 닫는다.
+const closeOnOutside = (e: MouseEvent) => {
+  if (!isRelatedOpen.value) return;
+  if (relatedWrapRef.value?.contains(e.target as Node)) return;
+  isRelatedOpen.value = false;
 };
+const closeOnEsc = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') isRelatedOpen.value = false;
+};
+
+onMounted(() => {
+  document.addEventListener('click', closeOnOutside);
+  document.addEventListener('keydown', closeOnEsc);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeOnOutside);
+  document.removeEventListener('keydown', closeOnEsc);
+});
 </script>
 
 <style scoped>
@@ -212,27 +236,17 @@ const openRelatedSite = (event: Event) => {
   max-width: 200px;
 }
 
-/* 화면에는 보이지 않지만 스크린 리더에는 읽히는 이름표 */
-.related-select-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-}
-
 .related-select {
   width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  padding: 10px 34px 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 300;
+  text-align: left;
   color: rgba(255, 255, 255, 0.75);
   background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -251,20 +265,40 @@ const openRelatedSite = (event: Event) => {
   outline-offset: 2px;
 }
 
-/* 펼쳐진 목록은 브라우저가 직접 그리므로 밝은 배경에 맞춰 글자색을 따로 지정한다. */
-.related-select option {
-  background-color: #ffffff;
-  color: #222222;
-}
-
 .related-caret {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  pointer-events: none;
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* 펼쳐지는 목록. 푸터가 어두우므로 밝은 카드로 띄운다. */
+.related-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.related-list a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #222222;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.related-list a:hover,
+.related-list a:focus-visible {
+  background-color: rgba(6, 91, 137, 0.08);
+  color: var(--primary-color);
 }
 
 .footer-divider {
