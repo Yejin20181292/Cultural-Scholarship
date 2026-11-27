@@ -44,10 +44,16 @@
           </div>
 
           <div class="footer-links-col">
+            <h4 class="col-title title-serif">재단소식</h4>
+            <ul>
+              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">소식</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
             <h4 class="col-title title-serif">자료실</h4>
             <ul>
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">공지사항</a></li>
-              <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">재단소식</a></li>
               <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">공시정보</a></li>
             </ul>
           </div>

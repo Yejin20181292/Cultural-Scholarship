@@ -235,7 +235,7 @@ defineEmits(['back']);
 
 const tabs = [
   { id: 'notice', name: '공지사항' },
-  { id: 'news', name: '재단소식' },
+  { id: 'news', name: '소식' },
   { id: 'archive', name: '공시정보' }
 ];
 

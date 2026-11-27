@@ -38,9 +38,19 @@
             </a>
           </li>
 
-          <!-- 4. 자료실 -->
+          <!-- 4. 재단소식 -->
           <li>
-            <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="nav-main-link">
+            <a href="#" :class="{ 'active': isNewsActive }" @click.prevent="handleNavClick('resources-sub', 'news')" class="nav-main-link">
+              <span>재단소식</span>
+              <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+          </li>
+
+          <!-- 5. 자료실 -->
+          <li>
+            <a href="#" :class="{ 'active': isResourcesActive }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="nav-main-link">
               <span>자료실</span>
               <svg class="nav-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -85,12 +95,19 @@
               </ul>
             </div>
 
-            <!-- Col 4: 자료실 -->
+            <!-- Col 4: 재단소식 -->
+            <div class="mega-menu-col">
+              <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'news')">재단소식</h4>
+              <ul class="mega-sub-list">
+                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 소식</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 5: 자료실 -->
             <div class="mega-menu-col">
               <h4 class="mega-col-title" @click="handleNavClick('resources-sub', 'notice')">자료실</h4>
               <ul class="mega-sub-list">
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">· 공지사항</a></li>
-                <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">· 재단소식</a></li>
                 <li><a href="#" @click.prevent="handleNavClick('resources-sub', 'archive')">· 공시정보</a></li>
               </ul>
             </div>
@@ -265,10 +282,19 @@
             </ul>
           </li>
 
-          <!-- Mobile 4. 자료실 -->
+          <!-- Mobile 4. 재단소식 -->
           <li class="mobile-dropdown-group">
             <div class="mobile-nav-row">
-              <a href="#" :class="{ 'active': currentView === 'resources-sub' }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="mobile-main-link">
+              <a href="#" :class="{ 'active': isNewsActive }" @click.prevent="handleNavClick('resources-sub', 'news')" class="mobile-main-link">
+                재단소식
+              </a>
+            </div>
+          </li>
+
+          <!-- Mobile 5. 자료실 -->
+          <li class="mobile-dropdown-group">
+            <div class="mobile-nav-row">
+              <a href="#" :class="{ 'active': isResourcesActive }" @click.prevent="handleNavClick('resources-sub', 'notice')" class="mobile-main-link">
                 자료실
               </a>
               <button class="mobile-sub-toggle" @click.stop="isMobileResourceSubOpen = !isMobileResourceSubOpen" aria-label="서브메뉴 토글">
@@ -281,11 +307,6 @@
               <li>
                 <a href="#" @click.prevent="handleNavClick('resources-sub', 'notice')">
                   · 공지사항
-                </a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleNavClick('resources-sub', 'news')">
-                  · 재단소식
                 </a>
               </li>
               <li>
@@ -331,7 +352,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useAuth, isAuthEnabled } from '../composables/useAuth';
 import { isCommunityEnabled } from '../composables/useFeatureFlags';
 import type { ViewType } from '../App.vue';
@@ -345,6 +366,16 @@ const emit = defineEmits<{
 }>();
 
 const { user, openAuthModal, openMyPageModal, logout } = useAuth();
+
+// 재단소식과 자료실은 같은 화면(resources-sub)을 쓴다.
+// currentView 만으로는 둘 중 어느 메뉴가 선택된 상태인지 구분할 수 없어
+// 해시의 두 번째 조각(탭)까지 함께 본다.
+const getTabFromHash = () => window.location.hash.split('/')[1] ?? '';
+const currentTab = ref(getTabFromHash());
+const syncTab = () => { currentTab.value = getTabFromHash(); };
+
+const isNewsActive = computed(() => props.currentView === 'resources-sub' && currentTab.value === 'news');
+const isResourcesActive = computed(() => props.currentView === 'resources-sub' && currentTab.value !== 'news');
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -410,12 +441,14 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
+  window.addEventListener('hashchange', syncTab);
   window.addEventListener('scroll', handleScroll);
   document.addEventListener('click', handleClickOutside);
   handleScroll();
 });
 
 onUnmounted(() => {
+  window.removeEventListener('hashchange', syncTab);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
