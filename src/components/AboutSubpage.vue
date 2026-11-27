@@ -557,7 +557,7 @@ const boardGroups: BoardGroup[] = [
     ]
   },
   {
-    label: '현재 이사회',
+    label: '2026년 6월 30일',
     note: '',
     members: [
       { role: '이사장', name: '박준형' },
