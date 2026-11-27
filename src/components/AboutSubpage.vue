@@ -58,7 +58,6 @@
             </div>
             <div class="greetings-portrait-wrapper">
               <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 이사장" class="founder-portrait-img" />
-              <div class="portrait-caption">이사장</div>
             </div>
           </div>
         </div>
@@ -99,7 +98,6 @@
             </div>
             <div class="greetings-portrait-wrapper">
               <img src="../assets/founder_portrait.jpg" alt="신라문화장학재단 이사장" class="founder-portrait-img" />
-              <div class="portrait-caption">이사장</div>
             </div>
           </div>
         </div>
@@ -985,13 +983,6 @@ watch(activeTab, (newTab) => {
 .founder-portrait-img:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px var(--primary-glow);
-}
-
-.portrait-caption {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--primary-color);
-  text-align: center;
 }
 
 /* 2. History Timeline (연혁) */
